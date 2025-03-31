@@ -1,145 +1,261 @@
-import React, { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { FaFlag, FaRocket, FaUsers, FaMobileAlt, FaGlobe, FaStar } from 'react-icons/fa';
-import '../styles/Timeline.scss';
-import SimplifiedNebulaBackground from '../ui/SimplifiedNebulaBackground';
+"use client";
 
-interface TimelineEventProps {
-  title: string;
-  subtitle?: string;
-  icon: ReactNode;
-  children: ReactNode;
-}
+import { useState, useRef, useEffect } from "react";
+import Button from "../ui/Button";
+import React from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import "./Timeline.scss";
+import roadmapVideo from "../../assets/videos/roadmap.mp4";
 
-// Creazione del nostro TimelineEvent personalizzato invece di usare la libreria
-const TimelineEvent: React.FC<TimelineEventProps> = ({ title, subtitle, icon, children }) => {
-  return (
-    <div className="timeline-item">
-      <div className="timeline-marker">{icon}</div>
-      <div className="timeline-card">
-        <div className="timeline-card-content">
-          <h3>{title}</h3>
-          {subtitle && <div className="timeline-subtitle">{subtitle}</div>}
-          {children}
-        </div>
-      </div>
-    </div>
-  );
+// Types
+type TimelineItem = {
+  date: string;
+  heading: string;
+  description: string;
+  buttons: any[];
 };
 
-const TimelineSection = () => {
-  const fadeInUp = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 30 } }
+type Props = {
+  items?: TimelineItem[];
+};
+
+// Default data for our timeline
+const TimelineDefaults: Props = {
+  items: [
+    {
+      date: "Q2 2023",
+      heading: "Ricerca e Pianificazione",
+      description:
+        "Analisi di mercato, identificazione delle problematiche degli utenti, definizione della value proposition e architettura del sistema.",
+      buttons: [
+        { title: "Dettagli", variant: "secondary" }
+      ]
+    },
+    {
+      date: "Q3 2023",
+      heading: "Sviluppo MVP",
+      description:
+        "Sviluppo del backend per la gestione degli abbonamenti, creazione dell'interfaccia utente basilare e implementazione delle notifiche.",
+      buttons: [
+        { title: "Scopri di più", variant: "secondary" }
+      ]
+    },
+    {
+      date: "Q4 2023",
+      heading: "Beta Testing",
+      description:
+        "Versione beta per un pubblico selezionato, raccolta feedback utenti e ottimizzazione dell'usabilità.",
+      buttons: [
+        { title: "Approfondisci", variant: "secondary" }
+      ]
+    },
+    {
+      date: "Q1 2024",
+      heading: "Lancio App Mobile",
+      description:
+        "Sviluppo e rilascio delle app iOS e Android, con notifiche push e sincronizzazione cross-platform.",
+      buttons: [
+        { title: "Vedi anteprima", variant: "secondary" }
+      ]
+    },
+    {
+      date: "Q2 2024",
+      heading: "Espansione Internazionale",
+      description:
+        "Localizzazione in più lingue, adattamento a regolamenti internazionali e partnership globali.",
+      buttons: [
+        { title: "Scopri di più", variant: "secondary" }
+      ]
+    }
+  ]
+};
+
+const Timeline = (props: Props) => {
+  const { items = [] } = {
+    ...TimelineDefaults,
+    ...props,
   };
 
-  return (
-    <section className="timeline-section" id="roadmap">
-      <SimplifiedNebulaBackground />
-      <div className="container">
-        <motion.div 
-          className="timeline-header"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInUp}
-        >
-          <h2><span className="text-gradient">Roadmap</span> del Progetto</h2>
-          <p>Il nostro percorso per rivoluzionare la gestione degli abbonamenti</p>
-        </motion.div>
+  const [activeItemIndex, setActiveItemIndex] = useState(-1);
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(sectionRef, { 
+    margin: "-40% 0px -40% 0px", // Increased margin for earlier detection
+    once: false 
+  });
 
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
+
+  // Track scroll position within section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Create transforms for effects
+  const videoOpacity = useTransform(
+    scrollYProgress, 
+    [0, 0.1, 0.15, 0.2, 0.75, 0.85, 0.95], 
+    [0, 0, 0.5, 1, 1, 0, 0]
+  );
+  
+  const videoScale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.75, 0.85, 0.95],
+    [1.1, 1.1, 1, 1, 1.1, 1.1]
+  );
+  
+  const videoBlur = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.75, 0.85, 0.95],
+    ["8px", "8px", "2px", "2px", "8px", "8px"]
+  );
+
+  // Title opacity for fixed title
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0.1, 0.15, 0.85, 0.9],
+    [0, 1, 1, 0]
+  );
+
+  // Set active timeline item based on scroll position - show each item one at a time
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange(value => {
+      // Only show items when video is fully visible
+      if (value < 0.2 || value > 0.85) {
+        setActiveItemIndex(-1);
+        return;
+      }
+      
+      // Divide the visible scroll range (0.2-0.85 = 0.65) by the number of items
+      // to determine equal segments for each item
+      const visibleScrollRange = 0.65;
+      const segmentSize = visibleScrollRange / items.length;
+      
+      // Calculate which segment we're in based on the current scroll progress
+      for (let i = 0; i < items.length; i++) {
+        const segmentStart = 0.2 + (i * segmentSize);
+        const segmentEnd = segmentStart + segmentSize;
+        
+        if (value >= segmentStart && value < segmentEnd) {
+          setActiveItemIndex(i);
+          break;
+        }
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [scrollYProgress, items.length]);
+
+  // Play/pause video
+  useEffect(() => {
+    if (!videoRef.current) return;
+    
+    if (isInView) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }, [isInView]);
+
+  return (
+    <section id="roadmap" className={`timeline-section ${isMobile ? 'timeline-section--mobile' : ''}`} ref={sectionRef}>
+      <motion.div 
+        className="video-container"
+        style={{ 
+          opacity: videoOpacity
+        }}
+      >
         <motion.div 
-          className="timeline-wrapper"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInUp}
+          className="video-wrapper"
+          style={{
+            scale: videoScale,
+            filter: `blur(${videoBlur})`
+          }}
         >
-          <div className="modern-timeline">
-            <div className="timeline-container">
-              <TimelineEvent 
-                title="Q2 2023 - Ricerca e Pianificazione" 
-                subtitle="Gettare le basi per ABBS"
-                icon={<FaFlag />}
-              >
-                <ul className="timeline-list">
-                  <li>Analisi di mercato delle soluzioni esistenti</li>
-                  <li>Identificazione delle principali problematiche degli utenti</li>
-                  <li>Definizione della value proposition</li>
-                  <li>Progettazione dell'architettura del sistema</li>
-                </ul>
-              </TimelineEvent>
-              
-              <TimelineEvent 
-                title="Q3 2023 - Sviluppo MVP" 
-                subtitle="Minimum Viable Product"
-                icon={<FaRocket />}
-              >
-                <ul className="timeline-list">
-                  <li>Sviluppo del backend per la gestione degli abbonamenti</li>
-                  <li>Creazione dell'interfaccia utente basilare</li>
-                  <li>Implementazione del sistema di notifiche</li>
-                  <li>Test interni con un gruppo ristretto di utenti</li>
-                </ul>
-              </TimelineEvent>
-              
-              <TimelineEvent 
-                title="Q4 2023 - Beta Testing" 
-                subtitle="Migliorare con il feedback"
-                icon={<FaUsers />}
-              >
-                <ul className="timeline-list">
-                  <li>Lancio della versione beta a un pubblico selezionato</li>
-                  <li>Raccolta e analisi dei feedback degli utenti</li>
-                  <li>Ottimizzazione dell'usabilità e correzione bug</li>
-                  <li>Potenziamento della sicurezza e protezione dei dati</li>
-                </ul>
-              </TimelineEvent>
-              
-              <TimelineEvent 
-                title="Q1 2024 - Lancio App Mobile" 
-                subtitle="Espansione su piattaforme mobili"
-                icon={<FaMobileAlt />}
-              >
-                <ul className="timeline-list">
-                  <li>Sviluppo e rilascio delle app iOS e Android</li>
-                  <li>Ottimizzazione per l'uso mobile con notifiche push</li>
-                  <li>Sincronizzazione tra piattaforme web e mobile</li>
-                  <li>Integrazione con wallet digitali per pagamenti</li>
-                </ul>
-              </TimelineEvent>
-              
-              <TimelineEvent 
-                title="Q2 2024 - Espansione Internazionale" 
-                subtitle="Raggiungere nuovi mercati"
-                icon={<FaGlobe />}
-              >
-                <ul className="timeline-list">
-                  <li>Localizzazione dell'app in più lingue</li>
-                  <li>Adattamento a regolamenti e valute internazionali</li>
-                  <li>Partnership strategiche con fornitori di servizi globali</li>
-                  <li>Campagne di marketing internazionali</li>
-                </ul>
-              </TimelineEvent>
-              
-              <TimelineEvent 
-                title="Q3 2024 e oltre - Evoluzione Continua" 
-                subtitle="Innovazione e miglioramento"
-                icon={<FaStar />}
-              >
-                <ul className="timeline-list">
-                  <li>Implementazione di analisi predittive con AI</li>
-                  <li>Suggerimenti personalizzati per l'ottimizzazione della spesa</li>
-                  <li>Integrazione con assistenti vocali</li>
-                  <li>Sviluppo di funzionalità basate sul feedback della community</li>
-                </ul>
-              </TimelineEvent>
-            </div>
-          </div>
+          <video 
+            ref={videoRef}
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="background-video"
+          >
+            <source src={roadmapVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </motion.div>
+        <div className="video-overlay"></div>
+      </motion.div>
+
+      {/* Fixed section title */}
+      <motion.div 
+        className="section-title-container"
+        style={{ opacity: titleOpacity }}
+      >
+        <h2 className="section-title">La nostra Roadmap</h2>
+      </motion.div>
+
+      <div className="timeline-content">
+        <div className="timeline-progress">
+          {items.map((_, index) => (
+            <div 
+              key={index}
+              className={`timeline-dot ${index <= activeItemIndex ? 'active' : ''}`}
+            />
+          ))}
+        </div>
+        
+        <div className="timeline-items">
+          {items.map((item, index) => (
+            <motion.div
+              key={index}
+              className="timeline-item"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: index === activeItemIndex ? 1 : 0,
+                y: index === activeItemIndex ? 0 : (isMobile ? 30 : 50),
+                scale: index === activeItemIndex ? 1 : 0.95
+              }}
+              transition={{ 
+                opacity: { duration: 0.7, ease: "easeInOut" },
+                y: { duration: 0.7, ease: "easeInOut" },
+                scale: { duration: 0.7, ease: "easeInOut" }
+              }}
+              style={{
+                position: 'absolute',
+                display: index === activeItemIndex || (index === activeItemIndex - 1 && !isMobile) ? 'flex' : 'none'
+              }}
+            >
+              <div className="timeline-item-date">{item.date}</div>
+              <h2 className="timeline-item-heading">{item.heading}</h2>
+              <p className="timeline-item-description">{item.description}</p>
+              <div className="timeline-item-buttons">
+                {item.buttons.map((button, idx) => (
+                  <Button key={idx} variant={button.variant as any || "primary"}>
+                    {button.title}
+                  </Button>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default TimelineSection; 
+export default Timeline; 

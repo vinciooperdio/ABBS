@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, easeOut } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, easeOut, useInView, useScroll, useTransform } from 'framer-motion';
 import { FaExchangeAlt, FaBomb, FaCheckCircle, FaCreditCard, FaClock, FaPercent, FaMoneyBillWave, FaCalendarAlt, FaBullseye, FaBell, FaFileAlt, FaSearch, FaPlus, FaDumbbell, FaSwimmer, FaFilm, FaMapMarkerAlt, FaStar, FaArrowRight } from 'react-icons/fa';
 import { BsSpotify } from 'react-icons/bs';
 import { SiNetflix, SiAmazon, SiApple, SiMicrosoftoffice } from 'react-icons/si';
@@ -23,6 +23,27 @@ interface PhysicalService {
 
 const Mission: React.FC = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll position within section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Check if header is in view
+  const headerInView = useInView(headerRef, { 
+    margin: "-10% 0px -10% 0px",
+    once: false 
+  });
+  
+  // Check if benefits section is in view
+  const benefitsInView = useInView(benefitsRef, { 
+    margin: "-20% 0px -20% 0px",
+    once: false 
+  });
 
   const handleMarkerClick = (serviceId: string) => {
     setSelectedService(serviceId);
@@ -100,8 +121,17 @@ const Mission: React.FC = () => {
   ];
 
   const fadeInUp = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 30 } }
+    hidden: { y: 60, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1, 
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 30,
+        duration: 0.8 
+      } 
+    }
   };
 
   const staggerItems = {
@@ -109,227 +139,246 @@ const Mission: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemFade = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 15 }
+      scale: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 15,
+        duration: 0.6 
+      }
+    }
+  };
+  
+  // Header animations with scroll interaction
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.3],
+    [0.3, 1, 1]
+  );
+  
+  const titleScale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.3],
+    [0.9, 1, 1]
+  );
+  
+  const titleY = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.3],
+    [40, 0, 0]
+  );
+
+  const floatingAnimation = {
+    y: [0, -15, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      repeatType: "reverse" as const,
+      ease: "easeInOut"
     }
   };
 
   return (
-    <section className="mission">
+    <section ref={sectionRef} className="mission">
       <SimplifiedNebulaBackground />
       <div className="container">
         <motion.div 
+          ref={headerRef}
           className="mission__header"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          animate={headerInView ? "visible" : "hidden"}
           variants={fadeInUp}
+          style={{
+            opacity: titleOpacity,
+            y: titleY,
+            scale: titleScale
+          }}
         >
-          <h2>La Nostra <span className="text-gradient">Missione</span></h2>
-          <p className="mission__subtitle">
-            Stiamo trasformando il modo in cui gestisci i tuoi abbonamenti e i servizi nelle vicinanze,
-            portando ordine nel caos e restituendoti il controllo sulle tue spese digitali e fisiche.
-          </p>
+          <motion.h2
+            animate={{ 
+              textShadow: ["0 0 10px rgba(75, 69, 206, 0.2)", "0 0 20px rgba(75, 69, 206, 0.5)", "0 0 10px rgba(75, 69, 206, 0.2)"]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          >
+            La Nostra <span className="text-gradient">Missione</span>
+          </motion.h2>
+          
+          <motion.div
+            className="mission__subtitle-container"
+            initial={{ opacity: 0, y: 20 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <motion.p className="mission__subtitle">
+              Stiamo trasformando il modo in cui gestisci i tuoi abbonamenti e i servizi nelle vicinanze,
+              portando ordine nel caos e restituendoti il controllo sulle tue spese digitali e fisiche.
+            </motion.p>
+            
+            <motion.div 
+              className="mission__icons"
+              animate={floatingAnimation}
+            >
+              <motion.div 
+                className="mission__icon"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+              >
+                <SiNetflix />
+              </motion.div>
+              <motion.div 
+                className="mission__icon"
+                whileHover={{ scale: 1.2, rotate: -10 }}
+              >
+                <BsSpotify />
+              </motion.div>
+              <motion.div 
+                className="mission__icon"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+              >
+                <FaDumbbell />
+              </motion.div>
+              <motion.div 
+                className="mission__icon"
+                whileHover={{ scale: 1.2, rotate: -10 }}
+              >
+                <FaSwimmer />
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
-        <div className="mission__transformation">
-          <motion.div 
-            className="mission__before"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-          >
-            <div className="mission__phase-title">
-              <FaBomb />
-              <h3>Prima di ABBS</h3>
-            </div>
-            
-            <div className="mission__chaos-container">
-              <motion.div
-                variants={staggerItems}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                className="mission__chaos-subscriptions"
-              >
-                {subscriptionServices.map((service, index) => (
-                  <motion.div 
-                    className="mission__chaos-subscription"
-                    key={service.id}
-                    variants={itemFade}
-                    style={{
-                      transform: `rotate(${(index % 5 - 2) * 3}deg)`,
-                      zIndex: 6 - index,
-                    }}
-                  >
-                    {service.icon}
-                    <div className="subscription-details">
-                      <span className="subscription-name">{service.name}</span>
-                      <span className="subscription-cost">{service.cost}</span>
-                      <div className="subscription-date">
-                        <span className="date-indicator">Scadenza:</span>
-                        <span className="date-value">{service.date}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-              
-              
-              
-            </div>
-          </motion.div>
-
-          <motion.div 
-            className="mission__after"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-          >
-            <div className="mission__phase-title">
-              <FaCheckCircle />
-              <h3>Con ABBS</h3>
-            </div>
-            
-            <div className="mission__organized-container">
-              <div className="mission__phone-mockup">
-                <div className="phone-frame">
-                  <div className="phone-screen">
-                    <div className="app-header">
-                      <div className="app-tabs-header">
-                        <div className="app-tab-button active">Digitali</div>
-                        <div className="app-tab-button">Fisici</div>
-                      </div>
-                      <div className="app-info">
-                        <span className="app-logo">ABBS</span>
-                        <span className="app-tagline">Tutti i tuoi abbonamenti</span>
-                      </div>
-                    </div>
-                    <div className="app-content">
-                      {subscriptionServices.slice(0, 4).map((service, index) => (
-                        <div className="app-subscription-item" key={service.id}>
-                          {service.icon}
-                          <div className="item-details">
-                            <span className="item-name">{service.name}</span>
-                            <span className="item-cost">{service.cost}</span>
-                          </div>
-                          <div className="item-date">
-                            <span>{service.date}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="app-tabs">
-                      <div className="app-tab">
-                        <FaBullseye />
-                        <span>Home</span>
-                      </div>
-                      <div className="app-tab">
-                        <FaSearch />
-                        <span>Esplora</span>
-                      </div>
-                      <div className="app-tab">
-                        <FaBell />
-                        <span>Notifiche</span>
-                      </div>
-                      <div className="app-tab">
-                        <FaFileAlt />
-                        <span>Documenti</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
         <motion.div 
+          ref={benefitsRef}
           className="mission__benefits-section"
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={benefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.7, ease: easeOut }}
         >
           <div className="mission__section-title">
             <h3>Vantaggi di <span className="text-gradient">ABBS</span></h3>
           </div>
           
-          <div className="mission__benefits-grid">
+          <motion.div 
+            className="mission__benefits-grid"
+            variants={staggerItems}
+            initial="hidden"
+            animate={benefitsInView ? "visible" : "hidden"}
+          >
             {abbsFeatures.map((feature, index) => (
               <motion.div 
                 key={feature.title}
                 className="mission__benefit-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemFade}
+                custom={index}
+                whileHover={{ 
+                  y: -10, 
+                  scale: 1.03,
+                  boxShadow: "0 20px 30px rgba(0, 0, 0, 0.2)"
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="benefit-icon">
+                <motion.div 
+                  className="benefit-icon"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
                   {feature.icon}
-                </div>
+                </motion.div>
                 <h4>{feature.title}</h4>
                 <p>{feature.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.section 
           className="mission__map-section"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeOut }}
         >
-          <div className="mission__map-header">
+          <motion.div 
+            className="mission__map-header"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             <h3>
               Scopri Servizi <span className="text-gradient">Vicino a Te</span>
             </h3>
             <p>Trova palestre, piscine e sale cinematografiche nella tua zona.</p>
-          </div>
+          </motion.div>
           
           <div className="mission__map-container">
-            <div className="mission__interactive-map" style={{ 
-              position: 'relative', 
-              zIndex: 10, 
-              display: 'block',
-              visibility: 'visible',
-              overflow: 'visible',
-              minHeight: '450px'
-            }}>
+            <motion.div 
+              className="mission__interactive-map"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                position: 'relative', 
+                zIndex: 10, 
+                display: 'block',
+                visibility: 'visible',
+                overflow: 'visible',
+                minHeight: '450px'
+              }}
+            >
               <InteractiveMap 
                 userPosition={[41.9028, 12.4964]} 
                 services={physicalServices}
                 onMarkerClick={handleMarkerClick}
               />
-            </div>
+            </motion.div>
             
-            <div className="mission__nearby-services">
-              <h4>Servizi Fisici Vicini</h4>
+            <motion.div 
+              className="mission__nearby-services"
+              variants={staggerItems}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.h4 variants={itemFade}>Servizi Fisici Vicini</motion.h4>
               <div className="services-list">
-                {physicalServices.map((service) => (
-                  <div 
+                {physicalServices.map((service, index) => (
+                  <motion.div 
                     key={service.id}
                     className={`service-card ${selectedService === service.id ? 'service-card--active' : ''}`}
                     onClick={() => handleMarkerClick(service.id)}
+                    variants={itemFade}
+                    custom={index}
+                    whileHover={{ 
+                      scale: 1.03, 
+                      x: 5,
+                      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)" 
+                    }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <div className="service-icon">
+                    <motion.div 
+                      className="service-icon"
+                      whileHover={{ rotate: 10 }}
+                    >
                       {service.type === 'gym' && <FaDumbbell />}
                       {service.type === 'pool' && <FaSwimmer />}
                       {service.type === 'theater' && <FaFilm />}
-                    </div>
+                    </motion.div>
                     <div className="service-details">
                       <h5>{service.name}</h5>
                       <div className="service-meta">
@@ -344,13 +393,17 @@ const Mission: React.FC = () => {
                       </div>
                       <span className="service-price">{service.price}</span>
                     </div>
-                    <button className="service-action">
+                    <motion.button 
+                      className="service-action"
+                      whileHover={{ scale: 1.2, rotate: 10 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
                       <FaArrowRight />
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.section>
       </div>

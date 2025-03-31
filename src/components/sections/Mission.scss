@@ -7,13 +7,16 @@
   
   &__header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    position: relative;
     
     h2 {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       line-height: 1.2;
+      position: relative;
+      z-index: 2;
       
       .text-gradient {
         background: $gradient-primary;
@@ -23,12 +26,72 @@
       }
     }
     
+    .mission__subtitle-container {
+      position: relative;
+      z-index: 1;
+    }
+    
     .mission__subtitle {
       font-size: clamp(1.1rem, 2vw, 1.3rem);
       color: $text-secondary;
       max-width: 700px;
-      margin: 0 auto;
+      margin: 0 auto 30px;
       line-height: 1.6;
+    }
+    
+    .mission__icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 30px;
+      
+      .mission__icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+        
+        &:hover {
+          border-color: rgba(75, 69, 206, 0.5);
+          color: $primary;
+        }
+        
+        &:nth-child(1) {
+          color: #E50914; // Netflix red
+        }
+        
+        &:nth-child(2) {
+          color: #1ED760; // Spotify green
+        }
+        
+        &:nth-child(3) {
+          color: #FF9900; // Orange for gym
+        }
+        
+        &:nth-child(4) {
+          color: #00A3E0; // Blue for pool
+        }
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        gap: 1rem;
+        
+        .mission__icon {
+          width: 45px;
+          height: 45px;
+          font-size: 1.5rem;
+        }
+      }
     }
   }
   
@@ -57,20 +120,37 @@
   }
   
   &__transformation {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-bottom: 40px;
+    position: relative;
     
     @media (max-width: $breakpoint-md) {
-      flex-direction: column;
+      grid-template-columns: 1fr;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      background: $primary;
+      transform: translate(-50%, -50%) rotate(45deg);
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba($primary, 0.3);
+      
+      @media (max-width: $breakpoint-md) {
+        top: calc(50% - 20px);
+        transform: translate(-50%, -50%) rotate(135deg);
+      }
     }
   }
   
   // Benefits section styles
   &__benefits-section {
-    margin: 30px 0 40px;
+    margin: 30px 0 70px;
     
     h3 {
       font-size: 2.2rem;
@@ -94,25 +174,28 @@
     background: rgba(255, 255, 255, 0.05);
     border-radius: $border-radius-md;
     padding: 30px;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
     height: 100%;
+    will-change: transform, box-shadow;
     
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
       background: rgba(255, 255, 255, 0.08);
+      border-color: rgba($primary, 0.3);
     }
     
     .benefit-icon {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
       background: $gradient-primary;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+      will-change: transform;
       
       svg {
         color: white;
@@ -134,32 +217,39 @@
   }
   
   &__before, &__after {
-    flex: 0 0 calc(50% - 40px);
-    max-width: 550px;
-    min-width: 300px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: $border-radius-lg;
-    padding: 35px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    min-height: 600px;
-    position: relative;
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    padding: 30px;
     
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
     }
     
-    @media (max-width: $breakpoint-md) {
-      margin-bottom: 40px;
-      min-height: auto;
-      flex: 0 0 100%;
-      max-width: 100%;
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: $gradient-primary;
+        border-radius: 2px;
+      }
     }
+  }
+  
+  &__after {
+    background: rgba($primary, 0.05);
   }
   
   &__phase-title {
@@ -516,16 +606,8 @@
   
   // Sezione mappa dei servizi
   &__map-section {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: $border-radius-lg;
-    padding: 30px;
-    margin-top: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    overflow: visible !important;
-    
-    @media (max-width: $breakpoint-md) {
-      padding: 25px 20px;
-    }
+    margin-top: 50px;
+    position: relative;
   }
   
   &__map-header {
@@ -533,7 +615,7 @@
     margin-bottom: 40px;
     
     h3 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 15px;
       
@@ -546,147 +628,70 @@
     }
     
     p {
-      font-size: 1.1rem;
       color: $text-secondary;
-      max-width: 700px;
-      margin: 0 auto;
+      font-size: 1.1rem;
     }
   }
   
   &__map-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 340px;
     gap: 30px;
-    position: relative !important;
-    z-index: 1 !important;
-    overflow: visible !important;
+    margin-top: 30px;
     
-    @media (max-width: $breakpoint-lg) {
-      flex-direction: column;
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      gap: 15px;
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
     }
   }
   
   &__interactive-map {
-    flex: 1;
-    min-height: 500px !important;
-    min-width: 300px;
     border-radius: $border-radius-md;
-    overflow: visible !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    position: relative !important;
-    z-index: 10 !important;
-    
-    /* Fix per problemi di visualizzazione mappa a larghezza specifica */
-    @media (max-width: 990px) {
-      height: 450px !important;
-      min-height: 450px !important;
-      width: 100% !important;
-      display: block !important;
-      visibility: visible !important;
-      position: relative !important;
-      z-index: 10 !important;
-      order: -1 !important;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      height: 400px !important;
-      min-height: 400px !important;
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      height: 350px !important;
-      min-height: 350px !important;
-      margin-bottom: 25px !important;
-    }
-    
-    /* Ensure the map container is created properly */
-    & > div {
-      width: 100% !important;
-      height: 100% !important;
-      display: block !important;
-      visibility: visible !important;
-    }
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   &__nearby-services {
-    flex: 0 0 350px;
-    
-    @media (max-width: $breakpoint-lg) {
-      flex: 1;
-    }
-    
-    @media (max-width: 990px) {
-      order: 0 !important;
-      width: 100%;
-    }
-    
     h4 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 600;
       margin-bottom: 20px;
-      color: $text-primary;
+      color: white;
     }
     
     .services-list {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      
-      @media (max-width: $breakpoint-lg) {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-      
-      @media (max-width: 990px) {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        display: flex;
-        flex-direction: column;
-      }
     }
     
     .service-card {
-      display: flex;
-      align-items: center;
-      padding: 15px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: $border-radius-md;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
       cursor: pointer;
+      will-change: transform, box-shadow;
       
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      &--active, &:hover {
         background: rgba(255, 255, 255, 0.08);
-      }
-      
-      &--active {
-        border-color: $primary;
-        background: rgba($primary, 0.05);
-        box-shadow: 0 10px 20px rgba($primary, 0.1);
+        border-color: rgba($primary, 0.3);
       }
       
       .service-icon {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         border-radius: 12px;
         background: $gradient-primary;
-        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        margin-right: 15px;
-        flex-shrink: 0;
+        color: white;
+        font-size: 1.4rem;
       }
       
       .service-details {
@@ -696,25 +701,29 @@
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 5px;
+          color: white;
         }
         
         .service-meta {
           display: flex;
           gap: 15px;
           margin-bottom: 5px;
-          font-size: 0.9rem;
-          color: $text-secondary;
           
-          .service-distance,
-          .service-rating {
+          span {
             display: flex;
             align-items: center;
             gap: 5px;
+            color: $text-secondary;
+            font-size: 0.9rem;
+            
+            svg {
+              opacity: 0.7;
+            }
           }
         }
         
         .service-price {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           color: $primary;
         }
@@ -724,18 +733,18 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background: $primary;
-        color: white;
+        border: none;
+        background: rgba($primary, 0.2);
+        color: $primary;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: none;
         cursor: pointer;
         transition: all 0.3s ease;
         
         &:hover {
-          transform: scale(1.1);
-          background: rgba($primary, 0.8);
+          background: $primary;
+          color: white;
         }
       }
     }

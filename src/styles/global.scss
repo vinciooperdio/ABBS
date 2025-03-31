@@ -26,11 +26,14 @@ body {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: auto !important;
+  width: 100%;
 }
 
 img, picture, video, canvas {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 input, button, textarea, select {
@@ -71,10 +74,14 @@ a {
 }
 
 .container {
-  width: 90%;
-  max-width: $container-max;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: 0 15px;
+  }
 }
 
 .section {
@@ -89,6 +96,7 @@ a {
 section {
   position: relative;
   width: 100%;
+  overflow-x: hidden;
   
   & + section {
     margin-top: 0;

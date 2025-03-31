@@ -1,308 +1,412 @@
+// src/components/sections/Timeline.scss
 @import '../../styles/variables';
 
-.timeline {
-  position: relative;
-  padding: 100px 0;
-  overflow: hidden;
-  background-color: transparent;
-  
-  &__header {
-    text-align: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 2;
-    
-    .section-title {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      margin-bottom: 15px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      
-      .text-gradient {
-        background: $gradient-primary;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-    }
-    
-    .section-subtitle {
-      font-size: clamp(1.1rem, 2vw, 1.25rem);
-      color: $text-secondary;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
+@keyframes tabs {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  &__wrapper {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  &__container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 0 auto;
-    max-width: 850px;
-  }
-  
-  &__line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    background: linear-gradient(to bottom, rgba($primary, 0.3), $primary, rgba($primary, 0.3));
-    transform: translateX(-50%);
-    z-index: 1;
-    
-    @media (max-width: 768px) {
-      left: 20px;
-    }
-  }
-  
-  &__events {
-    position: relative;
-    z-index: 2;
-  }
-  
-  &__event {
-    margin-bottom: 80px;
-    position: relative;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-    
-    &--left {
-      align-self: flex-start;
-      margin-right: 50%;
-      padding-right: 50px;
-      text-align: right;
-      
-      @media (max-width: 768px) {
-        margin-right: 0;
-        margin-left: 50px;
-        padding-right: 0;
-        text-align: left;
-      }
-    }
-    
-    &--right {
-      align-self: flex-end;
-      margin-left: 50%;
-      padding-left: 50px;
-      
-      @media (max-width: 768px) {
-        margin-left: 50px;
-      }
-    }
-  }
-  
-  &__marker {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: $background;
-    border: 4px solid;
-    position: absolute;
-    top: 30px;
-    left: -65px;
-    z-index: 3;
-    box-shadow: 0 0 0 4px rgba($background, 0.3);
-    
-    &:before {
-      content: 'ABBS';
-      position: absolute;
-      font-size: 8px;
-      font-weight: bold;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: $gradient-primary;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .timeline__event--left & {
-      left: auto;
-      right: -65px;
-      
-      @media (max-width: 768px) {
-        left: -65px;
-        right: auto;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      left: -45px;
-    }
-  }
-  
-  &__card {
-    background: rgba($background-light, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-    position: relative;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-  }
-  
-  &__card-inner {
-    padding: 25px;
-    position: relative;
-    z-index: 1;
-  }
-  
-  &__card-bg {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 150px;
-    height: 150px;
-    opacity: 0.07;
-    border-radius: 30% 70% 50% 30% / 30% 30% 70% 70%;
-    z-index: 0;
-  }
-  
-  &__date {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .timeline__event--left &__date {
-    flex-direction: row-reverse;
-    
-    @media (max-width: 768px) {
-      flex-direction: row;
-    }
-  }
-  
-  &__quarter {
-    font-weight: 600;
-    font-size: 14px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: $background-light;
-  }
-  
-  &__year {
-    font-size: 14px;
-    color: $text-secondary;
-  }
-  
-  &__title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  
-  &__description {
-    font-size: 14px;
-    line-height: 1.6;
-    color: $text-secondary;
-  }
-  
-  &__cta {
-    text-align: center;
-    margin-top: 60px;
-    position: relative;
-    z-index: 2;
-    
-    p {
-      font-size: 18px;
-      margin-bottom: 16px;
-      color: $text-secondary;
-    }
-  }
-  
-  &__cta-button {
-    display: inline-block;
-    background: $gradient-primary;
-    color: white;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 16px;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba($primary, 0.3);
-    transition: all 0.3s ease;
-    
-    &:hover {
-      box-shadow: 0 8px 25px rgba($primary, 0.5);
-    }
-  }
-
-  &__floating-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  &__shape {
-    position: absolute;
-    border-radius: 40%;
-    opacity: 0.25;
-    filter: blur(20px);
-    
-    &--1 {
-      width: 250px;
-      height: 250px;
-      background: rgba($primary, 0.5);
-      top: 15%;
-      right: -70px;
-      animation: floatTimelineShape 10s ease-in-out infinite;
-    }
-    
-    &--2 {
-      width: 180px;
-      height: 180px;
-      background: rgba($secondary, 0.5);
-      bottom: 20%;
-      left: -50px;
-      animation: floatTimelineShape 8s ease-in-out infinite reverse;
-    }
-    
-    &--3 {
-      width: 120px;
-      height: 120px;
-      background: rgba($accent, 0.5);
-      top: 60%;
-      right: 15%;
-      animation: floatTimelineShape 12s ease-in-out infinite 1s;
-    }
-    
-    &--4 {
-      width: 150px;
-      height: 150px;
-      background: rgba($primary-dark, 0.5);
-      top: 25%;
-      left: 10%;
-      animation: floatTimelineShape 9s ease-in-out infinite 2s;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 768px) {
-  .timeline {
-    padding: 80px 0;
+.timeline-section {
+  position: relative;
+  min-height: 500vh; // Significantly increased height for longer transitions
+  width: 100%;
+  overflow: hidden;
+  
+  &--mobile {
+    min-height: 600vh; // Even more height for mobile to ensure all items display
   }
-} 
+  
+  // Video background
+  .video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    will-change: opacity;
+    
+    .video-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      will-change: transform, filter;
+    }
+    
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75); // Darker overlay
+      z-index: -1;
+    }
+  }
+  
+  // Fixed section title
+  .section-title-container {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+    
+    .section-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      margin: 0;
+      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+      letter-spacing: -0.5px;
+      
+      @media (max-width: $breakpoint-lg) {
+        font-size: 3rem;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        font-size: 2.5rem;
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: 2rem;
+      }
+    }
+  }
+  
+  // Timeline content wrapper
+  .timeline-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    pointer-events: none;
+    
+    // Progress indicator dots
+    .timeline-progress {
+      position: fixed;
+      bottom: 10%;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 5;
+      
+      @media (max-width: $breakpoint-sm) {
+        bottom: 5%; // Move dots up on mobile
+        gap: 12px; // Tighter spacing on mobile
+      }
+      
+      .timeline-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease-in-out;
+        
+        &.active {
+          background: white;
+          transform: scale(1.2);
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+    
+    // Timeline items - centered text
+    .timeline-items {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      padding: 0 5%;
+      
+      .timeline-item {
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        
+        @media (max-width: $breakpoint-sm) {
+          padding: 1.5rem;
+          max-width: 100%; // Full width on mobile
+          height: auto;
+          top: 40%;
+          transform: translate(-50%, -50%);
+        }
+        
+        .timeline-item-date {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: $primary;
+          margin-bottom: 1.5rem;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          
+          @media (max-width: $breakpoint-md) {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+          }
+          
+          @media (max-width: $breakpoint-sm) {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+          }
+        }
+        
+        .timeline-item-heading {
+          font-size: 3.5rem;
+          font-weight: 800;
+          margin-bottom: 1.5rem;
+          color: white;
+          line-height: 1.2;
+          text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+          
+          @media (max-width: $breakpoint-lg) {
+            font-size: 2.75rem;
+          }
+          
+          @media (max-width: $breakpoint-md) {
+            font-size: 2.25rem;
+          }
+          
+          @media (max-width: $breakpoint-sm) {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.1;
+          }
+        }
+        
+        .timeline-item-description {
+          font-size: 1.25rem;
+          line-height: 1.6;
+          margin-bottom: 2rem;
+          color: rgba(255, 255, 255, 0.9);
+          max-width: 800px;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          
+          @media (max-width: $breakpoint-md) {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+          }
+          
+          @media (max-width: $breakpoint-sm) {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            padding: 0 0.5rem;
+          }
+        }
+        
+        .timeline-item-buttons {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          pointer-events: auto; // Enable button clicks
+          
+          @media (max-width: $breakpoint-sm) {
+            flex-direction: column;
+            width: 100%;
+            max-width: 200px;
+            gap: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    min-height: 450vh !important; // Adjusted for mobile
+  }
+}
+
+.animate-tabs {
+  animation: tabs 0.5s ease-out forwards;
+}
+
+.tabs-list {
+  overflow-x: auto;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Neutral colors for timeline
+.bg-neutral-black {
+  background-color: #4B45CE; // Using primary color for the active indicator
+}
+
+.bg-neutral-lighter {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.text-neutral-light {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.text-text-primary {
+  color: white;
+}
+
+.text-md {
+  font-size: 1rem;
+}
+
+.shadow-\[0_0_0_8px_white\] {
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.size-\[0\.9375rem\] {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+.from-transparent {
+  --tw-gradient-from: transparent;
+}
+
+.to-background-primary {
+  --tw-gradient-to: rgba(0, 0, 0, 0.5);
+}
+
+// Text styles
+.timeline-section {
+  color: white;
+  
+  h3, h4 {
+    color: white;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+// Container sizing
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Responsive classes
+@media (min-width: 768px) {
+  .md\:mb-16 {
+    margin-bottom: 4rem;
+  }
+  
+  .md\:ml-0 {
+    margin-left: 0;
+  }
+  
+  .md\:w-auto {
+    width: auto;
+  }
+  
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+  
+  .md\:px-0 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .md\:items-center {
+    align-items: center;
+  }
+  
+  .md\:gap-y-16 {
+    row-gap: 4rem;
+  }
+  
+  .md\:mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .md\:text-5xl {
+    font-size: 3rem;
+  }
+  
+  .md\:text-3xl {
+    font-size: 1.875rem;
+  }
+  
+  .md\:leading-\[1\.3\] {
+    line-height: 1.3;
+  }
+  
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
+  
+  .md\:text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .md\:top-14 {
+    top: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:gap-x-20 {
+    column-gap: 5rem;
+  }
+  
+  .lg\:text-6xl {
+    font-size: 3.75rem;
+  }
+  
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+  }
+}

@@ -79,14 +79,14 @@ const Hero: React.FC = () => {
             >
               <Button 
                 href="/waitlist" 
-                variant="secondary"
+                variant="primary"
                 className="hero__cta-button"
               >
                 Unisciti alla lista d'attesa
               </Button>
               <Button 
                 href="#features" 
-                variant="secondary"
+                variant="primary"
                 className="hero__cta-button"
               >
                 Scopri di più

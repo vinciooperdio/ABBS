@@ -76,6 +76,7 @@
     margin-top: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    color: white;
     
     @media (max-width: 576px) {
       flex-direction: column;
@@ -83,6 +84,10 @@
       width: 100%;
       gap: 1rem;
     }
+  }
+
+  &__cta-button {
+    color: white;
   }
 
   &__scroll-indicator {
