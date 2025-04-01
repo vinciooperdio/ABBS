@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { FiChevronRight, FiCheck, FiX } from 'react-icons/fi';
 import SectionBackground from '../ui/SectionBackground';
+import Lottie from 'lottie-react';
+import waitingListAnimation from '../../assets/animations/waiting-list.json';
 import './WaitingList.scss';
 
 const WaitingList = () => {
@@ -10,6 +12,7 @@ const WaitingList = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [showLottie, setShowLottie] = useState(false);
   
   // Track scroll position for animation
   const { scrollYProgress } = useScroll({
@@ -20,8 +23,15 @@ const WaitingList = () => {
   // Check if section is in view
   const isInView = useInView(sectionRef, { 
     margin: "-20% 0px -20% 0px",
-    once: false 
+    once: false
   });
+  
+  // Effect to handle section visibility
+  useEffect(() => {
+    if (isInView) {
+      setShowLottie(true);
+    }
+  }, [isInView]);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,6 +178,21 @@ const WaitingList = () => {
   
   return (
     <SectionBackground variant="secondary" id="waiting-list" className="waiting-list">
+      {showLottie && (
+        <motion.div 
+          className="waiting-list__lottie-background"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <Lottie
+            animationData={waitingListAnimation}
+            loop={true}
+            autoplay={true}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </motion.div>
+      )}
       <div ref={sectionRef} className="waiting-list__container">
         <motion.div 
           className="waiting-list__content"

@@ -128,13 +128,13 @@ const Team = () => {
   const cardVariants = {
     hidden: { 
       opacity: 0,
-      y: 70,
+      x: -100,
       scale: 0.9,
       rotateY: -10
     },
     visible: (i: number) => ({ 
       opacity: 1,
-      y: 0,
+      x: 0,
       scale: 1,
       rotateY: 0,
       transition: { 

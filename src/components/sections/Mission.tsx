@@ -146,10 +146,10 @@ const Mission: React.FC = () => {
   };
 
   const itemFade = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    hidden: { opacity: 0, x: -100, scale: 0.9 },
     visible: { 
       opacity: 1, 
-      y: 0,
+      x: 0,
       scale: 1,
       transition: { 
         type: "spring", 
