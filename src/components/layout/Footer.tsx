@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiTwitter, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import './Footer.scss';
 import logo from '../../assets/images/ABBS_LOGO.jpeg';
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -24,6 +28,14 @@ const Footer = () => {
   };
   
   const currentYear = new Date().getFullYear();
+  const isHomePage = window.location.pathname === '/';
+  
+  const handleSectionLink = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    if (!isHomePage) {
+      e.preventDefault();
+      window.location.href = '/' + sectionId;
+    }
+  };
   
   return (
     <footer className="footer">
@@ -41,46 +53,46 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="footer__brand">
             <img src={logo} alt="ABBS Logo" className="footer__logo" />
             <p className="footer__tagline">
-              Rivoluziona il tuo modo di gestire l'identità digitale. Un account, infiniti servizi.
+              {t('revolutionizeDigitalIdentity')}
             </p>
           </motion.div>
           
           <div className="footer__links-container">
             <motion.div variants={itemVariants} className="footer__links">
-              <h3>Navigazione</h3>
+              <h3>{t('navigation')}</h3>
               <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/business">Business</a></li>
-                <li><a href="#what-is">Cos'è ABBS</a></li>
-                <li><a href="#timeline">Roadmap</a></li>
+                <li><a href="/">{t('home')}</a></li>
+                <li><Link to="/business">{t('business')}</Link></li>
+                <li><a href="#what-is" onClick={(e) => handleSectionLink(e, '#what-is')}>{t('whatIs')}</a></li>
+                <li><a href="#timeline" onClick={(e) => handleSectionLink(e, '#timeline')}>{t('roadmap')}</a></li>
               </ul>
             </motion.div>
             
             <motion.div variants={itemVariants} className="footer__links">
-              <h3>Sezioni</h3>
+              <h3>{t('sections')}</h3>
               <ul>
-                <li><a href="#mission">Missione</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#waiting-list">Lista d'Attesa</a></li>
+                <li><a href="#mission" onClick={(e) => handleSectionLink(e, '#mission')}>{t('mission')}</a></li>
+                <li><a href="#team" onClick={(e) => handleSectionLink(e, '#team')}>{t('team')}</a></li>
+                <li><Link to="/waitlist">{t('waitingList')}</Link></li>
               </ul>
             </motion.div>
             
             <motion.div variants={itemVariants} className="footer__links">
-              <h3>Legale</h3>
+              <h3>{t('legal')}</h3>
               <ul>
-                <li><a href="#" target="_blank" rel="noopener noreferrer">Termini di Servizio</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer">Cookie Policy</a></li>
+                <li><Link to="/terms">{t('termsOfService')}</Link></li>
+                <li><Link to="/privacy">{t('privacyPolicy')}</Link></li>
+                <li><Link to="/cookies">{t('cookiePolicy')}</Link></li>
               </ul>
             </motion.div>
           </div>
           
           <motion.div variants={itemVariants} className="footer__contact">
-            <h3>Contattaci</h3>
-            <p>Hai domande? Vuoi saperne di più?</p>
+            <h3>{t('contactUs')}</h3>
+            <p>{t('questionsLearnMore')}</p>
             <a href="mailto:info@abbs.one" className="footer__contact-button">
               <FiMail />
-              <span>Scrivici</span>
+              <span>{t('writeToUs')}</span>
             </a>
             
             <div className="footer__social">
@@ -104,11 +116,11 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <div className="footer__copyright">
-            &copy; {currentYear} ABBS. Tutti i diritti riservati.
+            &copy; {currentYear} ABBS. {t('copyright')}
           </div>
           
           <div className="footer__made-with">
-            Made with <FiHeart className="footer__heart" /> in Italia
+            {t('madeWithLove')} <FiHeart className="footer__heart" /> {t('inItaly')}
           </div>
         </motion.div>
       </div>

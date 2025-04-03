@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import Button from '../ui/Button';
+import { useLanguage } from '../../context/LanguageContext';
 import './Hero.scss';
 import NebulaBackground from '../ui/NebulaBackground';
 
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [loadingComplete, setLoadingComplete] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Mostra la schermata di caricamento per 3 secondi
@@ -49,8 +51,10 @@ const Hero: React.FC = () => {
                 ease: "easeOut"
               }}
             >
-              La <span className="gradient-text">Rivoluzione</span> degli<br />
-              Abbonamenti è Qui
+              {t('revolutionIsHere').split(' ').map((word, i, arr) => 
+                i === 1 ? <span key={i}><span className="gradient-text">{word}</span>{i < arr.length - 1 ? ' ' : ''}</span> : 
+                <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
+              )}
             </motion.h1>
             
             <motion.p 
@@ -63,8 +67,7 @@ const Hero: React.FC = () => {
                 ease: "easeOut"
               }}
             >
-              Gestisci tutti i tuoi abbonamenti in un'unica app: dai servizi digitali alle palestre,
-              dai teatri alle piscine. Scopri nuovi servizi nella tua zona e risparmia tempo e denaro.
+              {t('manageAllSubscriptions')}
             </motion.p>
             
             <motion.div 
@@ -82,14 +85,14 @@ const Hero: React.FC = () => {
                 variant="primary"
                 className="hero__cta-button"
               >
-                Unisciti alla lista d'attesa
+                {t('joinWaitingList')}
               </Button>
               <Button 
-                href="#features" 
+                href="#mission" 
                 variant="primary"
                 className="hero__cta-button"
               >
-                Scopri di più
+                {t('learnMore')}
               </Button>
             </motion.div>
           </motion.div>
@@ -99,7 +102,7 @@ const Hero: React.FC = () => {
           <div className="hero__mouse">
             <div className="hero__mouse-wheel"></div>
           </div>
-          <div className="hero__scroll-text">Scopri di più</div>
+          <div className="hero__scroll-text">{t('scrollToDiscover')}</div>
         </div>
       </section>
     </>

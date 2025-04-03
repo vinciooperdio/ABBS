@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { FiLinkedin, FiTwitter } from 'react-icons/fi';
 import SectionBackground from '../ui/SectionBackground';
+import { useLanguage } from '../../context/LanguageContext';
 import './Team.scss';
 
 // Importo le immagini del team
@@ -14,6 +15,7 @@ const Team = () => {
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   
   // Detect mobile devices
   useEffect(() => {
@@ -82,7 +84,7 @@ const Team = () => {
     {
       name: 'Vincenzo Elia Schilirò',
       role: 'Founder & CEO',
-      bio: 'Imprenditore e project manager con una visione chiara: creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
+      bio: t('vincenzo'),
       image: vincenzoImage,
       social: {
         linkedin: 'https://www.linkedin.com/in/vinnari/',
@@ -92,7 +94,7 @@ const Team = () => {
     {
       name: 'Silvia La Malfa',
       role: 'COO',
-      bio: 'Con esperienze in Cattolica nel campo della gestione dell\'innovazione e strategie digitali, Silvia guida le decisioni strategiche del team.',
+      bio: t('silvia'),
       image: silviaImage,
       social: {
         linkedin: 'https://linkedin.com/in/silvialamalfa',
@@ -102,7 +104,7 @@ const Team = () => {
     {
       name: 'Lorenzo Vincini',
       role: 'CTO & Lead Developer',
-      bio: 'Sviluppatore full-stack con competenze in intelligenza artificiale e cloud computing, Lorenzo ha lavorato su diversi progetti prima di unirsi al team di ABBS.',
+      bio: t('lorenzo'),
       image: lorenzoImage,
       social: {
         linkedin: 'https://linkedin.com/in/lorenzovincini',
@@ -240,7 +242,10 @@ const Team = () => {
                 repeatType: "reverse" 
               }}
             >
-              Il Nostro <span className="text-gradient">Team</span>
+              {t('ourTeam').split(' ').map((word, i, arr) => 
+                i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
+                <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
+              )}
             </motion.h2>
             
             <motion.p 
@@ -250,7 +255,7 @@ const Team = () => {
                 y: subtitleY
               }}
             >
-              Le persone di talento dietro ABBS che lavorano per trasformare la tua esperienza digitale
+              {t('teamSubtitle')}
             </motion.p>
           </motion.div>
           
@@ -376,7 +381,7 @@ const Team = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Vuoi unirti al nostro team?
+              {t('joinOurTeam')}
             </motion.h3>
             
             <motion.p
@@ -385,7 +390,7 @@ const Team = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare la gestione degli abbonamenti.
+              {t('alwaysLooking')}
             </motion.p>
             
             <motion.a 
@@ -401,7 +406,7 @@ const Team = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              Visualizza Posizioni Aperte
+              {t('viewOpenPositions')}
             </motion.a>
           </motion.div>
         </div>

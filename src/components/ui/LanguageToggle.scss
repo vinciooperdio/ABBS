@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  
+  &__button {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+  
+  &__option {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0 5px;
+    color: $text-secondary;
+    transition: all 0.2s ease;
+    
+    &--active {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+  
+  &__separator {
+    color: rgba(255, 255, 255, 0.3);
+    margin: 0 3px;
+  }
+} 

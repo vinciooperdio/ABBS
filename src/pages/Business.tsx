@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 import SectionBackground from '../components/ui/SectionBackground';
 import NebulaBackground from '../components/ui/NebulaBackground';
 import Footer from '../components/layout/Footer';
@@ -11,27 +12,29 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 const Business: React.FC = () => {
+  const { t, language } = useLanguage();
+  
   // Data for problems section
   const problems = [
     {
       icon: <FaFileInvoiceDollar />,
-      title: 'Gestione Inefficiente',
-      description: 'Tempo e risorse sprecati nella gestione separata di molteplici abbonamenti e servizi.'
+      title: t('inefficientManagement'),
+      description: t('inefficientManagementDesc')
     },
     {
       icon: <FaMoneyBillWave />,
-      title: 'Costi Nascosti',
-      description: 'Difficoltà nel monitorare e controllare le spese totali per abbonamenti e servizi.'
+      title: t('hiddenCosts'),
+      description: t('hiddenCostsDesc')
     },
     {
       icon: <FaGlobe />,
-      title: 'Compatibilità Limitata',
-      description: 'Sistemi che non si integrano bene con le piattaforme tecnologiche moderne.'
+      title: t('limitedCompatibility'),
+      description: t('limitedCompatibilityDesc')
     },
     {
       icon: <FaUsersCog />,
-      title: 'Scalabilità Problematica',
-      description: 'Difficoltà ad adattarsi rapidamente alla crescita aziendale e a nuove esigenze.'
+      title: t('scalabilityIssues'),
+      description: t('scalabilityIssuesDesc')
     }
   ];
 
@@ -135,8 +138,10 @@ const Business: React.FC = () => {
   return (
     <div className="business-page">
       <Helmet>
-        <title>ABBS Business | Gestione Abbonamenti per Aziende</title>
-        <meta name="description" content="ABBS Business offre una soluzione completa per la gestione degli abbonamenti aziendali. Centralizza, ottimizza e risparmia sui costi con la nostra piattaforma intuitiva." />
+        <title>ABBS Business | {language === 'it' ? 'Gestione Abbonamenti per Aziende' : 'Subscription Management for Businesses'}</title>
+        <meta name="description" content={language === 'it' ? 
+          "ABBS Business offre una soluzione completa per la gestione degli abbonamenti aziendali. Centralizza, ottimizza e risparmia sui costi con la nostra piattaforma intuitiva." : 
+          "ABBS Business offers a complete solution for managing business subscriptions. Centralize, optimize and save costs with our intuitive platform."} />
       </Helmet>
 
       <Navbar />
@@ -154,10 +159,14 @@ const Business: React.FC = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="business-hero__title">
-                  Ottimizza la gestione dei tuoi <span className="text-gradient">abbonamenti aziendali</span>
+                  {t('businessTitle').split(' ').map((word, i, arr) => 
+                    i === arr.length - 2 ? <span key={i}>{word} <span className="text-gradient">{arr[arr.length - 1]}</span></span> : 
+                    i === arr.length - 1 ? null : 
+                    <span key={i}>{word} </span>
+                  )}
                 </h1>
                 <p className="business-hero__subtitle">
-                  Riduci i costi, aumenta l'efficienza e mantieni il controllo completo su tutti i servizi in abbonamento della tua azienda con un'unica piattaforma centralizzata.
+                  {t('businessSubtitle')}
                 </p>
                 <motion.div 
                   className="business-hero__cta"
@@ -166,7 +175,7 @@ const Business: React.FC = () => {
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
                   <Link to="/register" className="button button--primary">
-                    Prova Gratis per 30 Giorni <FaRocket />
+                    {t('freeTrial')} <FaRocket />
                   </Link>
                 </motion.div>
               </motion.div>
@@ -189,13 +198,16 @@ const Business: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <h2>
-                Problemi con i <span className="text-gradient">sistemi tradizionali</span>
+                {t('traditionalSystemProblems').split(' ').map((word, i, arr) => 
+                  i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
+                  <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
+                )}
               </h2>
               <p className="section-subtitle">
-                Le aziende affrontano quotidianamente diverse sfide nella gestione degli abbonamenti. Ecco i problemi più comuni che ABBS risolve.
+                {t('traditionalSystemProblemsDesc')}
               </p>
             </motion.div>
-
+            
             <motion.div 
               className="problems-grid"
               initial={{ opacity: 0 }}

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Button from "../ui/Button";
 import React from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Timeline.scss";
 import roadmapVideo from "../../assets/videos/roadmap.mp4";
 
@@ -12,65 +13,66 @@ type TimelineItem = {
   date: string;
   heading: string;
   description: string;
-  buttons: any[];
+  buttons: {
+    title: string;
+    variant?: string;
+    href?: string;
+  }[];
 };
 
 type Props = {
   items?: TimelineItem[];
 };
 
-// Default data for our timeline
-const TimelineDefaults: Props = {
-  items: [
-    {
-      date: "Q2 2023",
-      heading: "Ricerca e Pianificazione",
-      description:
-        "Analisi di mercato, identificazione delle problematiche degli utenti, definizione della value proposition e architettura del sistema.",
-      buttons: [
-        { title: "Dettagli", variant: "secondary" }
-      ]
-    },
-    {
-      date: "Q3 2023",
-      heading: "Sviluppo MVP",
-      description:
-        "Sviluppo del backend per la gestione degli abbonamenti, creazione dell'interfaccia utente basilare e implementazione delle notifiche.",
-      buttons: [
-        { title: "Scopri di più", variant: "secondary" }
-      ]
-    },
-    {
-      date: "Q4 2023",
-      heading: "Beta Testing",
-      description:
-        "Versione beta per un pubblico selezionato, raccolta feedback utenti e ottimizzazione dell'usabilità.",
-      buttons: [
-        { title: "Approfondisci", variant: "secondary" }
-      ]
-    },
-    {
-      date: "Q1 2024",
-      heading: "Lancio App Mobile",
-      description:
-        "Sviluppo e rilascio delle app iOS e Android, con notifiche push e sincronizzazione cross-platform.",
-      buttons: [
-        { title: "Vedi anteprima", variant: "secondary" }
-      ]
-    },
-    {
-      date: "Q2 2024",
-      heading: "Espansione Internazionale",
-      description:
-        "Localizzazione in più lingue, adattamento a regolamenti internazionali e partnership globali.",
-      buttons: [
-        { title: "Scopri di più", variant: "secondary" }
-      ]
-    }
-  ]
-};
-
 const Timeline = (props: Props) => {
+  const { t } = useLanguage();
+  
+  // Default data for our timeline
+  const TimelineDefaults: Props = {
+    items: [
+      {
+          date: t('timelineQ2_2023'),
+          heading: t('timelineResearchPlanning'),
+          description: t('timelineResearchPlanningDesc'),
+          buttons: [
+          { title: t('timelineDetails'), variant: "secondary", href: "#mission" }
+        ]
+      },
+      {
+          date: t('timelineQ3_2023'),
+          heading: t('timelineMVPDevelopment'),
+          description: t('timelineMVPDevelopmentDesc'),
+          buttons: [
+          { title: t('timelineLearnMore'), variant: "secondary", href: "#what" }
+        ]
+      },
+      {
+          date: t('timelineQ4_2023'),
+          heading: t('timelineBetaTesting'),
+          description: t('timelineBetaTestingDesc'),
+          buttons: [
+          { title: t('timelineExploreMore'), variant: "secondary", href: "#contact" }
+        ]
+      },
+      {
+          date: t('timelineQ1_2024'),
+          heading: t('timelineMobileAppLaunch'),
+          description: t('timelineMobileAppLaunchDesc'),
+          buttons: [
+          { title: t('timelinePreview'), variant: "secondary", href: "#team" }
+        ]
+      },
+      {
+          date: t('timelineQ2_2024'),
+          heading: t('timelineInternationalExpansion'),
+          description: t('timelineInternationalExpansionDesc'),
+          buttons: [
+          { title: t('timelineLearnMore'), variant: "secondary", href: "#waiting-list" }
+        ]
+      }
+    ]
+  };
+
   const { items = [] } = {
     ...TimelineDefaults,
     ...props,
@@ -105,29 +107,29 @@ const Timeline = (props: Props) => {
     offset: ["start end", "end start"]
   });
   
-  // Create transforms for effects
+  // Create transforms for effects - Faster entry transition
   const videoOpacity = useTransform(
     scrollYProgress, 
-    [0, 0.1, 0.15, 0.2, 0.75, 0.85, 0.95], 
+    [0, 0.05, 0.1, 0.15, 0.75, 0.85, 0.95], 
     [0, 0, 0.5, 1, 1, 0, 0]
   );
   
   const videoScale = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.2, 0.75, 0.85, 0.95],
+    [0, 0.05, 0.15, 0.75, 0.85, 0.95],
     [1.1, 1.1, 1, 1, 1.1, 1.1]
   );
   
   const videoBlur = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.2, 0.75, 0.85, 0.95],
+    [0, 0.05, 0.15, 0.75, 0.85, 0.95],
     ["8px", "8px", "2px", "2px", "8px", "8px"]
   );
 
-  // Title opacity for fixed title
+  // Title opacity for fixed title - Faster fade in
   const titleOpacity = useTransform(
     scrollYProgress,
-    [0.1, 0.15, 0.85, 0.9],
+    [0.05, 0.1, 0.85, 0.9],
     [0, 1, 1, 0]
   );
 
@@ -172,7 +174,7 @@ const Timeline = (props: Props) => {
   }, [isInView]);
 
   return (
-    <section id="roadmap" className={`timeline-section ${isMobile ? 'timeline-section--mobile' : ''}`} ref={sectionRef}>
+    <section id="timeline" className={`timeline-section ${isMobile ? 'timeline-section--mobile' : ''}`} ref={sectionRef}>
       <motion.div 
         className="video-container"
         style={{ 
@@ -206,18 +208,20 @@ const Timeline = (props: Props) => {
         className="section-title-container"
         style={{ opacity: titleOpacity }}
       >
-        <h2 className="section-title">La nostra Roadmap</h2>
+        <h2 className="section-title">{t('timelineTitle')}</h2>
       </motion.div>
 
       <div className="timeline-content">
-        <div className="timeline-progress">
-          {items.map((_, index) => (
-            <div 
-              key={index}
-              className={`timeline-dot ${index <= activeItemIndex ? 'active' : ''}`}
-            />
-          ))}
-        </div>
+        {isInView && (
+          <div className="timeline-progress">
+            {items.map((_, index) => (
+              <div 
+                key={index}
+                className={`timeline-dot ${index <= activeItemIndex ? 'active' : ''}`}
+              />
+            ))}
+          </div>
+        )}
         
         <div className="timeline-items">
           {items.map((item, index) => (
@@ -231,9 +235,9 @@ const Timeline = (props: Props) => {
                 scale: index === activeItemIndex ? 1 : 0.95
               }}
               transition={{ 
-                opacity: { duration: 0.7, ease: "easeInOut" },
-                y: { duration: 0.7, ease: "easeInOut" },
-                scale: { duration: 0.7, ease: "easeInOut" }
+                opacity: { duration: 0.5, ease: "easeInOut" },
+                y: { duration: 0.5, ease: "easeInOut" },
+                scale: { duration: 0.5, ease: "easeInOut" }
               }}
               style={{
                 position: 'absolute',
@@ -245,10 +249,14 @@ const Timeline = (props: Props) => {
               <p className="timeline-item-description">{item.description}</p>
               <div className="timeline-item-buttons">
                 {item.buttons.map((button, idx) => (
-                  <Button key={idx} variant={button.variant as any || "primary"}>
-                    {button.title}
-                  </Button>
-                ))}
+                  <Button 
+                    key={idx} 
+                    variant={button.variant as any || "primary"}
+                    href={button.href}
+                  >
+                      {button.title}
+                    </Button>
+                  ))}
               </div>
             </motion.div>
           ))}

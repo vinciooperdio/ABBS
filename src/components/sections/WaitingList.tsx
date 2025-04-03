@@ -4,9 +4,11 @@ import { FiChevronRight, FiCheck, FiX } from 'react-icons/fi';
 import SectionBackground from '../ui/SectionBackground';
 import Lottie from 'lottie-react';
 import waitingListAnimation from '../../assets/animations/waiting-list.json';
+import { useLanguage } from '../../context/LanguageContext';
 import './WaitingList.scss';
 
 const WaitingList = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -38,7 +40,7 @@ const WaitingList = () => {
     
     // Basic email validation
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Per favore, inserisci un indirizzo email valido');
+      setError(t('invalidEmail'));
       return;
     }
     
@@ -213,14 +215,14 @@ const WaitingList = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Unisciti alla Rivoluzione <br />
+              {t('waitingListTitle')} <br />
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              degli <span className="text-gradient">Abbonamenti</span>
+              {t('ofThe')} <span className="text-gradient">{t('subscriptions')}</span>
             </motion.span>
           </motion.h2>
           
@@ -228,7 +230,7 @@ const WaitingList = () => {
             className="waiting-list__subtitle"
             variants={itemVariants}
           >
-            Entra nella lista d'attesa per accedere in anteprima all'app ABBS e gestire tutti i tuoi abbonamenti a palestre, piscine e centri sportivi in un unico posto.
+            {t('waitingListDesc')}
           </motion.p>
 
           <div className="waiting-list__benefits">
@@ -250,9 +252,9 @@ const WaitingList = () => {
                 <FiCheck />
               </motion.div>
               <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">Early Access</h4>
+                <h4 className="waiting-list__badge-title">{t('benefitEarlyAccess')}</h4>
                 <p className="waiting-list__badge-text">
-                  Accesso esclusivo anticipato alla beta di ABBS
+                  {t('earlyAccessDesc')}
                 </p>
               </div>
             </motion.div>
@@ -277,9 +279,9 @@ const WaitingList = () => {
                 </svg>
               </motion.div>
               <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">Premium Gratis</h4>
+                <h4 className="waiting-list__badge-title">{t('benefitExclusiveOffers')}</h4>
                 <p className="waiting-list__badge-text">
-                  3 mesi gratuiti del piano premium all'uscita
+                  {t('freePremiumMonths')}
                 </p>
               </div>
             </motion.div>
@@ -304,9 +306,9 @@ const WaitingList = () => {
                 </svg>
               </motion.div>
               <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">Status VIP</h4>
+                <h4 className="waiting-list__badge-title">{t('benefitFeedback')}</h4>
                 <p className="waiting-list__badge-text">
-                  Supporto prioritario e accesso alle nuove funzionalità
+                  {t('prioritySupport')}
                 </p>
               </div>
             </motion.div>
@@ -340,7 +342,7 @@ const WaitingList = () => {
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Il tuo indirizzo email"
+                    placeholder={t('yourEmail')}
                     className={`waiting-list__input ${error ? 'waiting-list__input--error' : ''}`}
                     disabled={isLoading}
                     initial={{ opacity: 0, x: -20 }}
@@ -360,7 +362,7 @@ const WaitingList = () => {
                       <span className="waiting-list__spinner"></span>
                     ) : (
                       <>
-                        <span>Iscriviti</span>
+                        <span>{t('subscribe')}</span>
                         <motion.span
                           animate={{ x: [0, 5, 0] }}
                           transition={{ 
@@ -392,7 +394,7 @@ const WaitingList = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Iscrivendoti accetti i nostri <a href="#">Termini di Servizio</a> e la <a href="#">Privacy Policy</a>
+                  {t('privacyConsent')}
                 </motion.p>
               </motion.form>
             ) : (
@@ -409,10 +411,10 @@ const WaitingList = () => {
                   <FiCheck />
                 </motion.div>
                 <motion.h3 variants={successItemVariants}>
-                  Grazie per esserti iscritto!
+                  {t('subscribeSuccess')}
                 </motion.h3>
                 <motion.p variants={successItemVariants}>
-                  Ti invieremo aggiornamenti e notizie su ABBS e sarai tra i primi a poterlo provare.
+                  {t('subscribeSuccessMessage')}
                 </motion.p>
                 <motion.button 
                   onClick={handleReset}
@@ -421,7 +423,7 @@ const WaitingList = () => {
                   whileHover={{ scale: 1.05, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Iscrivere un altro indirizzo
+                  {t('subscribeAnother')}
                 </motion.button>
               </motion.div>
             )}
@@ -451,7 +453,7 @@ const WaitingList = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
-              persone già in lista
+              {t('subscriptionCount')}
             </motion.div>
           </motion.div>
         </motion.div>

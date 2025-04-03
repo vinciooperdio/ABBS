@@ -53,6 +53,25 @@ const Button: React.FC<ButtonProps> = ({
     </>
   );
 
+  // Handle internal links with smooth scrolling
+  const handleClick = (e: React.MouseEvent) => {
+    if (href && href.startsWith('#') && !href.startsWith('http')) {
+      e.preventDefault();
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+    
+    // Call the provided onClick handler if it exists
+    if (onClick) {
+      onClick();
+    }
+  };
+
   if (href) {
     return (
       <a 
@@ -60,6 +79,7 @@ const Button: React.FC<ButtonProps> = ({
         className={buttonClasses}
         target={href.startsWith('http') ? '_blank' : undefined}
         rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        onClick={handleClick}
       >
         {renderContent()}
       </a>

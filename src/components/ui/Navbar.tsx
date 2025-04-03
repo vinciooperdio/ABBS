@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
+import LanguageToggle from './LanguageToggle';
 import './Navbar.scss';
 
 const Navbar: React.FC = () => {
@@ -9,7 +11,7 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-
+  const { t } = useLanguage();
   // Traccia lo scroll della pagina per cambiare lo stile della navbar
   useEffect(() => {
     const handleScroll = () => {
@@ -47,23 +49,45 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  // Function for smooth scrolling to section
+  const scrollToSection = (event: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    event.preventDefault();
+    
+    if (isHomePage) {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        // Close menu
+        closeMenu();
+        
+        // Scroll to the element
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    } else {
+      // Navigate to home with hash if not on home page
+      window.location.href = '/' + targetId;
+    }
+  };
+
   // Links del menu per la home page
   const homeLinks = [
-    { text: 'Home', to: '/' },
-    { text: 'Caratteristiche', to: '/#features' },
-    { text: 'Timeline', to: '/#timeline' },
-    { text: 'Lista d\'attesa', to: '/#waiting-list' },
-    { text: 'Contatti', to: '/#contact' },
-    { text: 'Business', to: '/business' }
+    { name: t('mission'), href: '#mission', isExternal: false },
+    { name: t('whatIsABBS'), href: '#what-is', isExternal: false },
+    { name: t('timeline'), href: '#timeline', isExternal: false },
+    { name: t('waitingList'), href: '#waiting-list', isExternal: false },
+    { name: t('team'), href: '#team', isExternal: false },
+    { name: t('business'), href: '/business', isExternal: true },
   ];
 
   // Links del menu per la pagina business
   const businessLinks = [
-    { text: 'Home', to: '/' },
-    { text: 'Come Funziona', to: '/business#how-it-works' },
-    { text: 'Vantaggi', to: '/business#benefits' },
-    { text: 'Confronto', to: '/business#comparison' },
-    { text: 'Prova Gratuita', to: '/business#cta' }
+    { name: 'Home', href: '/', isExternal: true },
+    { name: 'Come Funziona', href: '/business#how-it-works', isExternal: false },
+    { name: 'Vantaggi', href: '/business#benefits', isExternal: false },
+    { name: 'Confronto', href: '/business#comparison', isExternal: false },
+    { name: 'Prova Gratuita', href: '/business#cta', isExternal: false }
   ];
 
   // Scegli i link in base alla pagina corrente
@@ -125,14 +149,20 @@ const Navbar: React.FC = () => {
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
           <span>ABBS</span>
         </Link>
+        
+        <div className="navbar__controls">
+          <LanguageToggle />
+          <button 
+            className="navbar__toggle" 
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? 'Chiudi menu' : 'Apri menu'}
+          >
+            {isMenuOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
+          </button>
+        </div>
+        
 
-        <button 
-          className="navbar__toggle" 
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? 'Chiudi menu' : 'Apri menu'}
-        >
-          {isMenuOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
-        </button>
+        
 
         {/* Overlay con sfondo sfocato */}
         <AnimatePresence>
@@ -164,13 +194,15 @@ const Navbar: React.FC = () => {
                     variants={itemVariants}
                     className="navbar__menu-item"
                   >
-                    <Link 
-                      to={link.to} 
-                      className="navbar__menu-link"
-                      onClick={closeMenu}
-                    >
-                      {link.text}
-                    </Link>
+                    {link.isExternal ? (
+                      <Link to={link.href} className="navbar__menu-link" onClick={closeMenu}>
+                        {link.name}
+                      </Link>
+                    ) : (
+                      <a href={link.href} className="navbar__menu-link" onClick={(e) => scrollToSection(e, link.href)}>
+                        {link.name}
+                      </a>
+                    )}
                   </motion.li>
                 ))}
               </ul>

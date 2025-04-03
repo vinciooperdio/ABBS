@@ -16,6 +16,26 @@
     height: 100%;
   }
   
+  &__left {
+    flex: 0 0 auto;
+  }
+  
+  &__center {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    
+    @media (max-width: $breakpoint-lg) {
+      display: none;
+    }
+  }
+  
+  &__right {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
   &__logo {
     display: flex;
     align-items: center;
@@ -43,10 +63,6 @@
     display: flex;
     align-items: center;
     gap: 2.5rem;
-    
-    @media (max-width: $breakpoint-lg) {
-      display: none;
-    }
   }
   
   &__link {
@@ -111,11 +127,38 @@
   }
 }
 
+// Button wrapper styles
+.navbar-button-wrapper, 
+.mobile-button-wrapper {
+  text-decoration: none;
+  display: block;
+}
+
+// Overlay for mobile menu
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: calc(#{$z-modal} - 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-medium;
+  
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 // Mobile menu
 .mobile-menu {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   height: 100vh;
   width: 100%;
   max-width: 400px;
@@ -123,6 +166,7 @@
   z-index: $z-modal;
   overflow-y: auto;
   padding: 2rem;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
   
   @media (min-width: $breakpoint-lg) {
     display: none;
@@ -160,12 +204,26 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
+  
+  &__language {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 // Button styles for smaller screens
 @media (max-width: 768px) {
   .navbar__actions {
     .button {
+      display: none;
+    }
+    
+    .language-toggle {
+      margin-right: 0.5rem;
+    }
+    
+    .navbar-button-wrapper {
       display: none;
     }
   }
