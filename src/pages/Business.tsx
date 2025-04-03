@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useInView, MotionValue, AnimatePresence } from 'framer-motion';
-import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight } from 'react-icons/fi';
+import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight, FiMinusCircle, FiPlusCircle } from 'react-icons/fi';
 import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import SectionBackground from '../components/ui/SectionBackground';
@@ -132,30 +132,30 @@ const Business: React.FC = () => {
   // Data for problems with dynamically calculated animations
   const problems = [
     {
-      icon: "⚡",
-      title: t('businessProblem1'),
-      description: t('businessProblem1Desc'),
+      icon: "💸",
+      title: "Costi nascosti e abbonamenti dimenticati",
+      description: "Le aziende perdono migliaia di euro ogni anno per abbonamenti dimenticati o non utilizzati che continuano a rinnovarsi automaticamente.",
       opacity: getProblemOpacity(1),
       y: getProblemY(1)
     },
     {
-      icon: "💎",
-      title: t('businessProblem2'),
-      description: t('businessProblem2Desc'),
+      icon: "🔍",
+      title: "Difficoltà nel tracciare tutti gli abbonamenti",
+      description: "È impossibile tenere traccia manualmente di decine di servizi con date di rinnovo diverse e condizioni contrattuali complesse.",
       opacity: getProblemOpacity(2),
       y: getProblemY(2)
     },
     {
-      icon: "📊",
-      title: t('businessProblem3'),
-      description: t('businessProblem3Desc'),
+      icon: "⚠️",
+      title: "Rinnovi indesiderati e sorprese in fattura",
+      description: "Scoprire abbonamenti rinnovati automaticamente solo quando è troppo tardi comporta costi non pianificati e spreco di risorse.",
       opacity: getProblemOpacity(3),
       y: getProblemY(3)
     },
     {
-      icon: "🔒",
-      title: t('businessProblem4'),
-      description: t('businessProblem4Desc'),
+      icon: "📉",
+      title: "Mancanza di visibilità sulla spesa complessiva",
+      description: "Senza una visione completa degli abbonamenti aziendali, è impossibile ottimizzare i costi e prendere decisioni informate sui servizi da mantenere.",
       opacity: getProblemOpacity(4),
       y: getProblemY(4),
       hasCta: true
@@ -319,7 +319,7 @@ const Business: React.FC = () => {
           </motion.div>
         </section>
 
-        {/* How It Works Section */}
+        {/* How It Works Section - Più Giocosa */}
         <section ref={howItWorksRef} className="business-how-it-works">
           <motion.div 
             className="business-how-it-works__content"
@@ -328,65 +328,106 @@ const Business: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-gradient">{t('businessHowItWorksTitle')}</h2>
-            <div className="business-how-it-works__steps">
-              <motion.div 
-                className="step"
-                initial={{ opacity: 0, x: -40 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="step-left">
-                  <span className="step-number">1</span>
+            <div className="business-how-it-works__interactive">
+              <div className="phone-mockup">
+                <div className="phone-screen">
+                  <motion.div 
+                    className="screen-content active"
+                    animate={isHowItWorksInView ? { opacity: 1 } : { opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="app-header">
+                      <span className="app-logo">ABBS</span>
+                      <span className="app-user">
+                        <span className="user-avatar">👤</span>
+                      </span>
+                    </div>
+                    <div className="app-body">
+                      <motion.div 
+                        className="screen-step step-1"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                      >
+                        <div className="step-icon">👋</div>
+                        <div className="step-content">
+                          <h3>Benvenuto in ABBS</h3>
+                          <p>Crea il tuo account in pochi secondi</p>
+                        </div>
+                      </motion.div>
+                      <motion.div 
+                        className="screen-step step-2"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                      >
+                        <div className="step-icon">🔄</div>
+                        <div className="step-content">
+                          <h3>Importa i tuoi abbonamenti</h3>
+                          <p>Collega account o scansiona email</p>
+                        </div>
+                      </motion.div>
+                      <motion.div 
+                        className="screen-step step-3"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.5, delay: 0.6 }}
+                      >
+                        <div className="step-icon">💰</div>
+                        <div className="step-content">
+                          <h3>Risparmia subito</h3>
+                          <p>Ottimizza e riduci costi superflui</p>
+                        </div>
+                      </motion.div>
+                    </div>
+                    <motion.div 
+                      className="app-progress-bar"
+                      initial={{ width: "0%" }}
+                      animate={isHowItWorksInView ? { width: "85%" } : { width: "0%" }}
+                      transition={{ duration: 1.5, delay: 0.8 }}
+                    ></motion.div>
+                  </motion.div>
                 </div>
-                <div className="step-right">
-                  <h3 className="step-title">Registrazione Semplice</h3>
-                  <p>{t('businessStep1')}</p>
-                </div>
-              </motion.div>
-              <motion.div 
-                className="step"
-                initial={{ opacity: 0, x: -40 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <div className="step-left">
-                  <span className="step-number">2</span>
-                </div>
-                <div className="step-right">
-                  <h3 className="step-title">Importazione Dati</h3>
-                  <p>{t('businessStep2')}</p>
-                </div>
-              </motion.div>
-              <motion.div 
-                className="step"
-                initial={{ opacity: 0, x: -40 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <div className="step-left">
-                  <span className="step-number">3</span>
-                </div>
-                <div className="step-right">
-                  <h3 className="step-title">Ottimizzazione Completa</h3>
-                  <p>{t('businessStep3')}</p>
-                </div>
-              </motion.div>
-            </div>
-            <motion.div
-              className="steps-progress"
-              initial={{ opacity: 0 }}
-              animate={isHowItWorksInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-              <div className="progress-line"></div>
-              <div className="progress-dots">
-                <div className="progress-dot active"></div>
-                <div className="progress-dot active"></div>
-                <div className="progress-dot active"></div>
-                <div className="progress-dot"></div>
               </div>
-              <div className="progress-status">3/4 completati</div>
-            </motion.div>
+              <div className="steps-container">
+                <motion.div 
+                  className="interactive-step"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <div className="step-number">1</div>
+                  <div className="step-content">
+                    <h3 className="step-title">Registrazione Super Semplice</h3>
+                    <p>Niente moduli complicati, bastano email e password per iniziare subito. Ti guidiamo passo passo!</p>
+                  </div>
+                </motion.div>
+                <motion.div 
+                  className="interactive-step"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  <div className="step-number">2</div>
+                  <div className="step-content">
+                    <h3 className="step-title">Importazione Automatica</h3>
+                    <p>ABBS trova automaticamente i tuoi abbonamenti scansionando email o collegando account. Zero inserimento manuale!</p>
+                  </div>
+                </motion.div>
+                <motion.div 
+                  className="interactive-step"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  <div className="step-number">3</div>
+                  <div className="step-content">
+                    <h3 className="step-title">Risparmio Immediato</h3>
+                    <p>Identifichiamo abbonamenti inutilizzati e duplicati. Media di risparmio: 30% sui costi di abbonamento annuali!</p>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
             <motion.button 
               className="button button--primary"
               initial={{ opacity: 0, y: 20 }}
@@ -671,38 +712,44 @@ const Business: React.FC = () => {
             animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.7 }}
           >
-            <h2>{t('businessFaqTitle')}</h2>
+            <h2 className="text-gradient">{t('businessFaqTitle')}</h2>
             <div className="business-faq__questions">
-              <motion.div 
-                className="faq-question"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h3>{t('businessFaq1')}</h3>
-              </motion.div>
-              <motion.div 
-                className="faq-question"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <h3>{t('businessFaq2')}</h3>
-              </motion.div>
-              <motion.div 
-                className="faq-question"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <h3>{t('businessFaq3')}</h3>
-              </motion.div>
+              <FAQ 
+                question={t('businessFaq1')}
+                answer="ABBS offre un periodo di prova gratuito di 30 giorni con tutte le funzionalità, senza necessità di carta di credito. Dopo la prova, puoi scegliere tra diversi piani in base alle dimensioni della tua azienda e alle tue esigenze specifiche."
+                delay={0}
+                inView={isFaqInView}
+              />
+              <FAQ 
+                question={t('businessFaq2')}
+                answer="Assolutamente sì! ABBS è progettato per essere utilizzato da aziende di qualsiasi dimensione. Abbiamo clienti che vanno da piccole startup a grandi aziende con centinaia di abbonamenti. I nostri piani si adattano alle tue esigenze specifiche."
+                delay={0.1}
+                inView={isFaqInView}
+              />
+              <FAQ 
+                question={t('businessFaq3')}
+                answer="L'integrazione è semplice e veloce. ABBS può importare automaticamente i dati dalle tue email, sistemi di fatturazione o file CSV. Offriamo anche assistenza dedicata durante l'onboarding per assicurarci che tutto funzioni perfettamente."
+                delay={0.2}
+                inView={isFaqInView}
+              />
+              <FAQ 
+                question="È sicuro condividere i dati dei nostri abbonamenti?"
+                answer="La sicurezza dei tuoi dati è la nostra priorità assoluta. ABBS utilizza crittografia di livello bancario, è conforme al GDPR e non memorizza informazioni sensibili come password o dettagli completi delle carte di credito. Puoi leggere la nostra politica sulla privacy per tutti i dettagli."
+                delay={0.3}
+                inView={isFaqInView}
+              />
+              <FAQ 
+                question="Quanto tempo richiede l'implementazione?"
+                answer="La maggior parte dei nostri clienti è operativa entro 24-48 ore dall'iscrizione. Il sistema inizia immediatamente a rilevare i tuoi abbonamenti e puoi iniziare a vedere risultati e risparmi fin dal primo giorno."
+                delay={0.4}
+                inView={isFaqInView}
+              />
             </div>
             <motion.button 
               className="button button--primary"
               initial={{ opacity: 0, y: 20 }}
               animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
             >{t('businessFaqCta')}</motion.button>
           </motion.div>
         </section>
@@ -729,6 +776,46 @@ const Business: React.FC = () => {
       
       <Footer />
     </div>
+  );
+};
+
+// Componente FAQ con espansione
+const FAQ: React.FC<{
+  question: string;
+  answer: string;
+  delay: number;
+  inView: boolean;
+}> = ({ question, answer, delay, inView }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div 
+      className={`faq-question ${isOpen ? 'open' : ''}`}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, delay }}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="faq-question-header">
+        <h3>{question}</h3>
+        <div className="faq-toggle">
+          {isOpen ? <FiMinusCircle /> : <FiPlusCircle />}
+        </div>
+      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="faq-answer"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p>{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
