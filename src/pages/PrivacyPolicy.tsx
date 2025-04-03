@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/layout/Navbar';
+import Navbar from '../components/ui/Navbar';
 import Footer from '../components/layout/Footer';
 import { motion } from 'framer-motion';
 import '../styles/LegalPages.scss';

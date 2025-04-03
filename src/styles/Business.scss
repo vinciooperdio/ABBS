@@ -1,6 +1,8 @@
 @import './variables';
 
 .business-page {
+  position: relative;
+
   section {
     position: relative;
     padding: 100px 0;
@@ -8,6 +10,55 @@
     
     @media (max-width: $breakpoint-md) {
       padding: 70px 0;
+    }
+  }
+
+  // Video sequence container with fixed position (like clearstreet.io)
+  .video-sequence-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    
+    .video-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      
+      &.active {
+        opacity: 1;
+      }
+    }
+    
+    .video-background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      &.hero-overlay {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+      }
+      
+      &.problem-overlay {
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+      }
     }
   }
 
@@ -62,6 +113,7 @@
     font-weight: 600;
     transition: all $transition-medium;
     text-decoration: none;
+    cursor: pointer;
     
     &--primary {
       background: $gradient-primary;
@@ -74,6 +126,18 @@
       }
     }
     
+    &--secondary {
+      background: white;
+      color: $primary;
+      border: 2px solid $primary;
+      
+      &:hover {
+        background: $primary;
+        color: white;
+        transform: translateY(-5px);
+      }
+    }
+    
     &--block {
       width: 100%;
       display: flex;
@@ -82,570 +146,1288 @@
 
   // Hero Section
   .business-hero {
-    min-height: 100vh;
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    color: white;
+    padding: 0;
+    z-index: 1;
     
-    &__center-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-    
-    &__text {
+    &__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
       max-width: 800px;
-      padding: 0 20px;
-      margin: 0 auto;
+      padding: 0 2rem;
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      p {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
     }
-    
-    &__title {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-    
-    &__subtitle {
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      color: $text-secondary;
-      margin-bottom: 40px;
-      line-height: 1.6;
-    }
-    
+
     &__cta {
       display: flex;
+      gap: 1rem;
       justify-content: center;
     }
   }
 
-  // Dashboard Mockup
-  .dashboard-mockup {
-    background: white;
-    border-radius: $border-radius-lg;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba($primary, 0.1);
+  // Problems Section - One problem at a time
+  .business-problems {
+    position: relative;
+    height: 400vh; // 4 problems * 100vh each
+    z-index: 1;
+    padding: 0;
+    overflow: visible;
     
-    .dashboard-header {
-      background: $gradient-primary;
-      color: white;
-      padding: 20px;
+    .problems-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .problem-item {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
+      padding: 0;
+      z-index: 5;
+      will-change: opacity, transform;
+    }
+    
+    .problem-content {
+      max-width: 800px;
+      text-align: center;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s ease;
+      margin: 0 2rem;
       
-      .dashboard-logo {
+      h2 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
         font-weight: 700;
-        font-size: 1.2rem;
+        margin-bottom: 1.8rem;
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
       
-      .dashboard-nav {
+      p {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+        color: white;
+      }
+      
+      .problem-icon {
+        font-size: 5rem;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        width: 10rem;
+        height: 10rem;
         display: flex;
-        gap: 15px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0 auto 2.5rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      }
+      
+      .problem-cta {
+        margin-top: 2.5rem;
+      }
+    }
+  }
+
+  // Benefits Section
+  .business-benefits {
+    padding: 8rem 0;
+    background: $background;
+    color: $text-primary;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+
+    &__content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+
+      h2 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         
         @media (max-width: $breakpoint-md) {
-          display: none;
+          font-size: 2.5rem;
+        }
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 4rem;
+        opacity: 0.9;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.1rem;
+          margin-bottom: 3rem;
+        }
+      }
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .benefit-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba($primary, 0.1), transparent);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      &:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        
+        &::before {
+          opacity: 1;
         }
         
-        &-item {
-          padding: 5px 10px;
-          border-radius: 20px;
-          font-size: 0.9rem;
-          cursor: pointer;
-          transition: all $transition-fast;
+        .benefit-arrow {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .benefit-icon {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+        background: $gradient-primary;
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 10px 20px rgba($primary, 0.3);
+      }
+      
+      .benefit-content {
+        flex: 1;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        
+        h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          line-height: 1.4;
+          margin-bottom: 1rem;
+          color: $text-primary;
+          
+          @media (max-width: $breakpoint-md) {
+            font-size: 1.3rem;
+          }
+        }
+  
+        p {
+          font-size: 1.1rem;
+          margin-bottom: 0;
+          line-height: 1.6;
+          color: $text-secondary;
+          
+          @media (max-width: $breakpoint-md) {
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      .benefit-arrow {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: $primary;
+        color: white;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        z-index: 2;
+        transition: all 0.3s ease;
+        transform: translateX(60px);
+        opacity: 0;
+        box-shadow: 0 5px 15px rgba($primary, 0.3);
+        
+        svg {
+          font-size: 1.2rem;
+        }
+      }
+    }
+    
+    .button--primary {
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      box-shadow: 0 15px 30px rgba($primary, 0.3);
+    }
+  }
+
+  // How It Works Section
+  .business-how-it-works {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, white, $background);
+    color: $text-primary;
+    position: relative;
+    z-index: 2;
+
+    &__content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+
+      h2 {
+        font-size: 3.5rem;
+        margin-bottom: 5rem;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 2.5rem;
+          margin-bottom: 3.5rem;
+        }
+      }
+    }
+
+    &__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+      margin-bottom: 4rem;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: 3.5rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba($primary, 0.2);
+        z-index: 0;
+        
+        @media (max-width: $breakpoint-md) {
+          left: 2.5rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          display: none;
+        }
+      }
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      background: white;
+      border-radius: 1.5rem;
+      padding: 0;
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      
+      @media (max-width: $breakpoint-md) {
+        gap: 2rem;
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      &:hover {
+        transform: translateX(10px);
+        
+        .step-number {
+          transform: scale(1.1);
+          box-shadow: 0 10px 20px rgba($primary, 0.4);
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          transform: translateY(-10px);
+        }
+      }
+      
+      .step-left {
+        padding: 2.5rem;
+        
+        @media (max-width: $breakpoint-md) {
+          padding: 2rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          padding: 0;
+          margin-bottom: 1.5rem;
+        }
+      }
+      
+      .step-right {
+        padding: 2.5rem 2.5rem 2.5rem 0;
+        flex: 1;
+        text-align: left;
+        
+        @media (max-width: $breakpoint-md) {
+          padding: 2rem 2rem 2rem 0;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          padding: 0;
+          text-align: center;
+        }
+      }
+
+      .step-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: white;
+        background: $gradient-primary;
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 10px 20px rgba($primary, 0.25);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+        
+        @media (max-width: $breakpoint-md) {
+          width: 4rem;
+          height: 4rem;
+          font-size: 1.7rem;
+        }
+      }
+      
+      .step-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: $text-primary;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.3rem;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin: 0;
+        text-align: left;
+        line-height: 1.6;
+        color: $text-secondary;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          text-align: center;
+        }
+      }
+    }
+    
+    .steps-progress {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 4rem;
+      padding: 2rem 0;
+      
+      .progress-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: rgba($primary, 0.2);
+        transform: translateY(-50%);
+        z-index: 1;
+      }
+      
+      .progress-dots {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        
+        .progress-dot {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: white;
+          border: 3px solid rgba($primary, 0.3);
+          transition: all 0.3s ease;
           
           &.active {
-            background: rgba(white, 0.2);
+            background: $primary;
+            border-color: $primary;
+            box-shadow: 0 0 0 5px rgba($primary, 0.2);
+          }
+        }
+      }
+      
+      .progress-status {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $primary;
+      }
+    }
+    
+    .button--primary {
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      box-shadow: 0 15px 30px rgba($primary, 0.3);
+    }
+  }
+
+  // Marketing Section - ULTRA WOW
+  .business-marketing {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    margin-top: 100px;
+    
+    &__sequence {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    &__video {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      filter: brightness(0.4) contrast(1.1); // Darkened video
+    }
+    
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)); // Darker overlay
+    }
+    
+    &__content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      color: white; // Ensuring text is white
+      
+      @media (max-width: $breakpoint-md) {
+        padding: 3rem 1.5rem;
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        padding: 2rem 1rem;
+      }
+    }
+    
+    &__headline {
+      text-align: center;
+      margin-bottom: 3rem;
+      max-width: 900px;
+      
+      h2 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); // Added text shadow
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 3rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 2.5rem;
+        }
+      }
+      
+      p {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        font-weight: 500; // Increased weight for better visibility
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); // Added text shadow
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.1rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 1rem;
+        }
+      }
+    }
+    
+    /* Case Studies Styling */
+    &__case-studies {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 4rem;
+      
+      .case-study-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.5rem;
+        }
+      }
+      
+      .case-studies-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        
+        @media (max-width: $breakpoint-md) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      .case-study-card {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .case-study-image {
+          position: relative;
+          width: 100%;
+          height: 180px;
+          overflow: hidden;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
           }
           
-          &:hover:not(.active) {
-            background: rgba(white, 0.1);
+          .case-study-logo {
+            position: absolute;
+            bottom: -25px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            
+            img {
+              width: 30px;
+              height: 30px;
+              object-fit: contain;
+            }
+          }
+        }
+        
+        .case-study-content {
+          padding: 2rem 1.5rem 1.5rem;
+          
+          .case-study-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: white;
+          }
+          
+          .case-study-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+          }
+          
+          .case-study-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.85);
+          }
+          
+          .case-study-stats {
+            display: flex;
+            justify-content: flex-start;
+            gap: 2rem;
+            
+            .stat {
+              .stat-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: white;
+                display: block;
+              }
+              
+              .stat-label {
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.6);
+              }
+            }
           }
         }
       }
     }
     
-    .dashboard-content {
-      padding: 20px;
+    &__stats-container {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 4rem;
       
-      .dashboard-cards {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 20px;
+      .stats-grid {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
         
-        @media (max-width: $breakpoint-md) {
-          grid-template-columns: 1fr;
-        }
-        
-        .dashboard-card {
-          background: rgba($background-light, 0.5);
-          border-radius: $border-radius-md;
-          padding: 20px;
-          border: 1px solid rgba($text-secondary, 0.1);
+        .stat-item {
+          text-align: center;
           
-          &--primary {
-            background: rgba($primary, 0.05);
-            border-color: rgba($primary, 0.2);
-          }
-          
-          &__title {
-            font-size: 0.9rem;
-            color: $text-secondary;
-            margin-bottom: 10px;
-          }
-          
-          &__value {
-            font-size: 1.8rem;
+          .stat-value {
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 5px;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+            
+            @media (max-width: $breakpoint-md) {
+              font-size: 3rem;
+            }
+            
+            @media (max-width: $breakpoint-sm) {
+              font-size: 2.5rem;
+            }
           }
           
-          &__trend {
-            font-size: 0.9rem;
-            font-weight: 600;
-            
-            &.positive {
-              color: #4CAF50;
-            }
-            
-            &.negative {
-              color: #F44336;
-            }
+          .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
           }
         }
       }
+    }
+    
+    &__interactive-demo {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 0;
       
-      .dashboard-chart {
-        background: white;
-        border-radius: $border-radius-md;
-        padding: 20px;
-        border: 1px solid rgba($text-secondary, 0.1);
+      .dashboard-sequence {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        margin-bottom: 3rem;
+      }
+      
+      .dashboard-container {
+        padding: 2rem;
         
-        &__header {
+        @media (max-width: $breakpoint-sm) {
+          padding: 1rem;
+        }
+      }
+      
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        
+        .dashboard-logo {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: var(--color-primary);
+        }
+        
+        .dashboard-actions {
+          display: flex;
+          gap: 1.5rem;
+          
+          .dashboard-action {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            
+            &.active {
+              color: white;
+              font-weight: 600;
+            }
+            
+            &:hover {
+              color: white;
+            }
+          }
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+      }
+      
+      .dashboard-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .dashboard-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        
+        .metric-card {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 10px;
+          padding: 1.5rem;
+          
+          &.primary {
+            background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.3), rgba(var(--color-primary-rgb), 0.1));
+          }
+          
+          .metric-title {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+          }
+          
+          .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+          }
+          
+          .metric-change {
+            font-size: 0.8rem;
+            
+            &.positive {
+              color: #4caf50;
+            }
+            
+            &.negative {
+              color: #f44336;
+            }
+          }
+        }
+        
+        @media (max-width: $breakpoint-md) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      .dashboard-visualization {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+        padding: 1.5rem;
+        
+        .visualization-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 20px;
+          margin-bottom: 1.5rem;
+          
+          h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+          }
+          
+          .time-selector {
+            display: flex;
+            gap: 1rem;
+            
+            span {
+              font-size: 0.8rem;
+              color: rgba(255, 255, 255, 0.6);
+              cursor: pointer;
+              
+              &.active {
+                color: var(--color-primary);
+                font-weight: 600;
+              }
+              
+              &:hover {
+                color: white;
+              }
+            }
+          }
           
           @media (max-width: $breakpoint-sm) {
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 0.5rem;
           }
         }
         
-        &__title {
-          font-weight: 600;
-          font-size: 1.1rem;
-        }
-        
-        &__period {
-          display: flex;
-          gap: 10px;
-          
-          .period-option {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            color: $text-secondary;
-            transition: all $transition-fast;
-            
-            &.active {
-              background: $primary;
-              color: white;
-            }
-            
-            &:hover:not(.active) {
-              background: rgba($primary, 0.1);
-            }
-          }
-        }
-        
-        &__graph {
+        .chart-container {
           height: 200px;
+          width: 100%;
           position: relative;
-          display: flex;
-          align-items: flex-end;
-          margin-top: 30px;
           
-          .chart-line {
+          .chart-axis {
             position: absolute;
-            bottom: 30%;
             left: 0;
+            bottom: 0;
             width: 100%;
             height: 1px;
-            background: rgba($primary, 0.3);
-            z-index: 1;
+            background: rgba(255, 255, 255, 0.1);
           }
           
           .chart-bars {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            align-items: flex-end;
             height: 100%;
-            z-index: 2;
+            padding: 0 10%;
             
             .chart-bar {
-              width: 12%;
-              background: linear-gradient(to top, rgba($primary, 0.3), rgba($primary, 0.8));
+              width: 30px;
+              background: rgba(255, 255, 255, 0.2);
               border-radius: 6px 6px 0 0;
-              position: relative;
               
-              &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 30%;
-                background: linear-gradient(to top, $primary, rgba($primary, 0));
-                border-radius: 6px 6px 0 0;
+              &.active {
+                background: var(--color-primary);
+              }
+              
+              @media (max-width: $breakpoint-sm) {
+                width: 20px;
               }
             }
           }
         }
       }
-    }
-  }
-
-  // Problems Section
-  .business-problems {
-    .problems-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
       
-      @media (max-width: $breakpoint-lg) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        grid-template-columns: 1fr;
-      }
-      
-      .problem-card {
-        background: white;
-        border-radius: $border-radius-md;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba($primary, 0.1);
-        transition: all $transition-medium;
+      .dashboard-features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
         
-        &:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-        
-        .problem-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 15px;
-          background: rgba($accent, 0.1);
-          color: $accent;
+        .feature-card {
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 10px;
+          padding: 1.5rem;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          margin-bottom: 20px;
-        }
-        
-        h3 {
-          font-size: 1.25rem;
-          margin-bottom: 15px;
-          font-weight: 700;
-        }
-        
-        p {
-          color: $text-secondary;
-          font-size: 0.95rem;
-          line-height: 1.6;
-        }
-      }
-    }
-  }
-
-  // Solution/Benefits Section
-  .business-solution {
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      
-      @media (max-width: $breakpoint-lg) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        grid-template-columns: 1fr;
-      }
-      
-      .benefit-card {
-        background: white;
-        border-radius: $border-radius-md;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba($primary, 0.1);
-        transition: all $transition-medium;
-        
-        &:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-          border-color: rgba($primary, 0.3);
+          gap: 1rem;
+          text-align: center;
           
-          .benefit-icon {
-            background: $gradient-primary;
-            color: white;
+          .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            &.automation {
+              background: rgba(33, 150, 243, 0.2);
+              
+              &::before {
+                content: "🔄";
+                font-size: 1.2rem;
+              }
+            }
+            
+            &.analytics {
+              background: rgba(156, 39, 176, 0.2);
+              
+              &::before {
+                content: "📊";
+                font-size: 1.2rem;
+              }
+            }
+            
+            &.security {
+              background: rgba(76, 175, 80, 0.2);
+              
+              &::before {
+                content: "🔒";
+                font-size: 1.2rem;
+              }
+            }
+          }
+          
+          .feature-title {
+            font-size: 0.9rem;
+            font-weight: 600;
           }
         }
         
-        .benefit-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 15px;
-          background: rgba($primary, 0.1);
-          color: $primary;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          margin-bottom: 20px;
-          transition: all $transition-medium;
+        @media (max-width: $breakpoint-md) {
+          grid-template-columns: repeat(2, 1fr);
         }
         
-        h3 {
-          font-size: 1.25rem;
-          margin-bottom: 15px;
-          font-weight: 700;
+        @media (max-width: $breakpoint-sm) {
+          grid-template-columns: 1fr;
         }
+      }
+      
+      .interactive-cta {
+        text-align: center;
+        margin-top: 2rem;
         
-        p {
-          color: $text-secondary;
-          font-size: 0.95rem;
-          line-height: 1.6;
+        .button {
+          padding: 1rem 3rem;
+          font-size: 1.1rem;
         }
       }
     }
   }
 
-  // How It Works Section
-  .business-how {
-    &__content-vertical {
+  // FAQ Section
+  .business-faq {
+    padding: 6rem 0;
+    background: white;
+    color: $text-primary;
+    position: relative;
+    z-index: 2;
+
+    &__content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+
+      h2 {
+        font-size: 2.5rem;
+        margin-bottom: 4rem;
+      }
+    }
+
+    &__questions {
       display: flex;
       flex-direction: column;
-      gap: 60px;
-      margin-top: 60px;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
     }
-    
-    &__steps-row {
-      display: flex;
-      justify-content: center;
-    }
-    
-    .steps-container-horizontal {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      
-      @media (max-width: $breakpoint-md) {
-        flex-direction: column;
+
+    .faq-question {
+      background: $background;
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
       }
-    }
-    
-    .step-card {
-      background: white;
-      border-radius: $border-radius-md;
-      padding: 30px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba($primary, 0.1);
-      position: relative;
-      z-index: 2;
-      width: 250px;
-      
-      @media (max-width: $breakpoint-md) {
-        width: 100%;
-      }
-      
-      .step-number {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: $gradient-primary;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        margin: 0 auto 15px;
-      }
-      
+
       h3 {
         font-size: 1.25rem;
-        margin-bottom: 15px;
-        font-weight: 700;
+        font-weight: 500;
+        line-height: 1.4;
+        margin: 0;
+      }
+    }
+  }
+
+  // Final CTA Section
+  .business-final-cta {
+    padding: 6rem 0;
+    background: $primary;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    &__content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+
+      h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 3rem;
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: $breakpoint-md) {
+  .business-hero {
+    &__content {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+
+    &__cta {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .business-problems {
+    .problem-content {
+      padding: 2rem;
+      
+      .problem-icon {
+        font-size: 3.5rem;
+        width: 7rem;
+        height: 7rem;
+        margin-bottom: 2rem;
+      }
+      
+      h2 {
+        font-size: 2.2rem;
       }
       
       p {
-        color: $text-secondary;
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: 1.1rem;
       }
-    }
-    
-    .dashboard-mockup-container {
-      margin: 0 auto;
-      max-width: 800px;
     }
   }
-
-  // Comparison Table Section
-  .business-comparison {
-    .comparison-table-container {
-      max-width: 800px;
-      margin: 0 auto;
-      overflow-x: auto;
+  
+  .business-marketing {
+    padding: 5rem 0;
+    
+    &__stats-container {
+      .stats-grid {
+        gap: 1.5rem;
+      }
+      
+      .stat-item {
+        min-width: 150px;
+      }
     }
     
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: $border-radius-lg;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      
-      th, td {
-        padding: 20px;
-        text-align: center;
-        border: 1px solid rgba($text-secondary, 0.1);
-      }
-      
-      th {
-        background: rgba($primary, 0.05);
-        font-weight: 700;
-        color: $text-primary;
-      }
-      
-      th:first-child,
-      td:first-child {
-        text-align: left;
-        font-weight: 600;
-      }
-      
-      th:nth-child(2) {
-        background: rgba($primary, 0.1);
-      }
-      
-      td:nth-child(2) {
-        background: rgba($primary, 0.02);
-      }
-      
-      .icon-check {
-        color: #4CAF50;
-        font-size: 1.5rem;
-      }
-      
-      .icon-warning {
-        color: #FFC107;
-        font-size: 1.5rem;
-      }
-      
-      .icon-cross {
-        color: #F44336;
-        font-size: 1.5rem;
+    &__interactive-demo {
+      .dashboard-container {
+        .dashboard-header {
+          .dashboard-actions {
+            display: none;
+          }
+        }
+        
+        .dashboard-body {
+          padding: 1.5rem;
+          
+          .dashboard-metrics {
+            grid-template-columns: 1fr;
+          }
+          
+          .dashboard-visualization {
+            .visualization-header {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 10px;
+            }
+          }
+          
+          .dashboard-features {
+            grid-template-columns: 1fr;
+          }
+        }
       }
     }
   }
 
-  // CTA Section
-  .business-cta {
-    .cta-card {
-      max-width: 650px;
-      margin: 0 auto;
-      background: white;
-      border-radius: $border-radius-lg;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba($primary, 0.1);
+  .business-benefits,
+  .business-how-it-works,
+  .business-faq,
+  .business-final-cta {
+    padding: 4rem 0;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .business-hero {
+    &__content {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .business-problems {
+    .problem-content {
+      padding: 1.5rem;
       
-      .cta-content {
-        padding: 50px;
-        text-align: center;
+      .problem-icon {
+        font-size: 3rem;
+        width: 6rem;
+        height: 6rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+  
+  .business-marketing {
+    padding: 4rem 0;
+    
+    &__headline {
+      h2 {
+        font-size: 2.2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+    }
+    
+    &__stats-container {
+      .stat-item {
+        min-width: 130px;
+        padding: 1.5rem;
         
-        @media (max-width: $breakpoint-sm) {
-          padding: 30px 20px;
+        .stat-value {
+          font-size: 2.2rem;
         }
         
-        .cta-icon {
-          font-size: 3rem;
-          margin-bottom: 20px;
-        }
-        
-        h2 {
-          font-size: 2rem;
-          margin-bottom: 20px;
-          font-weight: 700;
-          
-          @media (max-width: $breakpoint-sm) {
-            font-size: 1.5rem;
-          }
-        }
-        
-        p {
-          color: $text-secondary;
-          margin-bottom: 30px;
-          font-size: 1.1rem;
-        }
-        
-        .cta-form {
-          .form-group {
-            margin-bottom: 15px;
-            
-            input {
-              width: 100%;
-              padding: 15px;
-              border-radius: $border-radius-md;
-              border: 1px solid rgba($text-secondary, 0.2);
-              font-size: 1rem;
-              transition: all $transition-fast;
-              
-              &:focus {
-                outline: none;
-                border-color: $primary;
-                box-shadow: 0 0 0 3px rgba($primary, 0.2);
-              }
-              
-              &::placeholder {
-                color: rgba($text-secondary, 0.7);
-              }
-            }
-          }
-          
-          button {
-            margin-top: 15px;
-          }
-        }
-        
-        .form-disclaimer {
-          margin-top: 20px;
-          font-size: 0.85rem;
-          color: $text-secondary;
-          
-          a {
-            color: $primary;
-            text-decoration: none;
-            
-            &:hover {
-              text-decoration: underline;
-            }
-          }
+        .stat-label {
+          font-size: 0.9rem;
         }
       }
+    }
+  }
+
+  .business-benefits,
+  .business-how-it-works,
+  .business-faq,
+  .business-final-cta {
+    padding: 3rem 0;
+
+    h2 {
+      font-size: 1.75rem;
     }
   }
 } 

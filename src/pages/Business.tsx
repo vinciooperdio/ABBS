@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useInView, MotionValue, AnimatePresence } from 'framer-motion';
 import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight } from 'react-icons/fi';
 import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
@@ -13,28 +13,152 @@ import { Helmet } from 'react-helmet';
 
 const Business: React.FC = () => {
   const { t, language } = useLanguage();
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [sectionIndex, setSectionIndex] = useState(0);
   
-  // Data for problems section
+  // Refs for sections
+  const heroRef = useRef<HTMLDivElement>(null);
+  const problemsRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  const howItWorksRef = useRef<HTMLDivElement>(null);
+  const marketingRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
+  const finalCtaRef = useRef<HTMLDivElement>(null);
+  
+  // Global scroll progress
+  const { scrollY } = useScroll();
+  
+  // InView states for sections
+  const isBenefitsInView = useInView(benefitsRef, { once: false, amount: 0.3 });
+  const isHowItWorksInView = useInView(howItWorksRef, { once: false, amount: 0.3 });
+  const isMarketingInView = useInView(marketingRef, { once: false, amount: 0.3 });
+  const isFaqInView = useInView(faqRef, { once: false, amount: 0.3 });
+  const isFinalCtaInView = useInView(finalCtaRef, { once: false, amount: 0.3 });
+  
+  // Hero fade out as user scrolls down
+  const heroOpacity = useTransform(
+    scrollY,
+    [0, window.innerHeight * 0.5],
+    [1, 0]
+  );
+  
+  // Video background visibility
+  const videoBackgroundOpacity = useTransform(
+    scrollY,
+    [0, window.innerHeight * 5, window.innerHeight * 5.1],
+    [1, 1, 0]
+  );
+  
+  // Handle scroll and section transitions
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      const heroHeight = heroRef.current?.offsetHeight || 0;
+      const problemsHeight = problemsRef.current?.offsetHeight || 0;
+      
+      // Calculate the start position of each section
+      const heroEnd = heroHeight * 0.5;
+      const problem1Start = heroEnd;
+      const problem1End = problem1Start + windowHeight;
+      const problem2Start = problem1End;
+      const problem2End = problem2Start + windowHeight;
+      const problem3Start = problem2End;
+      const problem3End = problem3Start + windowHeight;
+      const problem4Start = problem3End;
+      const problem4End = problem4Start + windowHeight;
+      
+      // Determine active section and video
+      if (scrollPosition < heroEnd) {
+        setSectionIndex(0); // Hero section
+        setActiveVideoIndex(0); // Hero video
+      } else if (scrollPosition >= problem1Start && scrollPosition < problem1End) {
+        setSectionIndex(1); // Problem 1
+        setActiveVideoIndex(1); // Problems video
+      } else if (scrollPosition >= problem2Start && scrollPosition < problem2End) {
+        setSectionIndex(2); // Problem 2
+        setActiveVideoIndex(1); // Problems video
+      } else if (scrollPosition >= problem3Start && scrollPosition < problem3End) {
+        setSectionIndex(3); // Problem 3
+        setActiveVideoIndex(1); // Problems video
+      } else if (scrollPosition >= problem4Start && scrollPosition < problem4End) {
+        setSectionIndex(4); // Problem 4
+        setActiveVideoIndex(1); // Problems video
+      } else {
+        setSectionIndex(5); // Beyond problems section
+        setActiveVideoIndex(-1); // No video (hide all)
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize on mount
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+  // Calculate scroll-linked opacities for each problem
+  const getProblemOpacity = (problemIndex: number) => {
+    return useTransform(
+      scrollY,
+      [
+        // For problem 1: start fading in at hero end, fully visible, then fade out
+        // For subsequent problems: similar pattern but shifted down by windowHeight per problem
+        window.innerHeight * (0.5 + (problemIndex - 1)),   // Start fade in
+        window.innerHeight * (0.7 + (problemIndex - 1)),   // Fully visible
+        window.innerHeight * (1.3 + (problemIndex - 1)),   // Start fade out
+        window.innerHeight * (1.5 + (problemIndex - 1))    // Completely faded out
+      ],
+      [0, 1, 1, 0]
+    );
+  };
+  
+  // Calculate scroll-linked y translations for each problem
+  const getProblemY = (problemIndex: number) => {
+    return useTransform(
+      scrollY,
+      [
+        window.innerHeight * (0.5 + (problemIndex - 1)),
+        window.innerHeight * (0.7 + (problemIndex - 1)),
+        window.innerHeight * (1.3 + (problemIndex - 1)),
+        window.innerHeight * (1.5 + (problemIndex - 1))
+      ],
+      [100, 0, 0, -100]
+    );
+  };
+  
+  // Data for problems with dynamically calculated animations
   const problems = [
     {
-      icon: <FaFileInvoiceDollar />,
-      title: t('inefficientManagement'),
-      description: t('inefficientManagementDesc')
+      icon: "⚡",
+      title: t('businessProblem1'),
+      description: t('businessProblem1Desc'),
+      opacity: getProblemOpacity(1),
+      y: getProblemY(1)
     },
     {
-      icon: <FaMoneyBillWave />,
-      title: t('hiddenCosts'),
-      description: t('hiddenCostsDesc')
+      icon: "💎",
+      title: t('businessProblem2'),
+      description: t('businessProblem2Desc'),
+      opacity: getProblemOpacity(2),
+      y: getProblemY(2)
     },
     {
-      icon: <FaGlobe />,
-      title: t('limitedCompatibility'),
-      description: t('limitedCompatibilityDesc')
+      icon: "📊",
+      title: t('businessProblem3'),
+      description: t('businessProblem3Desc'),
+      opacity: getProblemOpacity(3),
+      y: getProblemY(3)
     },
     {
-      icon: <FaUsersCog />,
-      title: t('scalabilityIssues'),
-      description: t('scalabilityIssuesDesc')
+      icon: "🔒",
+      title: t('businessProblem4'),
+      description: t('businessProblem4Desc'),
+      opacity: getProblemOpacity(4),
+      y: getProblemY(4),
+      hasCta: true
     }
   ];
 
@@ -42,97 +166,40 @@ const Business: React.FC = () => {
   const benefits = [
     {
       icon: <FaRocket />,
-      title: 'Automazione Completa',
-      description: 'Gestione automatizzata degli abbonamenti e dei servizi, con notifiche e rinnovi programmati per non perdere mai una scadenza.'
+      title: t('businessBenefit1'),
+      description: t('businessBenefit1Desc')
     },
     {
       icon: <FaChartLine />,
-      title: 'Analisi Avanzate',
-      description: 'Dashboard intuitiva con analisi dettagliate sui costi, sull\'utilizzo e sulle potenziali ottimizzazioni da implementare.'
+      title: t('businessBenefit2'),
+      description: t('businessBenefit2Desc')
     },
     {
       icon: <FaShieldAlt />,
-      title: 'Sicurezza Superiore',
-      description: 'Protezione dei dati con crittografia di livello bancario e conformità alle normative GDPR e altre regolamentazioni internazionali.'
+      title: t('businessBenefit3'),
+      description: t('businessBenefit3Desc')
     },
     {
       icon: <FaSyncAlt />,
-      title: 'Integrazione Senza Limiti',
-      description: 'Si connette con oltre 500 servizi in abbonamento e può essere integrato con i sistemi aziendali esistenti.'
-    },
-    {
-      icon: <FaCogs />,
-      title: 'Personalizzazione Totale',
-      description: 'Adatta completamente l\'interfaccia e i flussi di lavoro alle esigenze specifiche della tua azienda.'
-    },
-    {
-      icon: <FaHandshake />,
-      title: 'Supporto Dedicato',
-      description: 'Team di supporto dedicato disponibile 24/7 per aiutarti con qualsiasi problema o domanda.'
+      title: t('businessBenefit4'),
+      description: t('businessBenefit4Desc')
     }
   ];
 
-  // Data for how it works section
-  const steps = [
-    {
-      number: 1,
-      title: 'Connetti',
-      description: 'Integra facilmente i tuoi servizi in abbonamento esistenti e sincronizza i dati in pochi minuti.'
-    },
-    {
-      number: 2,
-      title: 'Gestisci',
-      description: 'Monitora, ottimizza e automatizza la gestione di tutti i servizi dalla dashboard centralizzata.'
-    },
-    {
-      number: 3,
-      title: 'Risparmia',
-      description: 'Identifica opportunità di risparmio, ottimizza le risorse e riduci i costi operativi.'
-    }
+  // Data for marketing stats
+  const marketingStats = [
+    { value: '+600', label: t('marketingStat1') },
+    { value: '94%', label: t('marketingStat2') },
+    { value: '$20bn', label: t('marketingStat3') },
+    { value: '~450mm', label: t('marketingStat4') }
   ];
-
-  // Data for comparison table
-  const comparisonRows = [
-    {
-      feature: 'Gestione Centralizzata',
-      abbs: true,
-      traditional: false
-    },
-    {
-      feature: 'Automazione Completa',
-      abbs: true,
-      traditional: false
-    },
-    {
-      feature: 'Analisi in Tempo Reale',
-      abbs: true,
-      traditional: false
-    },
-    {
-      feature: 'Integrazioni Facili',
-      abbs: true,
-      traditional: 'limited'
-    },
-    {
-      feature: 'Sicurezza Avanzata',
-      abbs: true,
-      traditional: 'limited'
-    },
-    {
-      feature: 'Supporto Dedicato',
-      abbs: true,
-      traditional: 'limited'
-    },
-    {
-      feature: 'Costi Operativi',
-      abbs: 'low',
-      traditional: 'high'
-    },
-    {
-      feature: 'Tempo di Implementazione',
-      abbs: 'minutes',
-      traditional: 'weeks'
-    }
+  
+  
+  
+  // Video sources
+  const videoSources = [
+    "https://videocdn.cdnpk.net/videos/04aafdf0-4047-4e5f-a3df-298036511ffc/horizontal/previews/clear/large.mp4?token=exp=1743688078~hmac=49142a2312f98bff730724a99ffec50bf7ba87ea23c2928e750045356fc8cdf4",
+    "https://videocdn.cdnpk.net/videos/f1d5c144-e30e-535d-b827-d80c3d69921d/horizontal/previews/clear/large.mp4?token=exp=1743687863~hmac=c4a1b5469221a03295dd39883db83d9a68c33cf8abc7f3fccb8854907fb0f037",
   ];
 
   return (
@@ -147,346 +214,517 @@ const Business: React.FC = () => {
       <Navbar />
 
       <main>
-        {/* Hero Section */}
-        <section className="business-hero">
-          <NebulaBackground />
-          <div className="container">
-            <div className="business-hero__center-wrapper">
-              <motion.div 
-                className="business-hero__text"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h1 className="business-hero__title">
-                  {t('businessTitle').split(' ').map((word, i, arr) => 
-                    i === arr.length - 2 ? <span key={i}>{word} <span className="text-gradient">{arr[arr.length - 1]}</span></span> : 
-                    i === arr.length - 1 ? null : 
-                    <span key={i}>{word} </span>
-                  )}
-                </h1>
-                <p className="business-hero__subtitle">
-                  {t('businessSubtitle')}
-                </p>
-                <motion.div 
-                  className="business-hero__cta"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                >
-                  <Link to="/register" className="button button--primary">
-                    {t('freeTrial')} <FaRocket />
-                  </Link>
-                </motion.div>
-              </motion.div>
+        {/* Video sequence container - fixed position */}
+        <motion.div 
+          className="video-sequence-container"
+          style={{ opacity: videoBackgroundOpacity }}
+        >
+          {videoSources.map((src, index) => (
+            <div 
+              key={index} 
+              className={`video-item ${activeVideoIndex === index ? 'active' : ''}`}
+            >
+              <video
+                className="video-background"
+                autoPlay
+                loop
+                muted
+                playsInline
+                src={src}
+              />
+              <div className={`video-overlay ${index === 0 ? 'hero-overlay' : 'problem-overlay'}`} />
             </div>
+          ))}
+        </motion.div>
+
+        {/* Hero Section */}
+        <section className="business-hero" ref={heroRef}>
+          <motion.div 
+            className="business-hero__content"
+            style={{ opacity: heroOpacity }}
+          >
+            <h1>{t('businessHeroTitle')}</h1>
+            <p>{t('businessHeroSubtitle')}</p>
+            <div className="business-hero__cta">
+              <button className="button button--primary">{t('businessHeroCta1')}</button>
+              <button className="button button--secondary">{t('businessHeroCta2')}</button>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Problems Section - One problem at a time */}
+        <section className="business-problems" ref={problemsRef}>
+          <div className="problems-content">
+            {problems.map((problem, index) => (
+              <motion.div 
+                key={index}
+                className="problem-item"
+                style={{ 
+                  opacity: problem.opacity,
+                  y: problem.y
+                }}
+              >
+                <div className="problem-content">
+                  <div className="problem-icon">{problem.icon}</div>
+                  <h2>{problem.title}</h2>
+                  <p>{problem.description}</p>
+                  {problem.hasCta && (
+                    <div className="problem-cta">
+                      <button className="button button--primary">{t('businessProblemsCta')}</button>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        {/* Problematiche comuni */}
-        <SectionBackground 
-          variant="secondary" 
-          className="business-problems"
-          id="problems"
-        >
-          <div className="container">
-            <motion.div 
-              className="section-header"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2>
-                {t('traditionalSystemProblems').split(' ').map((word, i, arr) => 
-                  i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
-                  <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
-                )}
-              </h2>
-              <p className="section-subtitle">
-                {t('traditionalSystemProblemsDesc')}
-              </p>
-            </motion.div>
-            
-            <motion.div 
-              className="problems-grid"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              {problems.map((problem, index) => (
-                <motion.div 
-                  key={index} 
-                  className="problem-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="problem-icon">{problem.icon}</div>
-                  <h3>{problem.title}</h3>
-                  <p>{problem.description}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </SectionBackground>
-
-        {/* Soluzione: I vantaggi unici di ABBS */}
-        <SectionBackground 
-          variant="primary" 
-          className="business-solution"
-          id="benefits"
-        >
-          <div className="container">
-            <motion.div 
-              className="section-header"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2>
-                La <span className="text-gradient">soluzione ABBS</span> per il tuo business
-              </h2>
-              <p className="section-subtitle">
-                Una piattaforma completa che rivoluziona la gestione degli abbonamenti e dei servizi per la tua azienda, offrendo vantaggi concreti e misurabili.
-              </p>
-            </motion.div>
-
-            <motion.div 
-              className="benefits-grid"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
+        {/* Benefits Section */}
+        <section ref={benefitsRef} className="business-benefits">
+          <NebulaBackground />
+          <motion.div 
+            className="business-benefits__content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2 className="text-gradient">{t('businessBenefitsTitle')}</h2>
+            <p>{t('businessBenefitsText')}</p>
+            <div className="business-benefits__grid">
               {benefits.map((benefit, index) => (
                 <motion.div 
-                  key={index} 
+                  key={index}
                   className="benefit-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <div className="benefit-icon">{benefit.icon}</div>
-                  <h3>{benefit.title}</h3>
-                  <p>{benefit.description}</p>
+                  <div className="benefit-content">
+                    <h3>{benefit.title}</h3>
+                    <p>{benefit.description}</p>
+                  </div>
+                  <div className="benefit-arrow">
+                    <FiArrowRight />
+                  </div>
                 </motion.div>
               ))}
-            </motion.div>
-          </div>
-        </SectionBackground>
-
-        {/* Come funziona */}
-        <SectionBackground 
-          variant="secondary" 
-          className="business-how"
-          id="how-it-works"
-        >
-          <div className="container">
-            <motion.div 
-              className="section-header"
+            </div>
+            <motion.button 
+              className="button button--primary"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2>
-                <span className="text-gradient">Come funziona</span> ABBS Business
-              </h2>
-              <p className="section-subtitle">
-                Implementare ABBS nella tua azienda è semplice e veloce. Ecco come iniziare in tre semplici passaggi.
-              </p>
-            </motion.div>
+              animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >{t('businessBenefitsCta')}</motion.button>
+          </motion.div>
+        </section>
 
-            <div className="business-how__content-vertical">
-              <div className="business-how__steps-row">
-                <motion.div 
-                  className="steps-container-horizontal"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {steps.map((step, index) => (
-                    <motion.div 
-                      key={index}
-                      className="step-card"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <div className="step-number">{step.number}</div>
-                      <h3>{step.title}</h3>
-                      <p>{step.description}</p>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-
+        {/* How It Works Section */}
+        <section ref={howItWorksRef} className="business-how-it-works">
+          <motion.div 
+            className="business-how-it-works__content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2 className="text-gradient">{t('businessHowItWorksTitle')}</h2>
+            <div className="business-how-it-works__steps">
               <motion.div 
-                className="dashboard-mockup-container"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                className="step"
+                initial={{ opacity: 0, x: -40 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                transition={{ duration: 0.6 }}
               >
-                <div className="dashboard-mockup">
-                  <div className="dashboard-header">
-                    <div className="dashboard-logo">ABBS Business</div>
-                    <div className="dashboard-nav">
-                      <div className="dashboard-nav-item active">Dashboard</div>
-                      <div className="dashboard-nav-item">Abbonamenti</div>
-                      <div className="dashboard-nav-item">Analisi</div>
-                      <div className="dashboard-nav-item">Impostazioni</div>
-                    </div>
-                  </div>
-                  <div className="dashboard-content">
-                    <div className="dashboard-cards">
-                      <div className="dashboard-card dashboard-card--primary">
-                        <div className="dashboard-card__title">Risparmio Mensile</div>
-                        <div className="dashboard-card__value">€2,450</div>
-                        <div className="dashboard-card__trend positive">+12% rispetto al mese scorso</div>
-                      </div>
-                      <div className="dashboard-card">
-                        <div className="dashboard-card__title">Abbonamenti Attivi</div>
-                        <div className="dashboard-card__value">37</div>
-                        <div className="dashboard-card__trend">+2 questo mese</div>
-                      </div>
-                      <div className="dashboard-card">
-                        <div className="dashboard-card__title">Prossimi Rinnovi</div>
-                        <div className="dashboard-card__value">5</div>
-                        <div className="dashboard-card__trend">Nei prossimi 7 giorni</div>
-                      </div>
-                    </div>
-                    <div className="dashboard-chart">
-                      <div className="dashboard-chart__header">
-                        <div className="dashboard-chart__title">Trend Spese Abbonamenti</div>
-                        <div className="dashboard-chart__period">
-                          <div className="period-option">Settimana</div>
-                          <div className="period-option active">Mese</div>
-                          <div className="period-option">Anno</div>
-                        </div>
-                      </div>
-                      <div className="dashboard-chart__graph">
-                        <div className="chart-line"></div>
-                        <div className="chart-bars">
-                          <div className="chart-bar" style={{ height: '40%' }}></div>
-                          <div className="chart-bar" style={{ height: '55%' }}></div>
-                          <div className="chart-bar" style={{ height: '70%' }}></div>
-                          <div className="chart-bar" style={{ height: '65%' }}></div>
-                          <div className="chart-bar" style={{ height: '80%' }}></div>
-                          <div className="chart-bar" style={{ height: '75%' }}></div>
-                          <div className="chart-bar" style={{ height: '60%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="step-left">
+                  <span className="step-number">1</span>
+                </div>
+                <div className="step-right">
+                  <h3 className="step-title">Registrazione Semplice</h3>
+                  <p>{t('businessStep1')}</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                className="step"
+                initial={{ opacity: 0, x: -40 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <div className="step-left">
+                  <span className="step-number">2</span>
+                </div>
+                <div className="step-right">
+                  <h3 className="step-title">Importazione Dati</h3>
+                  <p>{t('businessStep2')}</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                className="step"
+                initial={{ opacity: 0, x: -40 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <div className="step-left">
+                  <span className="step-number">3</span>
+                </div>
+                <div className="step-right">
+                  <h3 className="step-title">Ottimizzazione Completa</h3>
+                  <p>{t('businessStep3')}</p>
                 </div>
               </motion.div>
             </div>
-          </div>
-        </SectionBackground>
-
-        {/* Tabella Comparativa */}
-        <SectionBackground 
-          variant="primary" 
-          className="business-comparison"
-          id="comparison"
-        >
-          <div className="container">
-            <motion.div 
-              className="section-header"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <motion.div
+              className="steps-progress"
+              initial={{ opacity: 0 }}
+              animate={isHowItWorksInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <h2>
-                ABBS vs <span className="text-gradient">Sistemi Tradizionali</span>
-              </h2>
-              <p className="section-subtitle">
-                Un confronto diretto tra ABBS e i sistemi tradizionali di gestione degli abbonamenti. Scopri perché le aziende stanno passando ad ABBS.
-              </p>
+              <div className="progress-line"></div>
+              <div className="progress-dots">
+                <div className="progress-dot active"></div>
+                <div className="progress-dot active"></div>
+                <div className="progress-dot active"></div>
+                <div className="progress-dot"></div>
+              </div>
+              <div className="progress-status">3/4 completati</div>
             </motion.div>
-
-            <motion.div 
-              className="comparison-table-container"
+            <motion.button 
+              className="button button--primary"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >{t('businessHowItWorksCta')}</motion.button>
+          </motion.div>
+        </section>
+
+        {/* Marketing Section - ULTRA WOW */}
+        <section ref={marketingRef} className="business-marketing">
+          <div className="business-marketing__sequence">
+            <video
+              className="business-marketing__video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              src="https://cdn.pixabay.com/video/2017/09/05/11832-233049403_large.mp4"
+            />
+            <div className="business-marketing__overlay" />
+          </div>
+          
+          <div className="business-marketing__content">
+            <motion.div 
+              className="business-marketing__headline"
+              initial={{ opacity: 0, y: 50 }}
+              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.7 }}
             >
-              <table className="comparison-table">
-                <thead>
-                  <tr>
-                    <th>Funzionalità</th>
-                    <th>ABBS Business</th>
-                    <th>Sistemi Tradizionali</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map((row, index) => (
-                    <tr key={index}>
-                      <td>{row.feature}</td>
-                      <td>
-                        {row.abbs === true && <FaCheckCircle className="icon-check" />}
-                        {row.abbs === 'limited' && <FaThumbsUp className="icon-warning" />}
-                        {row.abbs === 'low' && <span className="text-gradient">Basso</span>}
-                        {row.abbs === 'minutes' && <span className="text-gradient">Minuti</span>}
-                      </td>
-                      <td>
-                        {row.traditional === false && <FaTimesCircle className="icon-cross" />}
-                        {row.traditional === 'limited' && <FaThumbsUp className="icon-warning" />}
-                        {row.traditional === 'high' && <span style={{ color: '#F44336' }}>Alto</span>}
-                        {row.traditional === 'weeks' && <span style={{ color: '#F44336' }}>Settimane/Mesi</span>}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <h2 className="text-gradient">{t('businessMarketingTitle')}</h2>
+              <p>{t('businessMarketingIntro')}</p>
             </motion.div>
-          </div>
-        </SectionBackground>
-
-        {/* Call to Action finale */}
-        <SectionBackground 
-          variant="secondary" 
-          className="business-cta"
-          id="cta"
-        >
-          <div className="container">
+            
             <motion.div 
-              className="cta-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              className="business-marketing__case-studies"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <div className="cta-content">
-                <FaRocket className="cta-icon text-gradient" />
-                <h2>Inizia a ottimizzare oggi</h2>
-                <p>Prova gratuitamente ABBS Business per 30 giorni. Nessuna carta di credito richiesta, nessun impegno.</p>
-                
-                <div className="cta-form">
-                  <div className="form-group">
-                    <input type="email" placeholder="Inserisci la tua email aziendale" />
+              <div className="case-study-title">
+                Piattaforme che hanno rivoluzionato i settori
+              </div>
+              <div className="case-studies-grid">
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  <div className="case-study-image">
+                    <img src="https://images.unsplash.com/photo-1556912998-c57cc6b63cd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Airbnb Case Study" />
+                    <div className="case-study-logo">
+                      <img src="https://cdn.worldvectorlogo.com/logos/airbnb.svg" alt="Airbnb logo" />
+                    </div>
                   </div>
-                  <Link to="/register" className="button button--primary button--block">
-                    Inizia la prova gratuita
-                  </Link>
-                </div>
-                <p className="form-disclaimer">
-                  Iscrivendoti accetti i nostri <Link to="/terms">Termini di Servizio</Link> e la <Link to="/privacy">Privacy Policy</Link>
-                </p>
+                  <div className="case-study-content">
+                    <div className="case-study-name">Airbnb</div>
+                    <div className="case-study-subtitle">Rivoluzione nel settore ospitalità</div>
+                    <div className="case-study-desc">
+                      Airbnb ha trasformato il mercato dell'ospitalità creando una piattaforma che connette direttamente host e viaggiatori. Con un modello di abbonamento per host, hanno democratizzato l'industria permettendo a chiunque di monetizzare i propri spazi.
+                    </div>
+                    <div className="case-study-stats">
+                      <div className="stat">
+                        <div className="stat-value">+150M</div>
+                        <div className="stat-label">Utenti</div>
+                      </div>
+                      <div className="stat">
+                        <div className="stat-value">+220</div>
+                        <div className="stat-label">Paesi</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  <div className="case-study-image">
+                    <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Spotify Case Study" />
+                    <div className="case-study-logo">
+                      <img src="https://cdn.worldvectorlogo.com/logos/spotify-1.svg" alt="Spotify logo" />
+                    </div>
+                  </div>
+                  <div className="case-study-content">
+                    <div className="case-study-name">Spotify</div>
+                    <div className="case-study-subtitle">Reinvenzione della musica</div>
+                    <div className="case-study-desc">
+                      Spotify ha rivoluzionato come consumiamo la musica, trasformando un mercato di acquisti singoli in un modello di abbonamento con accesso illimitato. Hanno utilizzato i dati degli utenti per creare esperienze personalizzate e playlist curate.
+                    </div>
+                    <div className="case-study-stats">
+                      <div className="stat">
+                        <div className="stat-value">+500M</div>
+                        <div className="stat-label">Utenti attivi</div>
+                      </div>
+                      <div className="stat">
+                        <div className="stat-value">+200M</div>
+                        <div className="stat-label">Abbonati premium</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                  <div className="case-study-image">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Uber Case Study" />
+                    <div className="case-study-logo">
+                      <img src="https://cdn.worldvectorlogo.com/logos/uber-15.svg" alt="Uber logo" />
+                    </div>
+                  </div>
+                  <div className="case-study-content">
+                    <div className="case-study-name">Uber</div>
+                    <div className="case-study-subtitle">Rivoluzione della mobilità urbana</div>
+                    <div className="case-study-desc">
+                      Uber ha trasformato il settore dei trasporti connettendo passeggeri e autisti attraverso un'app semplice. Il suo modello di abbonamento per driver ha sconvolto l'industria dei taxi tradizionali, creando un nuovo standard per la mobilità on-demand.
+                    </div>
+                    <div className="case-study-stats">
+                      <div className="stat">
+                        <div className="stat-value">+130M</div>
+                        <div className="stat-label">Utenti attivi</div>
+                      </div>
+                      <div className="stat">
+                        <div className="stat-value">+10K</div>
+                        <div className="stat-label">Città</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
+            
+            <motion.div 
+              className="business-marketing__stats-container"
+              initial={{ opacity: 0 }}
+              animate={isMarketingInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.7, delay: 0.8 }}
+            >
+              <div className="stats-grid">
+                {marketingStats.map((stat, index) => (
+                  <motion.div 
+                    key={index}
+                    className="stat-item"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={isMarketingInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 + (index * 0.1) }}
+                  >
+                    <span className="stat-value">{stat.value}</span>
+                    <span className="stat-label">{stat.label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              className="business-marketing__interactive-demo"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.7, delay: 1.2 }}
+            >
+              <div className="dashboard-sequence">
+                <div className="dashboard-container">
+                  <div className="dashboard-header">
+                    <div className="dashboard-logo">ABBS</div>
+                    <div className="dashboard-actions">
+                      <span className="dashboard-action active">Dashboard</span>
+                      <span className="dashboard-action">Insights</span>
+                      <span className="dashboard-action">Settings</span>
+                    </div>
+                  </div>
+                  
+                  <div className="dashboard-body">
+                    <div className="dashboard-metrics">
+                      <div className="metric-card primary">
+                        <div className="metric-title">Subscription Value</div>
+                        <div className="metric-value">€24,500</div>
+                        <div className="metric-change positive">+16.8%</div>
+                      </div>
+                      
+                      <div className="metric-card">
+                        <div className="metric-title">Active Subscriptions</div>
+                        <div className="metric-value">68</div>
+                        <div className="metric-change positive">+4</div>
+                      </div>
+                      
+                      <div className="metric-card">
+                        <div className="metric-title">Renewal Rate</div>
+                        <div className="metric-value">94.2%</div>
+                        <div className="metric-change positive">+2.3%</div>
+                      </div>
+                    </div>
+                    
+                    <div className="dashboard-visualization">
+                      <div className="visualization-header">
+                        <h3>Subscription Growth</h3>
+                        <div className="time-selector">
+                          <span>Monthly</span>
+                          <span className="active">Quarterly</span>
+                          <span>Yearly</span>
+                        </div>
+                      </div>
+                      
+                      <div className="chart-container">
+                        <div className="chart-axis"></div>
+                        <div className="chart-bars">
+                          <motion.div 
+                            className="chart-bar" 
+                            initial={{ height: '0%' }}
+                            animate={isMarketingInView ? { height: '65%' } : { height: '0%' }}
+                            transition={{ duration: 0.7, delay: 1.3 }}
+                          ></motion.div>
+                          <motion.div 
+                            className="chart-bar" 
+                            initial={{ height: '0%' }}
+                            animate={isMarketingInView ? { height: '45%' } : { height: '0%' }}
+                            transition={{ duration: 0.7, delay: 1.4 }}
+                          ></motion.div>
+                          <motion.div 
+                            className="chart-bar" 
+                            initial={{ height: '0%' }}
+                            animate={isMarketingInView ? { height: '75%' } : { height: '0%' }}
+                            transition={{ duration: 0.7, delay: 1.5 }}
+                          ></motion.div>
+                          <motion.div 
+                            className="chart-bar" 
+                            initial={{ height: '0%' }}
+                            animate={isMarketingInView ? { height: '60%' } : { height: '0%' }}
+                            transition={{ duration: 0.7, delay: 1.6 }}
+                          ></motion.div>
+                          <motion.div 
+                            className="chart-bar active" 
+                            initial={{ height: '0%' }}
+                            animate={isMarketingInView ? { height: '85%' } : { height: '0%' }}
+                            transition={{ duration: 0.7, delay: 1.7 }}
+                          ></motion.div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="dashboard-features">
+                      <div className="feature-card">
+                        <div className="feature-icon automation"></div>
+                        <div className="feature-title">Auto-Renewal</div>
+                      </div>
+                      <div className="feature-card">
+                        <div className="feature-icon analytics"></div>
+                        <div className="feature-title">Cost Analysis</div>
+                      </div>
+                      <div className="feature-card">
+                        <div className="feature-icon security"></div>
+                        <div className="feature-title">Secure Vault</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <motion.div 
+                className="interactive-cta"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 1.8 }}
+              >
+                <button className="button button--primary">{t('businessMarketingCta')}</button>
+              </motion.div>
+            </motion.div>
           </div>
-        </SectionBackground>
+        </section>
+
+        {/* FAQ Section */}
+        <section ref={faqRef} className="business-faq">
+          <motion.div 
+            className="business-faq__content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2>{t('businessFaqTitle')}</h2>
+            <div className="business-faq__questions">
+              <motion.div 
+                className="faq-question"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h3>{t('businessFaq1')}</h3>
+              </motion.div>
+              <motion.div 
+                className="faq-question"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <h3>{t('businessFaq2')}</h3>
+              </motion.div>
+              <motion.div 
+                className="faq-question"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h3>{t('businessFaq3')}</h3>
+              </motion.div>
+            </div>
+            <motion.button 
+              className="button button--primary"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >{t('businessFaqCta')}</motion.button>
+          </motion.div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section ref={finalCtaRef} className="business-final-cta">
+          <motion.div 
+            className="business-final-cta__content"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isFinalCtaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2>{t('businessFinalCtaTitle')}</h2>
+            <p>{t('businessFinalCtaText')}</p>
+            <motion.button 
+              className="button button--primary"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={isFinalCtaInView ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >{t('businessFinalCtaButton')}</motion.button>
+          </motion.div>
+        </section>
       </main>
       
       <Footer />
