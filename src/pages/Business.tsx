@@ -198,8 +198,8 @@ const Business: React.FC = () => {
   
   // Video sources
   const videoSources = [
-    "https://videocdn.cdnpk.net/videos/04aafdf0-4047-4e5f-a3df-298036511ffc/horizontal/previews/clear/large.mp4?token=exp=1743688078~hmac=49142a2312f98bff730724a99ffec50bf7ba87ea23c2928e750045356fc8cdf4",
-    "https://videocdn.cdnpk.net/videos/f1d5c144-e30e-535d-b827-d80c3d69921d/horizontal/previews/clear/large.mp4?token=exp=1743687863~hmac=c4a1b5469221a03295dd39883db83d9a68c33cf8abc7f3fccb8854907fb0f037",
+    "../assets/videos/hero.mp4",
+    "../assets/videos/pain.mp4",
   ];
 
   return (
