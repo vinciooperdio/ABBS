@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import './WhatIs.scss';
-import video from "../../assets/videos/app-demo.mp4";
+import video from "../../assets/videos/app_reduced.mp4";
 
 const WhatIs: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);

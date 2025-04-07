@@ -10,6 +10,8 @@ import Navbar from '../components/ui/Navbar';
 import '../styles/Business.scss';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import heroVideo from '../assets/videos/hero.mp4';
+import painVideo from '../assets/videos/pain.mp4';
 
 const Business: React.FC = () => {
   const { t, language } = useLanguage();
@@ -69,21 +71,25 @@ const Business: React.FC = () => {
       const problem4Start = problem3End;
       const problem4End = problem4Start + windowHeight;
       
+      // Log per debug
+      console.log('Scroll position:', scrollPosition);
+      console.log('Active video index:', activeVideoIndex);
+      
       // Determine active section and video
       if (scrollPosition < heroEnd) {
         setSectionIndex(0); // Hero section
         setActiveVideoIndex(0); // Hero video
-      } else if (scrollPosition >= problem1Start && scrollPosition < problem1End) {
-        setSectionIndex(1); // Problem 1
-        setActiveVideoIndex(1); // Problems video
-      } else if (scrollPosition >= problem2Start && scrollPosition < problem2End) {
-        setSectionIndex(2); // Problem 2
-        setActiveVideoIndex(1); // Problems video
-      } else if (scrollPosition >= problem3Start && scrollPosition < problem3End) {
-        setSectionIndex(3); // Problem 3
-        setActiveVideoIndex(1); // Problems video
-      } else if (scrollPosition >= problem4Start && scrollPosition < problem4End) {
-        setSectionIndex(4); // Problem 4
+      } else if (scrollPosition >= problem1Start && scrollPosition < problem4End) {
+        // Tutti i problemi usano lo stesso video di sfondo
+        if (scrollPosition >= problem1Start && scrollPosition < problem1End) {
+          setSectionIndex(1); // Problem 1
+        } else if (scrollPosition >= problem2Start && scrollPosition < problem2End) {
+          setSectionIndex(2); // Problem 2
+        } else if (scrollPosition >= problem3Start && scrollPosition < problem3End) {
+          setSectionIndex(3); // Problem 3
+        } else if (scrollPosition >= problem4Start && scrollPosition < problem4End) {
+          setSectionIndex(4); // Problem 4
+        }
         setActiveVideoIndex(1); // Problems video
       } else {
         setSectionIndex(5); // Beyond problems section
@@ -133,29 +139,29 @@ const Business: React.FC = () => {
   const problems = [
     {
       icon: "💸",
-      title: "Costi nascosti e abbonamenti dimenticati",
-      description: "Le aziende perdono migliaia di euro ogni anno per abbonamenti dimenticati o non utilizzati che continuano a rinnovarsi automaticamente.",
+      title: "Gestione complessa degli abbonamenti",
+      description: "La difficoltà nel tracciare scadenze, rinnovi e personalizzazioni degli abbonamenti può portare a errori e inefficienze.",
       opacity: getProblemOpacity(1),
       y: getProblemY(1)
     },
     {
       icon: "🔍",
-      title: "Difficoltà nel tracciare tutti gli abbonamenti",
-      description: "È impossibile tenere traccia manualmente di decine di servizi con date di rinnovo diverse e condizioni contrattuali complesse.",
+      title: "Difficoltà nel monitorare le metriche chiave",
+      description: "Senza strumenti adeguati, è complicato analizzare dati come tassi di abbandono, valore medio per cliente e altri indicatori vitali.",
       opacity: getProblemOpacity(2),
       y: getProblemY(2)
     },
     {
       icon: "⚠️",
-      title: "Rinnovi indesiderati e sorprese in fattura",
-      description: "Scoprire abbonamenti rinnovati automaticamente solo quando è troppo tardi comporta costi non pianificati e spreco di risorse.",
+      title: "Mancanza di personalizzazione nell'offerta dei servizi",
+      description: "La difficoltà nel proporre servizi aggiuntivi o personalizzati può limitare le opportunità di cross-selling e up-selling.",
       opacity: getProblemOpacity(3),
       y: getProblemY(3)
     },
     {
       icon: "📉",
-      title: "Mancanza di visibilità sulla spesa complessiva",
-      description: "Senza una visione completa degli abbonamenti aziendali, è impossibile ottimizzare i costi e prendere decisioni informate sui servizi da mantenere.",
+      title: "Costi elevati e complessità dei gestionali tradizionali",
+      description: "I gestionali tradizionali richiedono risorse significative per l'implementazione, sono difficili da usare e antiquati, con funzioni obsolete e poca integrazione con altri sistemi.",
       opacity: getProblemOpacity(4),
       y: getProblemY(4),
       hasCta: true
@@ -198,8 +204,8 @@ const Business: React.FC = () => {
   
   // Video sources
   const videoSources = [
-    "../assets/videos/hero.mp4",
-    "../assets/videos/pain.mp4",
+    heroVideo,
+    painVideo
   ];
 
   return (
@@ -239,7 +245,7 @@ const Business: React.FC = () => {
 
         {/* Hero Section */}
         <section className="business-hero" ref={heroRef}>
-          <motion.div 
+              <motion.div 
             className="business-hero__content"
             style={{ opacity: heroOpacity }}
           >
@@ -255,9 +261,9 @@ const Business: React.FC = () => {
         {/* Problems Section - One problem at a time */}
         <section className="business-problems" ref={problemsRef}>
           <div className="problems-content">
-            {problems.map((problem, index) => (
-              <motion.div 
-                key={index}
+              {problems.map((problem, index) => (
+                <motion.div 
+                  key={index} 
                 className="problem-item"
                 style={{ 
                   opacity: problem.opacity,
@@ -274,15 +280,14 @@ const Business: React.FC = () => {
                     </div>
                   )}
                 </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
           </div>
         </section>
 
         {/* Benefits Section */}
         <section ref={benefitsRef} className="business-benefits">
-          <NebulaBackground />
-          <motion.div 
+            <motion.div 
             className="business-benefits__content"
             initial={{ opacity: 0, y: 50 }}
             animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -293,7 +298,7 @@ const Business: React.FC = () => {
             <div className="business-benefits__grid">
               {benefits.map((benefit, index) => (
                 <motion.div 
-                  key={index}
+                  key={index} 
                   className="benefit-card"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -301,8 +306,8 @@ const Business: React.FC = () => {
                 >
                   <div className="benefit-icon">{benefit.icon}</div>
                   <div className="benefit-content">
-                    <h3>{benefit.title}</h3>
-                    <p>{benefit.description}</p>
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.description}</p>
                   </div>
                   <div className="benefit-arrow">
                     <FiArrowRight />
@@ -434,7 +439,7 @@ const Business: React.FC = () => {
               animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >{t('businessHowItWorksCta')}</motion.button>
-          </motion.div>
+            </motion.div>
         </section>
 
         {/* Marketing Section - ULTRA WOW */}
@@ -459,9 +464,9 @@ const Business: React.FC = () => {
               transition={{ duration: 0.7 }}
             >
               <h2 className="text-gradient">{t('businessMarketingTitle')}</h2>
-              <p>{t('businessMarketingIntro')}</p>
+              <p>{t('businessMarketingText')}</p>
             </motion.div>
-            
+
             <motion.div 
               className="business-marketing__case-studies"
               initial={{ opacity: 0, y: 30 }}
@@ -503,7 +508,7 @@ const Business: React.FC = () => {
                   </div>
                 </motion.div>
                 
-                <motion.div 
+                    <motion.div 
                   className="case-study-card"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -532,7 +537,7 @@ const Business: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                    </motion.div>
                 
                 <motion.div 
                   className="case-study-card"
@@ -588,13 +593,13 @@ const Business: React.FC = () => {
                 ))}
               </div>
             </motion.div>
-            
-            <motion.div 
+
+              <motion.div 
               className="business-marketing__interactive-demo"
-              initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 30 }}
               animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.7, delay: 1.2 }}
-            >
+              >
               <div className="dashboard-sequence">
                 <div className="dashboard-container">
                   <div className="dashboard-header">
@@ -689,12 +694,12 @@ const Business: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              <motion.div 
+            </div>
+          </div>
+
+            <motion.div 
                 className="interactive-cta"
-                initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
                 animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 1.8 }}
               >
@@ -770,7 +775,7 @@ const Business: React.FC = () => {
               animate={isFinalCtaInView ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >{t('businessFinalCtaButton')}</motion.button>
-          </motion.div>
+            </motion.div>
         </section>
       </main>
       
