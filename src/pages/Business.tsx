@@ -292,6 +292,7 @@ const Business: React.FC = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.7 }}
+            
           >
             <h2 className="text-gradient">{t('businessBenefitsTitle')}</h2>
             <p>{t('businessBenefitsText')}</p>
