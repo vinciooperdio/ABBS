@@ -6,7 +6,6 @@ import React from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
 import "./Timeline.scss";
-import roadmapVideo from "../../assets/videos/roadmap.mp4";
 
 // Types
 type TimelineItem = {
@@ -196,7 +195,7 @@ const Timeline = (props: Props) => {
             playsInline
             className="background-video"
           >
-            <source src={roadmapVideo} type="video/mp4" />
+            <source src="https://cdn.abbs.one/videos/roadmap.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </motion.div>

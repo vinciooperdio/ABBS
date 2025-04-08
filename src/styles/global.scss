@@ -14,6 +14,11 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 }
 
 body {
@@ -28,6 +33,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   cursor: auto !important;
   width: 100%;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 }
 
 img, picture, video, canvas {
@@ -193,20 +203,18 @@ section {
   }
 }
 
-// Custom scrollbar
+// Configurazione barra di scorrimento nascosta ma con effetto compatibile
+// Questa sezione viene mantenuta per compatibilità, ma la barra viene nascosta con il codice in html/body
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0; // Imposta la larghezza a 0 per nasconderla
+  display: none; // Nasconde la scrollbar in Chrome/Safari
 }
 
 ::-webkit-scrollbar-track {
-  background: $background-light;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $primary-dark;
-  border-radius: 5px;
-  
-  &:hover {
-    background: $primary;
-  }
+  background: transparent;
+  border-radius: 0;
 } 

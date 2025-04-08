@@ -2,12 +2,18 @@
 
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 20px;
+  left: 50%;
+  width: 80%;
+  transform: translateX(-50%);
   height: $navbar-height;
   z-index: $z-fixed;
   transition: all $transition-medium;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
   
   &__container {
     display: flex;
@@ -15,7 +21,7 @@
     justify-content: space-between;
     max-width: $container-max;
     height: 100%;
-    padding: 0 $container-padding;
+    padding: 0 30px;
     margin: 0 auto;
   }
   
@@ -124,15 +130,26 @@
     }
   }
   
-  // Stile quando la navbar ha fatto scroll
   &--scrolled {
-    background: rgba($background-light, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
     
     .navbar__toggle {
       background: rgba($background-dark, 0.2);
+    }
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    width: 90%;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    width: 95%;
+    top: 10px;
+    border-radius: 30px;
+    
+    &__container {
+      padding: 0 20px;
     }
   }
 } 

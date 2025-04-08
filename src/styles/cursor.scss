@@ -1,0 +1,24 @@
+// Sostituire la sfera che segue il cursore con un cursore personalizzato
+.cursor-follower {
+  display: none !important; // Nascondiamo l'attuale follower
+}
+
+body {
+  cursor: none; // Nascondiamo il cursore standard
+}
+
+// Creiamo un nuovo cursore personalizzato
+.custom-cursor {
+  position: fixed;
+  width: 20px; // Dimensione della pallina attuale
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(var(--primary-rgb), 0.7);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+  
+  &.active {
+    transform: scale(1.5);
+  }
+} 

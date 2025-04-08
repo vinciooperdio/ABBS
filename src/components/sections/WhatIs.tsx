@@ -2,12 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import './WhatIs.scss';
-import video from "../../assets/videos/app_reduced.mp4";
 
 const WhatIs: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [activeTextIndex, setActiveTextIndex] = useState(-1);
   const { t } = useLanguage();
   
   // Track when the section enters view for fade in effect
@@ -26,7 +24,7 @@ const WhatIs: React.FC = () => {
   const videoOpacity = useTransform(
     scrollYProgress, 
     [0, 0.1, 0.15, 0.2, 0.7, 0.8, 0.9], 
-    [0, 0, 0.5, 1, 1, 0, 0]
+    [0, 0, 0.5, 1, 1, 1, 0]
   );
   
   const videoScale = useTransform(
@@ -55,37 +53,79 @@ const WhatIs: React.FC = () => {
     t('whatIsPhrase4'),
     t('whatIsPhrase5'),
     t('whatIsPhrase6'),
-    t('whatIsPhrase7'),
-    t('whatIsPhrase8')
+    t('whatIsPhrase7')
   ];
 
-  // Calculate which text should be visible based on scroll position - fewer segments for longer display
+  // Opacity e Y transform per i problemi
+  const [problems, setProblems] = useState(textPhrases.map(() => ({
+    opacity: 0,
+    y: 50
+  })));
+
+  // Gestiamo l'animazione dei problemi in base allo scroll
   useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange(value => {
-      // Only start showing text after initial fade-in
-      if (value < 0.25) {
-        setActiveTextIndex(-1);
-        return;
-      }
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const { top, height } = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionStart = top;
+      const sectionHeight = height;
+      const viewableHeight = windowHeight * 0.8; // Percentuale visibile della sezione
+      const scrollRange = sectionHeight - viewableHeight;
       
-      if (value > 0.75) {
-        setActiveTextIndex(-1);
-        return;
-      }
+      // Calcoliamo quanta parte abbiamo scrollato nella sezione
+      const scrolled = Math.max(0, Math.min(1, -sectionStart / scrollRange));
       
-      // Create 4 distinct segments instead of 8 for longer visibility
-      const segmentCount = 4;
-      const normalizedProgress = (value - 0.25) / 0.5;
-      const segmentIndex = Math.min(Math.floor(normalizedProgress * segmentCount), segmentCount - 1);
+      // Numero di problemi
+      const numProblems = textPhrases.length+1;
       
-      // Map segment index to phrase index
-      const phraseIndex = Math.min(Math.floor((segmentIndex / segmentCount) * textPhrases.length), textPhrases.length - 1);
+      // Quanto spazio occupa ogni problema nel range di scroll
+      const problemScrollSpace = 1 / numProblems;
       
-      setActiveTextIndex(phraseIndex);
-    });
+      // Aggiorniamo le opacità e posizioni di ogni problema
+      const newProblems = textPhrases.map((_, index) => {
+        // Inizio e fine del range di scroll per questo problema
+        const startScroll = index * problemScrollSpace;
+        const endScroll = (index + 1) * problemScrollSpace;
+        
+        // Fade in/out
+        let opacity = 0;
+        if (scrolled >= startScroll && scrolled < endScroll) {
+          // Fade in durante la prima metà dello spazio del problema
+          const fadeInPoint = startScroll + (problemScrollSpace * 0.2);
+          const fadeOutPoint = endScroll - (problemScrollSpace * 0.2);
+          
+          if (scrolled < fadeInPoint) {
+            opacity = (scrolled - startScroll) / (fadeInPoint - startScroll);
+          } else if (scrolled > fadeOutPoint) {
+            opacity = 1 - ((scrolled - fadeOutPoint) / (endScroll - fadeOutPoint));
+          } else {
+            opacity = 1;
+          }
+        }
+        
+        // Y position - movimento verso l'alto quando esce
+        let y = 50;
+        if (scrolled >= startScroll && scrolled < endScroll) {
+          y = 0;
+        } else if (scrolled >= endScroll) {
+          y = -50;
+        }
+        
+        return { opacity, y };
+      });
+      
+      setProblems(newProblems);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Invoca all'inizio per impostare i valori iniziali
     
-    return () => unsubscribe();
-  }, [scrollYProgress, textPhrases.length]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [textPhrases.length]);
 
   // Play/pause video based on visibility
   useEffect(() => {
@@ -121,7 +161,7 @@ const WhatIs: React.FC = () => {
             playsInline
             className="background-video"
           >
-            <source src={video} type="video/mp4" />
+            <source src="https://cdn.abbs.one/videos/app-demo.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </motion.div>
@@ -139,21 +179,18 @@ const WhatIs: React.FC = () => {
       <div className="what-is__content">
         <div className="text-container">
           {textPhrases.map((phrase, index) => (
-            <motion.div
-              key={index}
-              className="text-phrase"
-              initial={{ opacity: 0, y: -100 }}
-              animate={{ 
-                opacity: index === activeTextIndex ? 1 : 0,
-                y: index === activeTextIndex ? 0 : index < activeTextIndex ? 100 : -100
-              }}
-              transition={{ 
-                opacity: { duration: 0.7, ease: "easeInOut" },
-                y: { duration: 0.7, ease: "easeInOut" }
+            <div 
+              key={index} 
+              className="problem-item"
+              style={{ 
+                opacity: problems[index].opacity,
+                transform: `translateY(${problems[index].y}px)`
               }}
             >
-              {phrase}
-            </motion.div>
+              <div className="problem-content">
+                <p>{phrase}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

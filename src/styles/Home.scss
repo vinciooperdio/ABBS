@@ -1,0 +1,54 @@
+// Modifica per la sezione WhatIs - stile di scroll come il pain della pagina business
+.whatis {
+  // ... existing code ...
+  &__content {
+    // ... existing code ...
+    .whatis-item {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      
+      &.active {
+        opacity: 1;
+      }
+      
+      // Effetto fade out quando si scorre oltre
+      &.fade-out {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// Allargamento della sezione mission__nearby-services
+.mission {
+  // ... existing code ...
+  &__nearby-services {
+    // ... existing code ...
+    width: 100%; // Allarghiamo per evitare che l'hover sfori
+    max-width: 1200px; // O un altro valore appropriato
+    margin: 0 auto;
+    padding: 0 2rem;
+    
+    .service-card {
+      // ... existing code ...
+      // Assicuriamo che l'hover non sfori
+      &:hover {
+        transform: translateY(-10px);
+        z-index: 10; // Per assicurarsi che resti sopra gli altri elementi
+      }
+    }
+  }
+}
+
+// Rimozione degli effetti sfumati e pulsazione dai titoli
+.section-title, h1, h2, h3 {
+  // ... existing code ...
+  text-shadow: none !important; // Rimuove l'effetto sfumato
+  animation: none !important; // Rimuove l'effetto di pulsazione
+} 

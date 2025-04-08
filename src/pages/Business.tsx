@@ -204,8 +204,8 @@ const Business: React.FC = () => {
   
   // Video sources
   const videoSources = [
-    heroVideo,
-    painVideo
+    "https://cdn.abbs.one/videos/hero.mp4",
+    "https://cdn.abbs.one/videos/pain.mp4"
   ];
 
   return (

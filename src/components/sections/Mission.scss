@@ -674,6 +674,10 @@
   }
   
   &__nearby-services {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    
     h4 {
       font-size: 1.6rem;
       font-weight: 600;
@@ -685,6 +689,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+      width: 100%;
     }
     
     .service-card {
@@ -698,10 +703,12 @@
       transition: all 0.3s ease;
       cursor: pointer;
       will-change: transform, box-shadow;
+      width: 100%;
       
       &--active, &:hover {
         background: rgba(255, 255, 255, 0.08);
         border-color: rgba($primary, 0.3);
+        transform: translateX(0);
       }
       
       .service-icon {
