@@ -171,24 +171,24 @@ const Business: React.FC = () => {
   // Data for benefits section
   const benefits = [
     {
-      icon: <FaRocket />,
-      title: t('businessBenefit1'),
-      description: t('businessBenefit1Desc')
+      icon: <FaMoneyBillWave />,
+      title: "Più clienti, meno costi",
+      description: "ABBS ti offre visibilità all'interno di una rete attiva di utenti. Niente più costi pubblicitari inutili: promuovi i tuoi abbonamenti direttamente nella piattaforma."
     },
     {
-      icon: <FaChartLine />,
-      title: t('businessBenefit2'),
-      description: t('businessBenefit2Desc')
+      icon: <FaCogs />,
+      title: "Gestione smart degli abbonamenti",
+      description: "Tutto in un unico gestionale: crea, personalizza e monitora i tuoi abbonamenti. Imposti promozioni, ricevi pagamenti e analizzi i dati in tempo reale."
+    },
+    {
+      icon: <FaFileInvoiceDollar />,
+      title: "Fatturazione e rinnovi automatici",
+      description: "Dì addio agli errori manuali. Con ABBS, rinnovi, pagamenti e notifiche sono automatizzati per una gestione fluida e senza stress."
     },
     {
       icon: <FaShieldAlt />,
-      title: t('businessBenefit3'),
-      description: t('businessBenefit3Desc')
-    },
-    {
-      icon: <FaSyncAlt />,
-      title: t('businessBenefit4'),
-      description: t('businessBenefit4Desc')
+      title: "Dati e pagamenti sempre al sicuro",
+      description: "Gestiamo i tuoi dati e quelli dei tuoi clienti con sistemi conformi al GDPR e crittografia avanzata. Tu pensi al business, noi alla sicurezza."
     }
   ];
 
@@ -249,8 +249,8 @@ const Business: React.FC = () => {
             className="business-hero__content"
             style={{ opacity: heroOpacity }}
           >
-            <h1>{t('businessHeroTitle')}</h1>
-            <p>{t('businessHeroSubtitle')}</p>
+            <h1>Troppi gestionali, poca visibilità.</h1>
+            <p>Con ABBS centralizzi tutto: abbonamenti, promozioni e pagamenti. Meno costi, più efficienza, più clienti.</p>
             <div className="business-hero__cta">
               <button className="button button--primary">{t('businessHeroCta1')}</button>
               <button className="button button--secondary">{t('businessHeroCta2')}</button>
@@ -404,8 +404,8 @@ const Business: React.FC = () => {
                 >
                   <div className="step-number">1</div>
                   <div className="step-content">
-                    <h3 className="step-title">Registrazione Super Semplice</h3>
-                    <p>Niente moduli complicati, bastano email e password per iniziare subito. Ti guidiamo passo passo!</p>
+                    <h3 className="step-title">Collega ciò che hai, senza perdere nulla</h3>
+                    <p>Hai già un gestionale? Non serve ripartire da zero. ABBS importa automaticamente tutti i tuoi dati e abbonamenti esistenti. Così puoi passare a un sistema più moderno, senza interruzioni.</p>
                   </div>
                 </motion.div>
                 <motion.div 
@@ -416,8 +416,8 @@ const Business: React.FC = () => {
                 >
                   <div className="step-number">2</div>
                   <div className="step-content">
-                    <h3 className="step-title">Importazione Automatica</h3>
-                    <p>ABBS trova automaticamente i tuoi abbonamenti scansionando email o collegando account. Zero inserimento manuale!</p>
+                    <h3 className="step-title">Inizia in pochi secondi</h3>
+                    <p>Registrazione super veloce. Con email e password sei dentro. Nessuna curva di apprendimento: tutto è pensato per essere semplice fin dal primo accesso.</p>
                   </div>
                 </motion.div>
                 <motion.div 
@@ -428,8 +428,8 @@ const Business: React.FC = () => {
                 >
                   <div className="step-number">3</div>
                   <div className="step-content">
-                    <h3 className="step-title">Risparmio Immediato</h3>
-                    <p>Identifichiamo abbonamenti inutilizzati e duplicati. Media di risparmio: 30% sui costi di abbonamento annuali!</p>
+                    <h3 className="step-title">Ottimizza e risparmia fin da subito</h3>
+                    <p>ABBS analizza i tuoi abbonamenti e segnala quelli inutilizzati o duplicati. In media, le aziende che usano la nostra piattaforma risparmiano il 30% già nel primo anno.</p>
                   </div>
                 </motion.div>
               </div>
@@ -573,140 +573,7 @@ const Business: React.FC = () => {
               </div>
             </motion.div>
             
-            <motion.div 
-              className="business-marketing__stats-container"
-              initial={{ opacity: 0 }}
-              animate={isMarketingInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.7, delay: 0.8 }}
-            >
-              <div className="stats-grid">
-                {marketingStats.map((stat, index) => (
-                  <motion.div 
-                    key={index}
-                    className="stat-item"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={isMarketingInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                    transition={{ duration: 0.5, delay: 0.9 + (index * 0.1) }}
-                  >
-                    <span className="stat-value">{stat.value}</span>
-                    <span className="stat-label">{stat.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-              <motion.div 
-              className="business-marketing__interactive-demo"
-                initial={{ opacity: 0, y: 30 }}
-              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.7, delay: 1.2 }}
-              >
-              <div className="dashboard-sequence">
-                <div className="dashboard-container">
-                  <div className="dashboard-header">
-                    <div className="dashboard-logo">ABBS</div>
-                    <div className="dashboard-actions">
-                      <span className="dashboard-action active">Dashboard</span>
-                      <span className="dashboard-action">Insights</span>
-                      <span className="dashboard-action">Settings</span>
-                    </div>
-                  </div>
-                  
-                  <div className="dashboard-body">
-                    <div className="dashboard-metrics">
-                      <div className="metric-card primary">
-                        <div className="metric-title">Subscription Value</div>
-                        <div className="metric-value">€24,500</div>
-                        <div className="metric-change positive">+16.8%</div>
-                      </div>
-                      
-                      <div className="metric-card">
-                        <div className="metric-title">Active Subscriptions</div>
-                        <div className="metric-value">68</div>
-                        <div className="metric-change positive">+4</div>
-                      </div>
-                      
-                      <div className="metric-card">
-                        <div className="metric-title">Renewal Rate</div>
-                        <div className="metric-value">94.2%</div>
-                        <div className="metric-change positive">+2.3%</div>
-                      </div>
-                    </div>
-                    
-                    <div className="dashboard-visualization">
-                      <div className="visualization-header">
-                        <h3>Subscription Growth</h3>
-                        <div className="time-selector">
-                          <span>Monthly</span>
-                          <span className="active">Quarterly</span>
-                          <span>Yearly</span>
-                        </div>
-                      </div>
-                      
-                      <div className="chart-container">
-                        <div className="chart-axis"></div>
-                        <div className="chart-bars">
-                          <motion.div 
-                            className="chart-bar" 
-                            initial={{ height: '0%' }}
-                            animate={isMarketingInView ? { height: '65%' } : { height: '0%' }}
-                            transition={{ duration: 0.7, delay: 1.3 }}
-                          ></motion.div>
-                          <motion.div 
-                            className="chart-bar" 
-                            initial={{ height: '0%' }}
-                            animate={isMarketingInView ? { height: '45%' } : { height: '0%' }}
-                            transition={{ duration: 0.7, delay: 1.4 }}
-                          ></motion.div>
-                          <motion.div 
-                            className="chart-bar" 
-                            initial={{ height: '0%' }}
-                            animate={isMarketingInView ? { height: '75%' } : { height: '0%' }}
-                            transition={{ duration: 0.7, delay: 1.5 }}
-                          ></motion.div>
-                          <motion.div 
-                            className="chart-bar" 
-                            initial={{ height: '0%' }}
-                            animate={isMarketingInView ? { height: '60%' } : { height: '0%' }}
-                            transition={{ duration: 0.7, delay: 1.6 }}
-                          ></motion.div>
-                          <motion.div 
-                            className="chart-bar active" 
-                            initial={{ height: '0%' }}
-                            animate={isMarketingInView ? { height: '85%' } : { height: '0%' }}
-                            transition={{ duration: 0.7, delay: 1.7 }}
-                          ></motion.div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="dashboard-features">
-                      <div className="feature-card">
-                        <div className="feature-icon automation"></div>
-                        <div className="feature-title">Auto-Renewal</div>
-                      </div>
-                      <div className="feature-card">
-                        <div className="feature-icon analytics"></div>
-                        <div className="feature-title">Cost Analysis</div>
-                      </div>
-                      <div className="feature-card">
-                        <div className="feature-icon security"></div>
-                        <div className="feature-title">Secure Vault</div>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-          </div>
-
-            <motion.div 
-                className="interactive-cta"
-              initial={{ opacity: 0, y: 20 }}
-                animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 1.8 }}
-              >
-                <button className="button button--primary">{t('businessMarketingCta')}</button>
-              </motion.div>
-            </motion.div>
+            
           </div>
         </section>
 
@@ -722,7 +589,7 @@ const Business: React.FC = () => {
             <div className="business-faq__questions">
               <FAQ 
                 question={t('businessFaq1')}
-                answer="ABBS offre un periodo di prova gratuito di 30 giorni con tutte le funzionalità, senza necessità di carta di credito. Dopo la prova, puoi scegliere tra diversi piani in base alle dimensioni della tua azienda e alle tue esigenze specifiche."
+                answer="ABBS offre 30 giorni di prova gratuita. Durante il periodo di prova puoi importare automaticamente i tuoi dati e testare tutte le funzionalità senza modificare i tuoi flussi operativi. Il passaggio è semplice, veloce e senza inserimenti manuali: provi ABBS, lo confronti e decidi con calma."
                 delay={0}
                 inView={isFaqInView}
               />

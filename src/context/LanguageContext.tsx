@@ -197,7 +197,7 @@ const translations: Record<Language, Record<string, string>> = {
     businessProblemsText: "Gestire un'attività che offre abbonamenti è complesso: rinnovi, pagamenti, cancellazioni, e gestione delle risorse sono solo alcune delle sfide quotidiane. ABBS è la piattaforma che ottimizza questi processi, riducendo il lavoro manuale e aumentando i ricavi.",
     businessProblem1: "Non più tempi sprecati per i rinnovi manuali. ABBS automatizza tutto, liberandoti da compiti ripetitivi.",
     businessProblem2: "Fidelizza i clienti con offerte personalizzate e un'esperienza utente fluida.",
-    businessProblem3: "Con ABBS, hai accesso a dati avanzati sui comportamenti degli utenti per prendere decisioni più informate.",
+    businessProblem3: "Difficoltà nel monitorare le metriche chiave: Senza strumenti adeguati, è complicato analizzare dati come tassi di abbandono, valore medio per cliente e altri indicatori vitali",
     businessProblem4: "Proteggi i dati sensibili e i pagamenti in conformità al GDPR, con una sicurezza di livello enterprise.",
     businessProblemsCta: "Scopri come ABBS può migliorare il tuo business",
     businessBenefitsTitle: "I Vantaggi di ABBS: La Soluzione Completa per Ogni Tipo di Servizio in Abbonamento",
@@ -222,12 +222,13 @@ const translations: Record<Language, Record<string, string>> = {
     businessMarketingCta: "Aumenta la tua visibilità con ABBS",
     businessFaqTitle: "Hai Domande? Abbiamo le Risposte.",
     businessFaq1: "Come posso integrare ABBS con il mio sistema attuale?",
-    businessFaq2: "Quanto tempo ci vuole per iniziare a vedere i benefici?",
+    businessFaq2: "ABBS può rivoluzionare la gestione degli abbonamenti anche per piccole attività?",
     businessFaq3: "Come funziona il sistema di prezzi dinamici?",
     businessFaqCta: "Contattaci per ulteriori informazioni",
     businessFinalCtaTitle: "Non aspettare oltre! Ottimizza il tuo business con ABBS.",
     businessFinalCtaText: "Unisciti alle migliaia di aziende che stanno trasformando la gestione degli abbonamenti in un vantaggio competitivo.",
-    businessFinalCtaButton: "Inizia Ora con ABBS"
+    businessFinalCtaButton: "Inizia Ora con ABBS",
+    businessFinalCtaButton2: "Scopri come ABBS può migliorare il tuo business"
   },
   en: {
     // Navbar

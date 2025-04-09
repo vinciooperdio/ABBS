@@ -3,7 +3,7 @@ import { FiGithub, FiTwitter, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import './Footer.scss';
-import logo from '../../assets/images/ABBS_LOGO.jpeg';
+import logo from '../../assets/images/abbslogo.svg';
 
 const Footer = () => {
   const { t } = useLanguage();

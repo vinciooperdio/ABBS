@@ -79,7 +79,7 @@
       margin-bottom: 20px;
       
       .text-gradient {
-        background: $gradient-primary;
+          background: $primary;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -270,31 +270,7 @@
     z-index: 2;
     overflow: hidden;
     
-    &::before {
-      content: '';
-      position: absolute;
-      width: 60%;
-      height: 60%;
-      right: -20%;
-      top: -20%;
-      background: radial-gradient(circle, rgba($primary, 0.2), transparent 70%);
-      filter: blur(60px);
-      border-radius: 50%;
-      z-index: -1;
-    }
     
-    &::after {
-      content: '';
-      position: absolute;
-      width: 40%;
-      height: 40%;
-      left: -10%;
-      bottom: -10%;
-      background: radial-gradient(circle, rgba(lighten($primary, 20%), 0.15), transparent 70%);
-      filter: blur(50px);
-      border-radius: 50%;
-      z-index: -1;
-    }
 
     &__content {
       max-width: 1200px;
@@ -307,7 +283,7 @@
       h2 {
         font-size: 3.8rem;
         margin-bottom: 1.5rem;
-        background: linear-gradient(135deg, $primary, lighten($primary, 25%), $primary);
+        background: $primary;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -361,35 +337,9 @@
       position: relative;
       overflow: hidden;
       
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(130deg, 
-                  rgba(255, 255, 255, 0.1) 0%, 
-                  rgba(255, 255, 255, 0.03) 40%, 
-                  rgba(255, 255, 255, 0.01) 80%, 
-                  rgba(255, 255, 255, 0.015) 100%);
-        border-radius: 24px;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        z-index: 0;
-      }
       
-      &::after {
-        content: '';
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        right: -1px;
-        height: 0%;
-        background: linear-gradient(90deg, 
-                  transparent, 
-                  rgba($primary, 0.1), 
-                  transparent);
-        opacity: 0;
-        transition: all 0.6s ease;
-      }
+      
+      
 
       &:hover {
         transform: translateY(-15px) scale(1.02);
@@ -542,18 +492,7 @@
     z-index: 2;
     overflow: hidden;
     
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba($primary, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(lighten($primary, 20%), 0.07) 0%, transparent 50%);
-      z-index: -1;
-    }
+    
 
     &__content {
       max-width: 1300px;
@@ -565,7 +504,7 @@
       h2 {
         font-size: 3.8rem;
         margin-bottom: 5rem;
-        background: linear-gradient(135deg, $primary, lighten($primary, 25%), $primary);
+        background: $primary;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;

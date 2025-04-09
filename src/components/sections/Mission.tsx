@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, easeOut, useInView, useScroll, useTransform } from 'framer-motion';
 import { FaExchangeAlt, FaBomb, FaCheckCircle, FaCreditCard, FaClock, FaPercent, FaMoneyBillWave, FaCalendarAlt, FaBullseye, FaBell, FaFileAlt, FaSearch, FaPlus, FaDumbbell, FaSwimmer, FaFilm, FaMapMarkerAlt, FaStar, FaArrowRight } from 'react-icons/fa';
 import { BsSpotify } from 'react-icons/bs';
@@ -30,6 +30,7 @@ const Mission: React.FC = () => {
   const benefitsRef = useRef<HTMLDivElement>(null);
   const mapSectionRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
+  const [isNearTop, setIsNearTop] = useState(false);
   
   // Track scroll position within section
   const { scrollYProgress } = useScroll({
@@ -188,11 +189,30 @@ const Mission: React.FC = () => {
     [40, 0, 0]
   );
 
+  const inView = useInView(headerRef, { 
+    margin: "-20% 0px 0px 0px",  // Imposta un margine negativo per rilevare la posizione
+    once: false 
+  });
+
+  useEffect(() => {
+    if (inView) {
+      const headerElement = headerRef.current;
+      if (headerElement) {
+        const rect = headerElement.getBoundingClientRect();
+        if (rect.top < 350) {  // Se la distanza dal bordo superiore è inferiore a 50px
+          setIsNearTop(true);  // Smetti di animare
+        } else {
+          setIsNearTop(false);  // Continua ad animare
+        }
+      }
+    }
+  }, [inView]);
+
   const floatingAnimation = {
-    y: [0, -15, 0],
+    y: isNearTop ? 0 : [0, -15, 0],  // Smette di oscillare quando vicino al limite superiore
     transition: {
       duration: 3,
-      repeat: Infinity,
+      repeat: isNearTop ? 0 : Infinity, // Non ripetere quando vicino al limite
       repeatType: "reverse" as const,
       ease: "easeInOut"
     }

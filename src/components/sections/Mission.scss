@@ -44,6 +44,13 @@
       justify-content: center;
       gap: 2rem;
       margin-top: 30px;
+      position: relative;
+      
+      /* Soluzione per il problema delle icone che impazziscono */
+      position: relative;
+      z-index: 10;
+      transform-style: preserve-3d;
+      will-change: transform;
       
       .mission__icon {
         width: 55px;
@@ -56,7 +63,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.8rem;
-        color: white;
+        color: black;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         transition: all 0.3s ease-out;
@@ -119,6 +126,165 @@
     }
   }
   
+  /* Miglioramento divisione visiva tra sezioni */
+  // Benefits section styles - Redesign futuristico
+  &__benefits-section {
+    margin: 30px 0 100px; // Aumentato margin-bottom per maggiore separazione
+    position: relative;
+    padding-bottom: 50px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.2) 20%,
+        rgba($primary, 0.5) 50%, 
+        rgba(255, 255, 255, 0.2) 80%,
+        rgba(255, 255, 255, 0)
+      );
+    }
+    
+    h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+  }
+  
+  &__benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // Miglioramento estetico delle card vantaggi - Stile futuristico
+  &__benefit-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: $border-radius-md;
+    padding: 30px;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%;
+    will-change: transform, box-shadow;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    // Effetto bordo luminoso
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: calc(#{$border-radius-md} + 2px);
+      background: linear-gradient(45deg, transparent, rgba($primary, 0), rgba($primary, 0.3), rgba($primary, 0));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    // Effetto glow sotto la card
+    &::after {
+      content: '';
+      position: absolute;
+      width: 80%;
+      height: 20px;
+      bottom: -20px;
+      left: 10%;
+      border-radius: 50%;
+      box-shadow: 0 0 30px 5px rgba($primary, 0);
+      transition: all 0.4s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba($primary, 0.2);
+      
+      &::before {
+        opacity: 1;
+      }
+      
+      &::after {
+        box-shadow: 0 0 30px 5px rgba($primary, 0.3);
+      }
+      
+      .benefit-icon {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 15px 25px rgba($primary, 0.4),
+                    0 0 20px rgba($primary, 0.3);
+      }
+    }
+    
+    .benefit-icon {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, $primary, lighten($primary, 15%));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      will-change: transform;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      box-shadow: 0 10px 20px rgba($primary, 0.3);
+      
+      // Aggiunta riflesso per effetto futuristico
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.5), 
+          rgba(255, 255, 255, 0.2) 30%, 
+          transparent 70%);
+        border-radius: 50%;
+        opacity: 0.6;
+      }
+      
+      svg {
+        color: white;
+        font-size: 1.8rem;
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+      }
+    }
+    
+    h4 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      background: black;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    p {
+      color: black;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+  }
+  
   &__transformation {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,74 +311,6 @@
         top: calc(50% - 20px);
         transform: translate(-50%, -50%) rotate(135deg);
       }
-    }
-  }
-  
-  // Benefits section styles
-  &__benefits-section {
-    margin: 30px 0 70px;
-    
-    h3 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-  }
-  
-  &__benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    
-    @media (max-width: $breakpoint-sm) {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  &__benefit-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: $border-radius-md;
-    padding: 30px;
-    transition: all 0.4s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    height: 100%;
-    will-change: transform, box-shadow;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba($primary, 0.3);
-    }
-    
-    .benefit-icon {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: $gradient-primary;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      will-change: transform;
-      
-      svg {
-        color: white;
-        font-size: 1.8rem;
-      }
-    }
-    
-    h4 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
-    
-    p {
-      color: $text-secondary;
-      line-height: 1.6;
-      font-size: 1rem;
     }
   }
   
@@ -489,7 +587,7 @@
             
             &.active {
               background: rgba(white, 0.15);
-              color: white;
+              color: black;
               font-weight: 600;
             }
           }
@@ -502,7 +600,7 @@
           .app-logo {
             font-weight: 700;
             font-size: 1.5rem;
-            color: white;
+            color: black;
           }
           
           .app-tagline {
@@ -604,20 +702,30 @@
     }
   }
   
+  // Miglioramento della sezione mappa
   // Sezione mappa dei servizi
   &__map-section {
-    margin-top: 50px;
+    margin-top: 80px;
     position: relative;
+    background: linear-gradient(180deg, 
+      rgba(0, 0, 0, 0) 0%,
+      rgba($primary, 0.03) 10%,
+      rgba($primary, 0.03) 90%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    padding: 60px 0;
+    border-radius: 30px;
   }
   
   &__map-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 60px; // Aumentato spazio
     
     h3 {
-      font-size: 2.2rem;
+      font-size: 2.5rem; // Aumentato per maggiore enfasi
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba($primary, 0.2); // Aggiunto shadow per enfasi
       
       .text-gradient {
         background: $gradient-primary;
@@ -629,25 +737,27 @@
     
     p {
       color: $text-secondary;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
     }
   }
   
   &__map-container {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.8fr 1fr; // Aumentato lo spazio per la mappa
+    gap: 60px; // Aumentato spazio tra mappa e servizi
     margin-top: 40px;
     align-items: center;
     
     @media (max-width: $breakpoint-lg) {
       grid-template-columns: 1.2fr 1fr;
-      gap: 30px;
+      gap: 40px;
     }
     
     @media (max-width: $breakpoint-md) {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 60px;
     }
   }
   
@@ -658,18 +768,19 @@
     overflow: hidden;
     position: relative;
     z-index: 5;
-    min-height: 400px;
+    min-height: 450px; // Aumentata l'altezza della mappa
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); // Ombra più pronunciata
     
     @media (max-width: $breakpoint-lg) {
-      min-height: 350px;
+      min-height: 400px;
     }
     
     @media (max-width: $breakpoint-md) {
-      min-height: 300px;
+      min-height: 350px;
     }
     
     @media (max-width: $breakpoint-sm) {
-      min-height: 250px;
+      min-height: 300px;
     }
   }
   
@@ -679,10 +790,11 @@
     overflow: visible;
     
     h4 {
-      font-size: 1.6rem;
+      font-size: 1.8rem; // Aumentato
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: black;
+      text-shadow: 0 0 15px rgba($primary, 0.3); // Aggiunto shadow
     }
     
     .services-list {
@@ -706,9 +818,10 @@
       width: 100%;
       
       &--active, &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba($primary, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba($primary, 0.4);
         transform: translateX(0);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       }
       
       .service-icon {
@@ -719,7 +832,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: black;
         font-size: 1.4rem;
       }
       
@@ -742,7 +855,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            color: black;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             
             svg {
@@ -762,34 +875,38 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        border: none;
         background: rgba($primary, 0.2);
-        color: $primary;
+        border: 1px solid rgba($primary, 0.3);
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
+        color: $primary;
         transition: all 0.3s ease;
+        cursor: pointer;
         
         &:hover {
-          background: $primary;
-          color: white;
+          background: rgba($primary, 0.3);
+          color: black;
         }
       }
     }
   }
   
   &__laptop-wrapper {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 40px;
-    perspective: 1500px;
-    transform-style: preserve-3d;
     position: relative;
-    z-index: 10;
+    width: 100%;
+    height: 100%;
     
-    @media (max-width: $breakpoint-md) {
-      margin-bottom: 20px;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 10%;
+      width: 80%;
+      height: 20px;
+      border-radius: 50%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
   }
 }
