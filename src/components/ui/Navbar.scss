@@ -22,9 +22,8 @@
     max-width: 100%;
     height: 100%;
     padding: 0 30px;
-    margin: 0 ;
+    margin: 0;
     width: 100%;
-    
   }
   
   &__logo {
@@ -82,30 +81,34 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba($background, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba($background-dark, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     z-index: $z-fixed;
+    cursor: pointer;
   }
   
   &__menu {
     position: fixed;
     top: 0;
     right: 0;
-    width: 300px;
-    max-width: 80vw;
+    width: 320px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 80px 2rem 2rem;
+    padding: 100px 40px 2rem 2rem;
     z-index: $z-fixed + 5;
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
     overflow-y: auto;
+    margin: 0;
+    border-right: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba($primary, 0.2);
     
     @media (max-width: $breakpoint-sm) {
-      width: 100%;
-      max-width: 100%;
+      width: 85%;
     }
   }
   
@@ -113,10 +116,11 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
   }
   
   &__menu-item {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     
     &:last-child {
       margin-bottom: 0;
@@ -125,15 +129,36 @@
   
   &__menu-link {
     display: block;
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
     color: $text-primary;
     text-decoration: none;
     padding: 0.7rem 0;
-    transition: color $transition-fast;
+    transition: all $transition-fast;
+    position: relative;
+    padding-left: 15px;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 20px;
+      background: $primary;
+      border-radius: 2px;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
     
     &:hover {
       color: $primary;
+      transform: translateX(8px);
+      
+      &::before {
+        width: 4px;
+      }
     }
   }
   

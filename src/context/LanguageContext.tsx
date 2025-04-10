@@ -37,7 +37,7 @@ const translations: Record<Language, Record<string, string>> = {
     'whatIsPhrase2': 'Centralizza tutti i tuoi abbonamenti in un\'unica dashboard interattiva',
     'whatIsPhrase3': 'Monitora scadenze, costi e ricevi notifiche intelligenti prima dei rinnovi',
     'whatIsPhrase4': 'La nostra AI analizza le tue abitudini e suggerisce piani più adatti',
-    'whatIsPhrase5': 'Risparmia fino al 30% sui tuoi abbonamenti mensili',
+    'whatIsPhrase5': 'Sai esattamente dove vanno i tuoi soldi ogni mese. \n Con ABBS, ogni abbonamento è sotto controllo.',
     'whatIsPhrase6': 'Visualizza grafici e statistiche sul tuo utilizzo',
     'whatIsPhrase7': 'Accedi a promozioni e sconti riservati agli utenti ABBS',
     'whatIsPhrase8': 'Interfaccia intuitiva che semplifica la gestione con pochi click',
@@ -119,11 +119,10 @@ const translations: Record<Language, Record<string, string>> = {
     'ourTeam': 'Il Nostro Team',
     'teamSubtitle': 'Le persone di talento dietro ABBS che lavorano per trasformare la tua esperienza digitale',
     'vincenzo':'Imprenditore e project manager con una visione chiara: creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
-    'silvia':'Con esperienze in Cattolica nel campo della gestione dell\'innovazione e strategie digitali, Silvia guida le decisioni strategiche del team.',
-    'lorenzo':'Lorenzo è un professionista con esperienza nell\’ambito dell\'informatica applicata al management, con un forte orientamento verso l\'innovazione digitale e l\'imprenditorialità tecnologica.',
-    'joinOurTeam': 'Vuoi unirti al nostro team?',
+    'silvia':'Giovane professionista con formazione in Economia e Digital Innovation, si occupa di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
+    'lorenzo':'Specializzato in sviluppo e trasformazione digitale, Lorenzo guida l’innovazione tech di ABBS con un mix di visione strategica e competenze analitiche.',
     'alwaysLooking': 'Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare la gestione degli abbonamenti.',
-    'viewOpenPositions': 'Visualizza Posizioni Aperte',
+    'viewOpenPositions': 'Invia la tua candidatura',
     
     // Language Selector
     'language': 'Lingua',
@@ -333,11 +332,11 @@ const translations: Record<Language, Record<string, string>> = {
     'ourTeam': 'Our Team',
     'teamSubtitle': 'The talented minds behind ABBS working to transform your digital experience',
     'vincenzo':'Entrepreneur and project manager with a clear vision: creating digital solutions that have a tangible impact on people\'s lives.',
-    'silvia':'With experience in Cattolica in the field of innovation management and digital strategies, Silvia guides the strategic decisions of the team.',
-    'lorenzo':'Lorenzo is a professional with experience in applied computer science at management, with a strong focus on digital innovation and technological entrepreneurship.',
+    'silvia':'Young professional with a degree in Economics and Digital Innovation, she is responsible for guiding strategic and organizational decisions of the project, combining vision, method and attention to results.',
+    'lorenzo':'Specialized in digital development and transformation, Lorenzo leads the tech innovation of ABBS with a mix of strategic vision and analytical skills.',
     'joinOurTeam': 'Want to join our team?',
     'alwaysLooking': 'We\'re always looking for talented people to help us revolutionize subscription management.',
-    'viewOpenPositions': 'View Open Positions',
+    'viewOpenPositions': 'Send your application',
     
     // Language Selector
     'language': 'Language',

@@ -5,11 +5,41 @@
   height: 100% !important;
   border-radius: inherit;
   overflow: visible !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 0 20px rgba($primary, 0.3);
   display: block !important;
   visibility: visible !important;
   position: relative !important;
   z-index: 10 !important;
+  
+  /* Decorative elements */
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 50 !important;
+  }
+  
+  &::before {
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba($primary, 0.8), rgba($primary, 0.6));
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: floatMapDecor 6s infinite ease-in-out;
+  }
+  
+  &::after {
+    bottom: 30px;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba($accent, 0.7), rgba($primary, 0.5));
+    border-radius: 50%;
+    filter: blur(15px);
+    animation: floatMapDecor 8s infinite ease-in-out reverse;
+  }
   
   /* Rendere la mappa più visibile su dispositivi mobili */
   @media (max-width: 990px) {
@@ -42,6 +72,8 @@
     height: 100% !important;
     width: 100% !important;
     z-index: 1 !important;
+    border-radius: inherit;
+    overflow: hidden;
   }
   
   :global(.leaflet-pane) {
@@ -59,9 +91,31 @@
     visibility: visible !important;
   }
   
-  /* Aggiusta la luminosità delle tiles della mappa per adattarsi al tema scuro */
+  /* Style the map controls */
+  :global(.leaflet-control-zoom) {
+    border: none !important;
+    margin: 15px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+    
+    a {
+      width: 36px !important;
+      height: 36px !important;
+      line-height: 36px !important;
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      color: $text-primary !important;
+      
+      &:hover {
+        background-color: rgba($primary, 0.1) !important;
+        color: $primary !important;
+      }
+    }
+  }
+  
+  /* Aggiusta la luminosità delle tiles della mappa per adattarsi al tema */
   .map-tiles {
-    filter: brightness(0.85) saturate(0.85);
+    filter: brightness(0.9) saturate(1.2) contrast(1.1);
   }
   
   /* Marker personalizzato per la posizione dell'utente */
@@ -69,19 +123,19 @@
     z-index: 600 !important;
     
     div {
-      width: 20px;
-      height: 20px;
-      background: #3498db;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, $primary, $primary);
       border-radius: 50%;
-      box-shadow: 0 0 0 5px rgba(52, 152, 219, 0.3);
+      box-shadow: 0 0 0 8px rgba($primary, 0.3), 0 0 20px rgba($primary, 0.5);
       position: relative;
       
       &:after {
         content: '';
         position: absolute;
-        width: 10px;
-        height: 10px;
-        background: rgba(255, 255, 255, 0.7);
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.9);
         border-radius: 50%;
         top: 50%;
         left: 50%;
@@ -89,7 +143,7 @@
       }
       
       /* Effetto pulsante */
-      animation: pulse 1.5s infinite;
+      animation: mapMarkerPulse 2s infinite;
     }
   }
   
@@ -98,32 +152,47 @@
     z-index: 500 !important;
     
     &--gym div {
-      background-color: #e74c3c;
+      background: linear-gradient(135deg, #e74c3c, #e67e22);
     }
     
     &--pool div {
-      background-color: #3498db;
+      background: linear-gradient(135deg, #3498db, #2980b9);
     }
     
     &--theater div {
-      background-color: #9b59b6;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
     }
     
     div {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      
+      // Add inner highlight effect
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.6) 0%, 
+          rgba(255, 255, 255, 0) 60%);
+        z-index: 1;
+      }
       
       &:hover {
-        transform: scale(1.1);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        transform: scale(1.2) translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       }
     }
   }
@@ -132,29 +201,57 @@
   .service-popup {
     z-index: 700 !important;
     
+    :global(.leaflet-popup-content-wrapper) {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    :global(.leaflet-popup-tip) {
+      background: rgba(255, 255, 255, 0.95);
+    }
+    
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin: 0 0 10px;
-      color: #333;
+      color: $text-primary;
+      font-weight: 700;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba($primary, 0.2);
     }
     
     p {
-      margin: 5px 0;
-      font-size: 0.9rem;
-      color: #666;
+      margin: 8px 0;
+      font-size: 1rem;
+      color: $text-secondary;
+      
+      strong {
+        color: $primary;
+        font-weight: 600;
+      }
     }
   }
 }
 
 /* Animazione pulsante */
-@keyframes pulse {
+@keyframes mapMarkerPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.5);
+    box-shadow: 0 0 0 0 rgba($primary, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+    box-shadow: 0 0 0 15px rgba($primary, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+    box-shadow: 0 0 0 0 rgba($primary, 0);
+  }
+}
+
+@keyframes floatMapDecor {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, 10px);
   }
 } 

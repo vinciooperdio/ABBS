@@ -30,43 +30,35 @@ const Timeline = (props: Props) => {
   const TimelineDefaults: Props = {
     items: [
       {
-          date: t('timelineQ2_2023'),
-          heading: t('timelineResearchPlanning'),
-          description: t('timelineResearchPlanningDesc'),
+          date: "Q1 2025",
+          heading: "Validazione & Strategia",
+          description: "Analisi dell'idea, definizione delle funzionalità chiave del prodotto, studio del mercato di riferimento, Business Model Canvas, Business Plan e progettazione dell'architettura tecnica.",
           buttons: [
           { title: t('timelineDetails'), variant: "secondary", href: "#mission" }
         ]
       },
       {
-          date: t('timelineQ3_2023'),
-          heading: t('timelineMVPDevelopment'),
-          description: t('timelineMVPDevelopmentDesc'),
+          date: "Q2 2025",
+          heading: "Costruzione delle Basi",
+          description: "Ricezione del primo investimento, costituzione della società, apertura dell'ufficio operativo, ricerca di mercato mirata e settaggio dei flussi interni per partire al meglio.",
           buttons: [
           { title: t('timelineLearnMore'), variant: "secondary", href: "#what" }
         ]
       },
       {
-          date: t('timelineQ4_2023'),
-          heading: t('timelineBetaTesting'),
-          description: t('timelineBetaTestingDesc'),
+          date: "Q3 2025",
+          heading: "MVP & Prime Attività",
+          description: "Sviluppo e test dell'MVP di ABBS con aziende pilota e utenti in versione alpha. Avvio del side business per le PMI con primi progetti e fatturato. Utilizzo della traction per attirare investitori.",
           buttons: [
           { title: t('timelineExploreMore'), variant: "secondary", href: "#contact" }
         ]
       },
       {
-          date: t('timelineQ1_2024'),
-          heading: t('timelineMobileAppLaunch'),
-          description: t('timelineMobileAppLaunchDesc'),
+          date: "Q4 2025",
+          heading: "Beta & Crescita",
+          description: "Lancio della versione beta, raccolta feedback da utenti business e consumer. Crescita delle entrate da PMI. Preparazione al round di investimento per espandere il team e arrivare al lancio ufficiale nel Q1 2026.",
           buttons: [
           { title: t('timelinePreview'), variant: "secondary", href: "#team" }
-        ]
-      },
-      {
-          date: t('timelineQ2_2024'),
-          heading: t('timelineInternationalExpansion'),
-          description: t('timelineInternationalExpansionDesc'),
-          buttons: [
-          { title: t('timelineLearnMore'), variant: "secondary", href: "#waiting-list" }
         ]
       }
     ]

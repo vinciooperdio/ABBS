@@ -365,6 +365,7 @@ const Mission: React.FC = () => {
           
           <div className="mission__map-container">
             <div className="mission__laptop-wrapper">
+              <div className="shape-2"></div>
               <LaptopContainer isVisible={isMapSectionInView}>
                 <div className="mission__interactive-map">
                   <InteractiveMap 
@@ -372,6 +373,9 @@ const Mission: React.FC = () => {
                     services={physicalServices}
                     onMarkerClick={handleMarkerClick}
                   />
+                </div>
+                <div className="mission__map-caption">
+                  La nostra ambizione globale: ABBS mira a connettere fornitori e consumatori di abbonamenti in tutto il mondo, creando un ecosistema unico e trasparente.
                 </div>
               </LaptopContainer>
             </div>

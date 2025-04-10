@@ -138,30 +138,30 @@ const Business: React.FC = () => {
   // Data for problems with dynamically calculated animations
   const problems = [
     {
-      icon: "💸",
-      title: "Gestione complessa degli abbonamenti",
-      description: "La difficoltà nel tracciare scadenze, rinnovi e personalizzazioni degli abbonamenti può portare a errori e inefficienze.",
+      icon: "🔍",
+      title: "Troppi gestionali, poca visibilità.",
+      description: "Con ABBS centralizzi tutto: abbonamenti, promozioni e pagamenti. Meno costi, più efficienza, più clienti.",
       opacity: getProblemOpacity(1),
       y: getProblemY(1)
     },
     {
-      icon: "🔍",
-      title: "Difficoltà nel monitorare le metriche chiave",
-      description: "Senza strumenti adeguati, è complicato analizzare dati come tassi di abbandono, valore medio per cliente e altri indicatori vitali.",
+      icon: "📉",
+      title: "Troppo tempo sprecato in attività ripetitive.",
+      description: "Tra scadenze, rinnovi manuali e fatture da gestire, perdi tempo prezioso ogni giorno.\nCon ABBS automatizzi tutto e ti concentri su ciò che conta davvero: far crescere il tuo business.",
       opacity: getProblemOpacity(2),
       y: getProblemY(2)
     },
     {
       icon: "⚠️",
-      title: "Mancanza di personalizzazione nell'offerta dei servizi",
-      description: "La difficoltà nel proporre servizi aggiuntivi o personalizzati può limitare le opportunità di cross-selling e up-selling.",
+      title: "Servizi poco flessibili, opportunità sprecate.",
+      description: "Se non puoi adattare la tua offerta ai bisogni reali dei clienti, stai perdendo occasioni di vendita.\nCon ABBS crei esperienze su misura che migliorano conversione e fedeltà.",
       opacity: getProblemOpacity(3),
       y: getProblemY(3)
     },
     {
-      icon: "📉",
-      title: "Costi elevati e complessità dei gestionali tradizionali",
-      description: "I gestionali tradizionali richiedono risorse significative per l'implementazione, sono difficili da usare e antiquati, con funzioni obsolete e poca integrazione con altri sistemi.",
+      icon: "💸",
+      title: "Costi alti, ritorni bassi.",
+      description: "Gestionali tradizionali sono costosi, lenti da integrare e pieni di funzioni che non usi. ABBS ti offre solo ciò che serve davvero, riducendo sprechi e ottimizzando i guadagni.",
       opacity: getProblemOpacity(4),
       y: getProblemY(4),
       hasCta: true

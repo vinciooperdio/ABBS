@@ -239,15 +239,38 @@
         
         .timeline-item-buttons {
           display: flex;
-          gap: 1rem;
-          justify-content: center;
-          pointer-events: auto; // Enable button clicks
+          gap: 15px;
+          margin-top: 25px;
           
-          @media (max-width: $breakpoint-sm) {
-            flex-direction: column;
-            width: 100%;
-            max-width: 200px;
-            gap: 0.75rem;
+          button {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.25);
+              border-color: rgba(255, 255, 255, 0.35);
+              transform: translateY(-5px);
+              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            }
+            
+            &.button--primary {
+              background: linear-gradient(135deg, $primary-light, $primary);
+              border-color: transparent;
+              color: white;
+              
+              &:hover {
+                box-shadow: 0 15px 35px rgba($primary, 0.4);
+              }
+            }
           }
         }
       }

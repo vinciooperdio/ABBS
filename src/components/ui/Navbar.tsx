@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import './Navbar.scss';
-import abbsLogo from '../../assets/images/abbsone.svg';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -143,13 +142,12 @@ const Navbar: React.FC = () => {
       }
     }
   };
-  //<img src={abbsLogo} alt="ABBS" className="navbar__logo-image" />
 
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__container">
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
-          <p>abbs.one</p>
+          <span>abbs.one</span>
         </Link>
         
         <div className="navbar__controls">

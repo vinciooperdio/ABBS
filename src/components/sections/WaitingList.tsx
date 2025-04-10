@@ -217,13 +217,6 @@ const WaitingList = () => {
             >
               {t('waitingListTitle')} <br />
             </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {t('ofThe')} <span className="text-gradient">{t('subscriptions')}</span>
-            </motion.span>
           </motion.h2>
           
           <motion.p
@@ -232,87 +225,6 @@ const WaitingList = () => {
           >
             {t('waitingListDesc')}
           </motion.p>
-
-          <div className="waiting-list__benefits">
-            <motion.div
-              className="waiting-list__badge"
-              variants={badgeHoverVariants}
-              initial="rest"
-              whileHover="hover"
-              whileTap="tap"
-              custom={0}
-            >
-              <motion.div 
-                className="waiting-list__badge-icon"
-                variants={iconAnimationVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.2 }}
-              >
-                <FiCheck />
-              </motion.div>
-              <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">{t('benefitEarlyAccess')}</h4>
-                <p className="waiting-list__badge-text">
-                  {t('earlyAccessDesc')}
-                </p>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className="waiting-list__badge"
-              variants={badgeHoverVariants}
-              initial="rest"
-              whileHover="hover"
-              whileTap="tap"
-              custom={1}
-            >
-              <motion.div 
-                className="waiting-list__badge-icon waiting-list__badge-icon--premium"
-                variants={iconAnimationVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.3 }}
-              >
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" />
-                </svg>
-              </motion.div>
-              <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">{t('benefitExclusiveOffers')}</h4>
-                <p className="waiting-list__badge-text">
-                  {t('freePremiumMonths')}
-                </p>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              className="waiting-list__badge"
-              variants={badgeHoverVariants}
-              initial="rest"
-              whileHover="hover"
-              whileTap="tap"
-              custom={2}
-            >
-              <motion.div 
-                className="waiting-list__badge-icon waiting-list__badge-icon--vip"
-                variants={iconAnimationVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.4 }}
-              >
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21 4H3C1.89 4 1 4.89 1 6V18C1 19.11 1.89 20 3 20H21C22.11 20 23 19.11 23 18V6C23 4.89 22.11 4 21 4ZM21 18H3V6H21V18ZM16 12C16 10.34 14.66 9 13 9H9V15H13C14.66 15 16 13.66 16 12ZM13 13H11V11H13C13.55 11 14 11.45 14 12C14 12.55 13.55 13 13 13Z" fill="currentColor" />
-                </svg>
-              </motion.div>
-              <div className="waiting-list__badge-content">
-                <h4 className="waiting-list__badge-title">{t('benefitFeedback')}</h4>
-                <p className="waiting-list__badge-text">
-                  {t('prioritySupport')}
-                </p>
-              </div>
-            </motion.div>
-          </div>
 
           <motion.div 
             className="waiting-list__form-container"
