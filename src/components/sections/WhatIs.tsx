@@ -181,9 +181,8 @@ const WhatIs: React.FC = () => {
           {textPhrases.map((phrase, index) => (
             <div 
               key={index} 
-              className="problem-item"
+              className={`problem-item ${problems[index].opacity > 0.5 ? 'active' : ''}`}
               style={{ 
-                opacity: problems[index].opacity,
                 transform: `translateY(${problems[index].y}px)`
               }}
             >

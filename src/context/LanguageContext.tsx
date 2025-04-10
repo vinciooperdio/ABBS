@@ -123,7 +123,7 @@ const translations: Record<Language, Record<string, string>> = {
     'lorenzo':'Specializzato in sviluppo e trasformazione digitale, Lorenzo guida l’innovazione tech di ABBS con un mix di visione strategica e competenze analitiche.',
     'alwaysLooking': 'Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare la gestione degli abbonamenti.',
     'viewOpenPositions': 'Invia la tua candidatura',
-    
+    'joinTeam':'Vuoi unirti al nostro team?',
     // Language Selector
     'language': 'Lingua',
     
@@ -334,8 +334,9 @@ const translations: Record<Language, Record<string, string>> = {
     'vincenzo':'Entrepreneur and project manager with a clear vision: creating digital solutions that have a tangible impact on people\'s lives.',
     'silvia':'Young professional with a degree in Economics and Digital Innovation, she is responsible for guiding strategic and organizational decisions of the project, combining vision, method and attention to results.',
     'lorenzo':'Specialized in digital development and transformation, Lorenzo leads the tech innovation of ABBS with a mix of strategic vision and analytical skills.',
-    'joinOurTeam': 'Want to join our team?',
+    
     'alwaysLooking': 'We\'re always looking for talented people to help us revolutionize subscription management.',
+    'joinTeam':'Want to join our team?',
     'viewOpenPositions': 'Send your application',
     
     // Language Selector

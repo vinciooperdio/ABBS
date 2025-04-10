@@ -12,6 +12,7 @@ import InteractiveMap from '../ui/InteractiveMap';
 import LaptopContainer from '../ui/LaptopContainer';
 import './Mission.scss';
 import SimplifiedNebulaBackground from '../ui/SimplifiedNebulaBackground';
+import AirbnbStyleMap from '../ui/AirbnbStyleMap';
 
 interface PhysicalService {
   id: string;
@@ -68,44 +69,162 @@ const Mission: React.FC = () => {
     { id: 'office', name: 'Microsoft 365', icon: <SiMicrosoftoffice className="subscription-icon office" />, cost: '€6,99/mese', date: '7' },
   ];
 
-  const physicalServices: PhysicalService[] = [
-    { 
-      id: 'gym1', 
-      name: t('fitnessClub'), 
-      type: 'gym', 
-      distance: '1,2 km', 
-      rating: 4.5, 
-      price: '€45'+t('perMonth'),
-      position: [41.9028, 12.4964] // Roma
+  const physicalServices = [
+    {
+      id: 'serv1',
+      name: 'Palestra Olympia',
+      type: 'gym',
+      position: [41.9028, 12.4964] as [number, number], // Roma
+      distance: '1.2 km',
+      rating: 4.5,
+      price: '149 €'
     },
-    { 
-      id: 'gym2', 
-      name: t('powerFitness'), 
-      type: 'gym', 
-      distance: '3,5 km', 
-      rating: 4.8, 
-      price: '€60'+t('perMonth'),
-      position: [41.907, 12.501] // Poco a est
+    {
+      id: 'serv2',
+      name: 'Piscina Poseidon',
+      type: 'pool',
+      position: [41.9100, 12.5000] as [number, number],
+      distance: '1.7 km',
+      rating: 4.2,
+      price: '206 €'
     },
-    { 
-      id: 'pool1', 
-      name: t('aquaticCenter'), 
-      type: 'pool', 
-      distance: '2,8 km', 
-      rating: 4.2, 
-      price: '€7'+t('perEntry'),
-      position: [41.914, 12.491] // Poco a nord
+    {
+      id: 'serv3',
+      name: 'Teatro Apollo',
+      type: 'theater',
+      position: [41.9050, 12.4850] as [number, number],
+      distance: '800 m',
+      rating: 4.8,
+      price: '329 €'
     },
-    { 
-      id: 'theater1', 
-      name: t('centralCinema'), 
-      type: 'theater', 
-      distance: '1,5 km', 
-      rating: 4.7, 
-      price: '€12'+t('perTicket'),
-      position: [41.898, 12.482] // Poco a sud-ovest
+    {
+      id: 'serv4',
+      name: 'FitLife Gym',
+      type: 'gym',
+      position: [41.9150, 12.4920] as [number, number],
+      distance: '2.1 km',
+      rating: 4.0,
+      price: '122 €'
     },
+    {
+      id: 'serv5',
+      name: 'Acqua & Wellness',
+      type: 'pool',
+      position: [41.9000, 12.5100] as [number, number],
+      distance: '2.3 km',
+      rating: 4.7,
+      price: '296 €'
+    },
+    {
+      id: 'serv6',
+      name: 'Cinema Splendor',
+      type: 'cinema',
+      position: [41.9080, 12.4780] as [number, number],
+      distance: '1.5 km',
+      rating: 4.3,
+      price: '200 €'
+    },
+    {
+      id: 'serv7',
+      name: 'Teatro dell\'Opera',
+      type: 'theater',
+      position: [41.8950, 12.4920] as [number, number],
+      distance: '1.9 km',
+      rating: 4.9,
+      price: '627 €'
+    },
+    {
+      id: 'serv8',
+      name: 'Gold Fitness Club',
+      type: 'gym',
+      position: [41.9200, 12.4930] as [number, number],
+      distance: '3.2 km',
+      rating: 4.1,
+      price: '157 €'
+    },
+    {
+      id: 'serv9',
+      name: 'Auditorium Roma',
+      type: 'concert',
+      position: [41.9280, 12.5150] as [number, number],
+      distance: '4.1 km',
+      rating: 4.6,
+      price: '419 €'
+    },
+    {
+      id: 'serv10',
+      name: 'Centro Aqua Fitness',
+      type: 'pool',
+      position: [41.8900, 12.4850] as [number, number],
+      distance: '2.8 km',
+      rating: 4.4,
+      price: '252 €'
+    },
+    {
+      id: 'serv11',
+      name: 'Multisala Rex',
+      type: 'cinema',
+      position: [41.9130, 12.5070] as [number, number],
+      distance: '2.4 km',
+      rating: 4.2,
+      price: '148 €'
+    },
+    {
+      id: 'serv12',
+      name: 'Super Gym Plus',
+      type: 'gym',
+      position: [41.8930, 12.5000] as [number, number],
+      distance: '3.0 km',
+      rating: 4.3,
+      price: '3.271 €'
+    },
+    {
+      id: 'serv13',
+      name: 'Palazzo dei Congressi',
+      type: 'concert',
+      position: [41.9180, 12.4750] as [number, number],
+      distance: '2.7 km',
+      rating: 4.7,
+      price: '2.346 €'
+    },
+    {
+      id: 'serv14',
+      name: 'Centro Sportivo Elite',
+      type: 'pool',
+      position: [41.9030, 12.5210] as [number, number],
+      distance: '3.5 km',
+      rating: 4.5,
+      price: '1.372 €'
+    },
+    {
+      id: 'serv15',
+      name: 'Arena Concert Hall',
+      type: 'concert',
+      position: [41.8850, 12.4930] as [number, number],
+      distance: '3.9 km',
+      rating: 4.8,
+      price: '3.050 €'
+    },
+    {
+      id: 'serv16',
+      name: 'Metropolitan Theater',
+      type: 'theater',
+      position: [41.9250, 12.4850] as [number, number],
+      distance: '2.6 km',
+      rating: 4.4,
+      price: '3.693 €'
+    },
+    {
+      id: 'serv17',
+      name: 'Cinema Star',
+      type: 'cinema',
+      position: [41.9080, 12.5220] as [number, number],
+      distance: '3.1 km',
+      rating: 4.0,
+      price: '12.602 €'
+    }
   ];
+
 
   const abbsFeatures = [
     { 
@@ -209,10 +328,10 @@ const Mission: React.FC = () => {
   }, [inView]);
 
   const floatingAnimation = {
-    y: isNearTop ? 0 : [0, -15, 0],  // Smette di oscillare quando vicino al limite superiore
+    y: [0, -15, 0],  // Smette di oscillare quando vicino al limite superiore
     transition: {
       duration: 3,
-      repeat: isNearTop ? 0 : Infinity, // Non ripetere quando vicino al limite
+      repeat: Infinity, // Non ripetere quando vicino al limite
       repeatType: "reverse" as const,
       ease: "easeInOut"
     }
@@ -225,8 +344,6 @@ const Mission: React.FC = () => {
         <motion.div 
           ref={headerRef}
           className="mission__header"
-          initial="hidden"
-          animate={headerInView ? "visible" : "hidden"}
           variants={fadeInUp}
           style={{
             opacity: titleOpacity,
@@ -363,80 +480,11 @@ const Mission: React.FC = () => {
             <p>{t('discoverNearbyServicesDesc')}</p>
           </motion.div>
           
-          <div className="mission__map-container">
-            <div className="mission__laptop-wrapper">
-              <div className="shape-2"></div>
-              <LaptopContainer isVisible={isMapSectionInView}>
-                <div className="mission__interactive-map">
-                  <InteractiveMap 
-                    userPosition={[41.9028, 12.4964]} 
-                    services={physicalServices}
-                    onMarkerClick={handleMarkerClick}
-                  />
-                </div>
-                <div className="mission__map-caption">
-                  La nostra ambizione globale: ABBS mira a connettere fornitori e consumatori di abbonamenti in tutto il mondo, creando un ecosistema unico e trasparente.
-                </div>
-              </LaptopContainer>
-            </div>
-            
-            <motion.div 
-              className="mission__nearby-services"
-              variants={staggerItems}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.h4 variants={itemFade}>{t('physicalServicesNearby')}</motion.h4>
-              <div className="services-list">
-                {physicalServices.map((service, index) => (
-                  <motion.div 
-                    key={service.id}
-                    className={`service-card ${selectedService === service.id ? 'service-card--active' : ''}`}
-                    onClick={() => handleMarkerClick(service.id)}
-                    variants={itemFade}
-                    custom={index}
-                    whileHover={{ 
-                      scale: 1.03, 
-                      x: 5,
-                      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)" 
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <motion.div 
-                      className="service-icon"
-                      whileHover={{ rotate: 10 }}
-                    >
-                      {service.type === 'gym' && <FaDumbbell />}
-                      {service.type === 'pool' && <FaSwimmer />}
-                      {service.type === 'theater' && <FaFilm />}
-                    </motion.div>
-                    <div className="service-details">
-                      <h5>{service.name}</h5>
-                      <div className="service-meta">
-                        <span className="service-distance">
-                          <FaMapMarkerAlt />
-                          {service.distance}
-                        </span>
-                        <span className="service-rating">
-                          <FaStar />
-                          {service.rating}/5
-                        </span>
-                      </div>
-                      <span className="service-price">{service.price}</span>
-                    </div>
-                    <motion.button 
-                      className="service-action"
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaArrowRight />
-                    </motion.button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+          <div className="mission__map-container mission__map-container--airbnb">
+            <AirbnbStyleMap 
+              userPosition={[41.9028, 12.4964]} 
+              services={physicalServices}
+            /></div>
         </motion.section>
       </div>
     </section>

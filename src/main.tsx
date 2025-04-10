@@ -1,36 +1,88 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, ScrollRestoration, useLocation } from 'react-router-dom'
 import { LanguageProvider } from './context/LanguageContext'
 import App from './App'
 import Business from './pages/Business'
 import './styles/global.scss'
+import './App.scss'
+import './components/ui/AirbnbStyleMap.scss'
+import './components/ui/Navbar.scss'
+import './components/ui/Sidebar.scss'
 
 // Importo le nuove pagine
 import TermsOfService from './pages/TermsOfService'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import CookiePolicy from './pages/CookiePolicy'
 
+// Componente per lo scroll to top automatico
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  
+  return null;
+}
+
+// Wrapper per ogni pagina che include lo ScrollToTop
+const withScrollToTop = (Component: React.ComponentType) => {
+  return function WithScrollToTop(props: any) {
+    return (
+      <>
+        <ScrollToTop />
+        <Component {...props} />
+      </>
+    );
+  };
+};
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: (
+      <>
+        <ScrollRestoration />
+        <App />
+      </>
+    )
   },
   {
     path: '/business',
-    element: <Business />
+    element: (
+      <>
+        <ScrollRestoration />
+        <Business />
+      </>
+    )
   },
   {
     path: '/terms',
-    element: <TermsOfService />
+    element: (
+      <>
+        <ScrollRestoration />
+        <TermsOfService />
+      </>
+    )
   },
   {
     path: '/privacy',
-    element: <PrivacyPolicy />
+    element: (
+      <>
+        <ScrollRestoration />
+        <PrivacyPolicy />
+      </>
+    )
   },
   {
     path: '/cookies',
-    element: <CookiePolicy />
+    element: (
+      <>
+        <ScrollRestoration />
+        <CookiePolicy />
+      </>
+    )
   }
 ]);
 

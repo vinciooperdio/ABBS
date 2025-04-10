@@ -249,8 +249,8 @@ const Business: React.FC = () => {
             className="business-hero__content"
             style={{ opacity: heroOpacity }}
           >
-            <h1>Troppi gestionali, poca visibilità.</h1>
-            <p>Con ABBS centralizzi tutto: abbonamenti, promozioni e pagamenti. Meno costi, più efficienza, più clienti.</p>
+            <h1>{t('businessHeroTitle')}</h1>
+            <p>{t('businessHeroSubtitle')}</p>
             <div className="business-hero__cta">
               <button className="button button--primary">{t('businessHeroCta1')}</button>
               <button className="button button--secondary">{t('businessHeroCta2')}</button>
@@ -264,22 +264,22 @@ const Business: React.FC = () => {
               {problems.map((problem, index) => (
                 <motion.div 
                   key={index} 
-                className="problem-item"
-                style={{ 
-                  opacity: problem.opacity,
-                  y: problem.y
-                }}
-              >
-                <div className="problem-content">
-                  <div className="problem-icon">{problem.icon}</div>
-                  <h2>{problem.title}</h2>
-                  <p>{problem.description}</p>
-                  {problem.hasCta && (
-                    <div className="problem-cta">
-                      <button className="button button--primary">{t('businessProblemsCta')}</button>
-                    </div>
-                  )}
-                </div>
+                  className={`problem-item ${sectionIndex === index + 1 ? 'active' : ''}`}
+                  style={{ 
+                    opacity: problem.opacity,
+                    y: problem.y
+                  }}
+                >
+                  <div className="problem-content">
+                    <div className="problem-icon">{problem.icon}</div>
+                    <h2>{problem.title}</h2>
+                    <p>{problem.description}</p>
+                    {problem.hasCta && (
+                      <div className="problem-cta">
+                        <button className="button button--primary">{t('businessProblemsCta')}</button>
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               ))}
           </div>

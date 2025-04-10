@@ -1,0 +1,145 @@
+@import '../../styles/variables';
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0;
+  z-index: $z-fixed + 100;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba($primary, 0.2);
+  
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($primary, 0.3);
+    border-radius: 20px;
+    
+    &:hover {
+      background-color: rgba($primary, 0.5);
+    }
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    width: 85%;
+  }
+  
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($background-dark, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: $z-fixed + 99;
+    cursor: pointer;
+  }
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba($primary, 0.1);
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2;
+
+    h3 {
+      flex-grow: 1;
+      text-align: center;
+      font-size: 1.3rem;
+      margin: 0;
+      padding-right: 24px; // Compensare il pulsante di chiusura
+    }
+  }
+  
+  &__close {
+    background: none;
+    border: none;
+    color: $text-primary;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba($background-dark, 0.1);
+      transform: rotate(90deg);
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 20px 30px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  &__item {
+    margin-bottom: 1.5rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__link {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: $text-primary;
+    text-decoration: none;
+    padding: 0.7rem 0.7rem 0.7rem 1.2rem;
+    transition: all $transition-fast;
+    position: relative;
+    border-radius: 12px;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 20px;
+      background: $primary;
+      border-radius: 2px;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    
+    &:hover {
+      color: $primary;
+      background: rgba($primary, 0.05);
+      transform: translateX(5px);
+      
+      &::before {
+        width: 4px;
+      }
+    }
+  }
+} 

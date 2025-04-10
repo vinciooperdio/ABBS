@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
     <>
       {/* Schermata di caricamento */}
       <div className={`loading-screen ${loadingComplete ? 'hidden' : ''}`}>
-        <h1 className="logo-text">ABBS</h1>
+        <h1 className="logo-text">ABBS.ONE</h1>
       </div>
 
       <section className="hero" ref={sectionRef}>
@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
               }}
             >
               <Button 
-                href="/waitlist" 
+                href="#waitlist" 
                 variant="primary"
                 className="hero__cta-button"
               >

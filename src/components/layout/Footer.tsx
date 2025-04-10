@@ -96,13 +96,7 @@ const Footer = () => {
             </a>
             
             <div className="footer__social">
-              <a href="https://github.com/abbsone" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <FiGithub />
-              </a>
-              <a href="https://twitter.com/abbsone" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <FiTwitter />
-              </a>
-              <a href="https://linkedin.com/company/abbsone" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a href="https://linkedin.com/company/abbsapp" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <FiLinkedin />
               </a>
             </div>

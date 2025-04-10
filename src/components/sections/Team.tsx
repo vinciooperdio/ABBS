@@ -93,7 +93,7 @@ const Team = () => {
     },
     {
       name: 'Silvia La Malfa',
-      role: 'COO',
+      role: 'COO & CFO',
       bio: t('silvia'),
       image: silviaImage,
       social: {
@@ -344,7 +344,7 @@ const Team = () => {
                       >
                         <FiLinkedin />
                       </motion.a>
-                      <motion.a 
+                      {/*<motion.a 
                         href={member.social.twitter} 
                         className="team__social-link" 
                         aria-label="Twitter"
@@ -358,7 +358,7 @@ const Team = () => {
                         whileTap={{ scale: 0.95 }}
                       >
                         <FiTwitter />
-                      </motion.a>
+                      </motion.a>*/}
                     </motion.div>
                   </motion.div>
                   
@@ -381,7 +381,7 @@ const Team = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              {t('joinOurTeam')}
+              {t('joinTeam')}
             </motion.h3>
             
             <motion.p
