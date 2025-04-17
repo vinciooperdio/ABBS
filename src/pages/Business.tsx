@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useInView, MotionValue, AnimatePresence } from 'framer-motion';
 import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight, FiMinusCircle, FiPlusCircle } from 'react-icons/fi';
-import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog } from 'react-icons/fa';
+import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog, FaBullseye, FaStore, FaCreditCard, FaBell, FaDoorOpen, FaCoins } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import SectionBackground from '../components/ui/SectionBackground';
 import NebulaBackground from '../components/ui/NebulaBackground';
@@ -12,6 +12,70 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import heroVideo from '../assets/videos/hero.mp4';
 import painVideo from '../assets/videos/pain.mp4';
+
+// Rinomina per evitare conflitti
+const businessBenefitsData = [
+  {
+    icon: <FaBullseye />, 
+    title: "Visibilità Mirata",
+    description: "ABBS ti offre visibilità all'interno di una rete attiva di utenti. Niente più costi pubblicitari inutili: promuovi i tuoi abbonamenti direttamente nella piattaforma.",
+    colorClass: "benefit-black"
+  },
+  {
+    icon: <FaStore />, 
+    title: "Marketplace Integrato",
+    description: "Porta i tuoi abbonamenti nella rete di ABBS. Visibilità immediata su un pubblico attivo, pronto a scoprire nuove offerte.",
+    colorClass: "benefit-black"
+  },
+  {
+    icon: <FaCogs />, 
+    title: "Gestionale Multi-Servizio",
+    description: "Pannello di controllo unico per personalizzare, attivare e modificare gli abbonamenti. Veloce da configurare, facile da usare.",
+    colorClass: "benefit-black"
+  },
+  {
+    icon: <FaCreditCard />, 
+    title: "Pagamenti e Fatturazione",
+    description: "Automatizza rinnovi e fatture. Ricevi i pagamenti in tempo reale, con un sistema sicuro e conforme alle normative.",
+    colorClass: "benefit-blue"
+  },
+  {
+    icon: <FaBell />, 
+    title: "Notifiche e Reminder",
+    description: "Riduci i mancati pagamenti: avvisi puntuali a clienti e gestori, scadenze sotto controllo e zero stress di rinnovo.",
+    colorClass: "benefit-light-grey"
+  },
+  {
+    icon: <FaDoorOpen />, 
+    title: "Integrazione con Tornelli e Accessi",
+    description: "Controlla entrate e uscite in palestre o eventi. Collegati ai tornelli esistenti e monitora in modo smart l'accesso clienti.",
+    colorClass: "benefit-black"
+  },
+  {
+    icon: <FaChartLine />, 
+    title: "Analisi e Reportistica",
+    description: "Dashboard avanzate per monitorare il ciclo di vita degli abbonamenti, capire trend e ottimizzare offerte e pricing.",
+    colorClass: "benefit-yellow"
+  },
+  {
+    icon: <FaShieldAlt />, 
+    title: "Protezione Dati",
+    description: "Sicurezza di livello enterprise, con crittografia e piena conformità GDPR. I dati di clienti e aziende restano protetti.",
+    colorClass: "benefit-red"
+  },
+  {
+    icon: <FaCoins />, 
+    title: "Semplificazione Costi",
+    description: "Risparmia su infrastrutture e software: con ABBS hai un'unica piattaforma, riduci le spese di sviluppo e i costi di integrazione.",
+    colorClass: "benefit-light-grey"
+  },
+  {
+    icon: <FaHandshake />, 
+    title: "Cross-Selling e Partnership",
+    description: "Crea sinergie con altri servizi: pacchetti condivisi, promozioni incrociate e nuove opportunità di guadagno.",
+    colorClass: "benefit-black"
+  },
+];
 
 const Business: React.FC = () => {
   const { t, language } = useLanguage();
@@ -208,6 +272,21 @@ const Business: React.FC = () => {
     "https://cdn.abbs.one/videos/pain.mp4"
   ];
 
+  // Assumi che i dati FAQ siano definiti altrove, ad esempio:
+  const faqData = [
+    { question: t('faq1Question'), answer: t('faq1Answer') },
+    { question: t('faq2Question'), answer: t('faq2Answer') },
+    { question: t('faq3Question'), answer: t('faq3Answer') },
+    { question: t('faq4Question'), answer: t('faq4Answer') },
+    { question: t('faq5Question'), answer: t('faq5Answer') },
+  ];
+
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
+
   return (
     <div className="business-page">
       <Helmet>
@@ -286,43 +365,22 @@ const Business: React.FC = () => {
         </section>
 
         {/* Benefits Section */}
-        <section ref={benefitsRef} className="business-benefits">
-            <motion.div 
-            className="business-benefits__content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.7 }}
-            
-          >
-            <h2 className="text-gradient">{t('businessBenefitsTitle')}</h2>
-            <p>{t('businessBenefitsText')}</p>
+        <section className="business-benefits">
+          <div className="business-benefits__content container">
+            <h2>Vantaggi Principali</h2>
+            <p>Scopri come ABBS può trasformare la gestione dei tuoi abbonamenti.</p>
+
             <div className="business-benefits__grid">
-              {benefits.map((benefit, index) => (
-                <motion.div 
-                  key={index} 
-                  className="benefit-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="benefit-icon">{benefit.icon}</div>
+              {businessBenefitsData.map((benefit, index) => (
+                <div key={index} className={`benefit-card ${benefit.colorClass}`}>
                   <div className="benefit-content">
-                  <h3>{benefit.title}</h3>
-                  <p>{benefit.description}</p>
+                    <h3>{benefit.title}</h3>
+                    <p>{benefit.description}</p>
                   </div>
-                  <div className="benefit-arrow">
-                    <FiArrowRight />
-                  </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-            <motion.button 
-              className="button button--primary"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isBenefitsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >{t('businessBenefitsCta')}</motion.button>
-          </motion.div>
+          </div>
         </section>
 
         {/* How It Works Section - Più Giocosa */}
@@ -577,54 +635,37 @@ const Business: React.FC = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section ref={faqRef} className="business-faq">
-          <motion.div 
-            className="business-faq__content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.7 }}
-          >
-            <h2 className="text-gradient">{t('businessFaqTitle')}</h2>
+        {/* FAQ Section - Correzione errori linter */}
+        <section className="business-faq">
+          <div className="business-faq__content">
+            <h2>{t('faqTitle')}</h2>
             <div className="business-faq__questions">
-              <FAQ 
-                question={t('businessFaq1')}
-                answer="ABBS offre 30 giorni di prova gratuita. Durante il periodo di prova puoi importare automaticamente i tuoi dati e testare tutte le funzionalità senza modificare i tuoi flussi operativi. Il passaggio è semplice, veloce e senza inserimenti manuali: provi ABBS, lo confronti e decidi con calma."
-                delay={0}
-                inView={isFaqInView}
-              />
-              <FAQ 
-                question={t('businessFaq2')}
-                answer="Assolutamente sì! ABBS è progettato per essere utilizzato da aziende di qualsiasi dimensione. Abbiamo clienti che vanno da piccole startup a grandi aziende con centinaia di abbonamenti. I nostri piani si adattano alle tue esigenze specifiche."
-                delay={0.1}
-                inView={isFaqInView}
-              />
-              <FAQ 
-                question={t('businessFaq3')}
-                answer="L'integrazione è semplice e veloce. ABBS può importare automaticamente i dati dalle tue email, sistemi di fatturazione o file CSV. Offriamo anche assistenza dedicata durante l'onboarding per assicurarci che tutto funzioni perfettamente."
-                delay={0.2}
-                inView={isFaqInView}
-              />
-              <FAQ 
-                question="È sicuro condividere i dati dei nostri abbonamenti?"
-                answer="La sicurezza dei tuoi dati è la nostra priorità assoluta. ABBS utilizza crittografia di livello bancario, è conforme al GDPR e non memorizza informazioni sensibili come password o dettagli completi delle carte di credito. Puoi leggere la nostra politica sulla privacy per tutti i dettagli."
-                delay={0.3}
-                inView={isFaqInView}
-              />
-              <FAQ 
-                question="Quanto tempo richiede l'implementazione?"
-                answer="La maggior parte dei nostri clienti è operativa entro 24-48 ore dall'iscrizione. Il sistema inizia immediatamente a rilevare i tuoi abbonamenti e puoi iniziare a vedere risultati e risparmi fin dal primo giorno."
-                delay={0.4}
-                inView={isFaqInView}
-              />
+              {faqData.map((faq, index) => (
+                <div key={index} className={`faq-question ${openFAQ === index ? 'open' : ''}`} onClick={() => toggleFAQ(index)}>
+                  <div className="faq-question-header">
+                    <h3>{faq.question}</h3>
+                    <div className="faq-toggle">
+                      {openFAQ === index ? <FiMinusCircle /> : <FiPlusCircle />}
+                    </div>
+                  </div>
+                  <AnimatePresence>
+                    {openFAQ === index && (
+                      <motion.div
+                        className="faq-answer"
+                        initial={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
+                        animate={{ height: 'auto', opacity: 1, paddingTop: '0', paddingBottom: '1.5rem' }}
+                        exit={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <p>{faq.answer}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
             </div>
-            <motion.button 
-              className="button button--primary"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isFaqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >{t('businessFaqCta')}</motion.button>
-          </motion.div>
+            <a href="/contact" className="button button--primary">{t('faqCta')}</a>
+          </div>
         </section>
 
         {/* Final CTA Section */}
@@ -649,46 +690,6 @@ const Business: React.FC = () => {
       
       <Footer />
     </div>
-  );
-};
-
-// Componente FAQ con espansione
-const FAQ: React.FC<{
-  question: string;
-  answer: string;
-  delay: number;
-  inView: boolean;
-}> = ({ question, answer, delay, inView }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <motion.div 
-      className={`faq-question ${isOpen ? 'open' : ''}`}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.5, delay }}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <div className="faq-question-header">
-        <h3>{question}</h3>
-        <div className="faq-toggle">
-          {isOpen ? <FiMinusCircle /> : <FiPlusCircle />}
-        </div>
-      </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className="faq-answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <p>{answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
   );
 };
 

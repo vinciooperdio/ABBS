@@ -14,71 +14,33 @@
 
 .timeline-section {
   position: relative;
-  min-height: 500vh; // Significantly increased height for longer transitions
+  padding: 5rem 0;
+  background-color: $background;
+  min-height: 100vh;
   width: 100%;
   overflow: hidden;
   
-  &--mobile {
-    min-height: 600vh; // Even more height for mobile to ensure all items display
+  .timeline-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
-  // Video background
-  .video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-    will-change: opacity;
-    
-    .video-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      will-change: transform, filter;
-    }
-    
-    .background-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
-    
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75); // Darker overlay
-      z-index: -1;
-    }
-  }
-  
-  // Fixed section title
+  // Sezione titolo
   .section-title-container {
-    position: fixed;
-    top: 15%;
-    left: 0;
+    position: relative;
     width: 100%;
     text-align: center;
-    z-index: 10;
-    pointer-events: none;
+    margin-bottom: 3rem;
     
     .section-title {
       font-size: 3.5rem;
       font-weight: 800;
-      color: white;
+      color: $text-primary;
       margin: 0;
-      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
       letter-spacing: -0.5px;
       
       @media (max-width: $breakpoint-lg) {
@@ -100,79 +62,70 @@
     position: relative;
     z-index: 5;
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    color: white;
-    pointer-events: none;
+    color: $text-primary;
     
     // Progress indicator dots
     .timeline-progress {
-      position: fixed;
-      bottom: 10%;
-      left: 0;
-      width: 100%;
       display: flex;
       justify-content: center;
       gap: 20px;
-      z-index: 5;
+      margin-bottom: 3rem;
       
       @media (max-width: $breakpoint-sm) {
-        bottom: 5%; // Move dots up on mobile
-        gap: 12px; // Tighter spacing on mobile
+        gap: 12px;
       }
       
       .timeline-dot {
-        width: 12px;
-        height: 12px;
+        width: 14px;
+        height: 14px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba($primary, 0.3);
         transition: all 0.3s ease-in-out;
+        cursor: pointer;
         
         &.active {
-          background: white;
+          background: $primary;
           transform: scale(1.2);
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 10px rgba($primary, 0.5);
+        }
+        
+        &:hover:not(.active) {
+          background: rgba($primary, 0.6);
+          transform: scale(1.1);
         }
         
         @media (max-width: $breakpoint-sm) {
-          width: 10px;
-          height: 10px;
+          width: 12px;
+          height: 12px;
         }
       }
     }
     
     // Timeline items - centered text
     .timeline-items {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      pointer-events: none;
-      padding: 0 5%;
       
       .timeline-item {
         width: 100%;
-        max-width: 900px;
+        max-width: 800px;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 2rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         
         @media (max-width: $breakpoint-sm) {
           padding: 1.5rem;
-          max-width: 100%; // Full width on mobile
-          height: auto;
-          top: 40%;
-          transform: translate(-50%, -50%);
+          max-width: 100%;
         }
         
         .timeline-item-date {
@@ -180,7 +133,6 @@
           font-weight: 600;
           color: $primary;
           margin-bottom: 1.5rem;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
           
           @media (max-width: $breakpoint-md) {
             font-size: 1.25rem;
@@ -194,23 +146,22 @@
         }
         
         .timeline-item-heading {
-          font-size: 3.5rem;
+          font-size: 2.5rem;
           font-weight: 800;
           margin-bottom: 1.5rem;
-          color: white;
+          color: $text-primary;
           line-height: 1.2;
-          text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
           
           @media (max-width: $breakpoint-lg) {
-            font-size: 2.75rem;
-          }
-          
-          @media (max-width: $breakpoint-md) {
             font-size: 2.25rem;
           }
           
+          @media (max-width: $breakpoint-md) {
+            font-size: 2rem;
+          }
+          
           @media (max-width: $breakpoint-sm) {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             margin-bottom: 0.75rem;
             line-height: 1.1;
           }
@@ -220,9 +171,8 @@
           font-size: 1.25rem;
           line-height: 1.6;
           margin-bottom: 2rem;
-          color: rgba(255, 255, 255, 0.9);
+          color: $text-secondary;
           max-width: 800px;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
           
           @media (max-width: $breakpoint-md) {
             font-size: 1.1rem;
@@ -233,55 +183,22 @@
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 1.25rem;
-            padding: 0 0.5rem;
           }
         }
         
         .timeline-item-buttons {
           display: flex;
           gap: 15px;
-          margin-top: 25px;
+          margin-top: 1rem;
           
-          button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 25px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            
-            &:hover {
-              background: rgba(255, 255, 255, 0.25);
-              border-color: rgba(255, 255, 255, 0.35);
-              transform: translateY(-5px);
-              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            }
-            
-            &.button--primary {
-              background: linear-gradient(135deg, $primary-light, $primary);
-              border-color: transparent;
-              color: white;
-              
-              &:hover {
-                box-shadow: 0 15px 35px rgba($primary, 0.4);
-              }
-            }
+          @media (max-width: $breakpoint-sm) {
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
           }
         }
       }
     }
-  }
-  
-  @media (max-width: $breakpoint-sm) {
-    display: block !important;
-    visibility: visible !important;
-    overflow: visible !important;
-    min-height: 450vh !important; // Adjusted for mobile
   }
 }
 
