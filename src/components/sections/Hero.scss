@@ -101,6 +101,14 @@
 
 // Waiting list form styles
 .waiting-list {
+  &__heading {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: $text-primary;
+    position: relative;
+  }
+  
   &__form-container {
     width: 100%;
     max-width: 600px;

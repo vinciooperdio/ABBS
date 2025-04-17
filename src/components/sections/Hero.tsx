@@ -165,9 +165,9 @@ const Hero: React.FC = () => {
             >
               {t('manageAllSubscriptions')}
             </motion.p>
-            
+
             {/* Added h2 heading above the waitlist form */}
-            <motion.h2 
+            <motion.h4 
               className="waiting-list__heading"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ const Hero: React.FC = () => {
               }}
             >
               {t('joinWaitingList')}
-            </motion.h2>
+            </motion.h4>
             
             <motion.div 
               className="waiting-list__form-container"
