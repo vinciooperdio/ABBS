@@ -9,7 +9,7 @@
   padding: 5rem 0;
   
   &__container {
-    max-width: 1200px;
+    width: 90vw;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -17,7 +17,7 @@
     height: 100%;
   }
   
-  // Sezione titolo
+  // Section title
   .section-title-container {
     position: relative;
     width: 100%;
@@ -55,380 +55,71 @@
     flex: 1;
   }
 
-  // Contenitore per il testo animato
+  // Text container with increased width
   .text-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 2rem;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 3rem;
+    padding: 4rem;
     
     @media (max-width: $breakpoint-md) {
-      padding: 2rem;
+      padding: 3rem;
     }
     
     @media (max-width: $breakpoint-sm) {
-      padding: 1.5rem;
+      padding: 2rem;
     }
     
     .text-content {
       width: 100%;
       
       .animated-text {
-        font-size: 1.8rem;
-        line-height: 1.5;
+        font-size: 2rem;
+        line-height: 1.6;
         color: $text-primary;
         margin: 0;
         
+        // Glow effect for words
+        .glowing-word {
+          display: inline-block;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 
+                       0 0 20px rgba(255, 255, 255, 0.3);
+          transition: text-shadow 0.3s ease;
+          
+          &:hover {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 
+                         0 0 25px rgba(255, 255, 255, 0.5);
+          }
+        }
+        
         @media (max-width: $breakpoint-lg) {
-          font-size: 1.6rem;
+          font-size: 1.8rem;
         }
         
         @media (max-width: $breakpoint-md) {
-          font-size: 1.4rem;
+          font-size: 1.6rem;
         }
         
         @media (max-width: $breakpoint-sm) {
-          font-size: 1.2rem;
+          font-size: 1.4rem;
         }
         
-        // Effetto cursore lampeggiante
+        // Blinking cursor effect
         .cursor {
           display: inline-block;
-          width: 3px;
-          height: 1.5em;
+          width: 4px;
+          height: 1.6em;
           background-color: $primary;
+          box-shadow: 0 0 10px rgba($primary, 0.7),
+                      0 0 20px rgba($primary, 0.5);
           margin-left: 2px;
           vertical-align: text-bottom;
           animation: blink 1s step-end infinite;
         }
-      }
-    }
-  }
-
-  // Text container for full-screen text animations
-  .problem-item {
-    display: none; // Non mostrare di default
-    position: fixed;
-    color: white;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    z-index: 2;
-    will-change: opacity, transform;
-    
-    &.active {
-      display: flex; // Mostra solo quando attivo
-    }
-    
-    .problem-content {
-      max-width: 800px;
-      text-align: center;
-      padding: 3rem;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 2rem;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-      transition: all 0.5s ease;
-      margin: 0 2rem;
-      pointer-events: auto;
-      
-      p {
-        font-size: clamp(1.8rem, 3vw, 2.5rem);
-        font-weight: 600;
-        line-height: 1.3;
-        color: white;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s ease-out;
-        margin: 0;
-        
-        @media (max-width: $breakpoint-lg) {
-          font-size: 2rem;
-        }
-        
-        @media (max-width: $breakpoint-md) {
-          font-size: 1.8rem;
-        }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 1.5rem;
-          padding: 0;
-        }
-      }
-    }
-  }
-
-  // Container and header styles
-  &__header {
-    position: relative;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 40px;
-    z-index: 2;
-  }
-
-  &__badge {
-    display: inline-block;
-    padding: 8px 16px;
-    background: $gradient-primary;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: $border-radius-sm;
-    margin-bottom: 16px;
-    box-shadow: $shadow-sm;
-  }
-
-  &__title {
-    font-size: 42px;
-    font-weight: 800;
-    margin-bottom: 16px;
-    color: white;
-    
-    @media (max-width: $breakpoint-md) {
-      font-size: 34px;
-    }
-  }
-
-  &__subtitle {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto;
-    
-    @media (max-width: $breakpoint-md) {
-      font-size: 16px;
-    }
-  }
-
-  // Stats section
-  &__stats {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 70px;
-    position: relative;
-    z-index: 2;
-    
-    @media (max-width: $breakpoint-md) {
-      flex-wrap: wrap;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: $border-radius-md;
-      padding: 30px 40px;
-      text-align: center;
-      box-shadow: $shadow-md;
-      flex-basis: 200px;
-      transition: $transition-medium;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      
-      &:hover {
-        transform: translateY(-8px);
-        box-shadow: $shadow-lg;
-        background: rgba(255, 255, 255, 0.15);
-      }
-      
-      @media (max-width: $breakpoint-md) {
-        flex-basis: calc(50% - 20px);
-        padding: 25px;
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        flex-basis: 100%;
-      }
-      
-      .stat-value {
-        font-size: 42px;
-        font-weight: 800;
-        margin-bottom: 8px;
-        color: white;
-      }
-      
-      .stat-label {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.7);
-      }
-    }
-  }
-  
-  // Features grid
-  &__features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin: 0 auto 40px;
-    max-width: 1200px;
-    position: relative;
-    z-index: 2;
-    
-    @media (max-width: $breakpoint-lg) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    
-    .feature-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: $border-radius-md;
-      padding: 40px 30px;
-      transition: all $transition-medium;
-      box-shadow: $shadow-sm;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      
-      &.feature-active {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-5px);
-        border-color: rgba(255, 255, 255, 0.2);
-        box-shadow: $shadow-md;
-        
-        .feature-icon {
-          background: $gradient-primary;
-          
-          & > * {
-            color: white;
-          }
-        }
-      }
-      
-      &:hover {
-        transform: translateY(-10px);
-        box-shadow: $shadow-md;
-        background: rgba(255, 255, 255, 0.15);
-        
-        .feature-icon {
-          transform: scale(1.1);
-          background: $gradient-primary;
-          
-          & > * {
-            color: white;
-          }
-        }
-      }
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 100%;
-        background: $gradient-primary;
-        z-index: 1;
-      }
-      
-      .feature-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        margin-bottom: 24px;
-        transition: $transition-medium;
-        
-        & > * {
-          font-size: 28px;
-          color: white;
-          transition: $transition-medium;
-        }
-      }
-      
-      .feature-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: white;
-      }
-      
-      .feature-description {
-        font-size: 16px;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.7);
-      }
-    }
-  }
-  
-  // CTA Banner
-  &__cta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: $gradient-primary;
-    border-radius: $border-radius-lg;
-    padding: 40px 60px;
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    box-shadow: $shadow-lg;
-    
-    @media (max-width: $breakpoint-md) {
-      flex-direction: column;
-      text-align: center;
-      padding: 40px 30px;
-    }
-    
-    .cta-content {
-      color: white;
-      
-      h3 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        
-        @media (max-width: $breakpoint-md) {
-          font-size: 24px;
-        }
-      }
-      
-      p {
-        font-size: 16px;
-        opacity: 0.9;
-      }
-    }
-    
-    .cta-button {
-      display: inline-block;
-      padding: 14px 32px;
-      background: white;
-      color: $primary;
-      font-weight: 600;
-      font-size: 16px;
-      border-radius: $border-radius-sm;
-      text-decoration: none;
-      transition: $transition-medium;
-      white-space: nowrap;
-      
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: $shadow-md;
-      }
-      
-      @media (max-width: $breakpoint-md) {
-        margin-top: 24px;
       }
     }
   }
@@ -441,7 +132,7 @@
   }
 }
 
-// Animazione per il cursore lampeggiante
+// Animation for blinking cursor
 @keyframes blink {
   from, to {
     opacity: 1;
@@ -449,4 +140,4 @@
   50% {
     opacity: 0;
   }
-} 
+}

@@ -13,27 +13,27 @@ const WhatIs: React.FC = () => {
     once: false 
   });
   
-  // Condensato tutti i punti in un unico testo
-  const fullText = `${t('whatIsPhrase1')} ${t('whatIsPhrase2')} ${t('whatIsPhrase3')} ${t('whatIsPhrase4')} ${t('whatIsPhrase5')} ${t('whatIsPhrase6')} ${t('whatIsPhrase7')}`;
-  
-  // Dividiamo il testo in parole
+  // Text content from translation
+  const fullText = `${t('whatIsText')}`;
+    
+  // Split text into words
   const words = fullText.split(' ');
   
-  // Stato per tenere traccia di quante parole mostrare
+  // State to track how many words to show
   const [displayedWords, setDisplayedWords] = useState(0);
   
-  // Effetto per animare la scrittura del testo quando la sezione è in vista
+  // Effect to animate text writing when section is in view
   useEffect(() => {
     if (!isInView) {
       setDisplayedWords(0);
       return;
     }
     
-    // Se la sezione è in vista, inizia a mostrare le parole una alla volta
+    // If section is in view, start showing words one by one
     if (displayedWords < words.length) {
       const timer = setTimeout(() => {
         setDisplayedWords(prev => prev + 1);
-      }, 100); // Velocità della comparsa di ogni parola
+      }, 100); // Speed of word appearance
       
       return () => clearTimeout(timer);
     }
@@ -63,6 +63,7 @@ const WhatIs: React.FC = () => {
                 {words.slice(0, displayedWords).map((word, index) => (
                   <React.Fragment key={index}>
                     <motion.span
+                      className="glowing-word"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
@@ -82,4 +83,4 @@ const WhatIs: React.FC = () => {
   );
 };
 
-export default WhatIs; 
+export default WhatIs;

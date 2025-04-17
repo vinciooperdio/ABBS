@@ -33,14 +33,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // WhatIs
     'whatIsABBSTitle': 'Cos\'è ABBS?',
-    'whatIsPhrase1': 'Non dovrai più cercare in siti diversi per le informazioni dei tuoi abbonamenti',
-    'whatIsPhrase2': 'Centralizza tutti i tuoi abbonamenti in un\'unica dashboard interattiva',
-    'whatIsPhrase3': 'Monitora scadenze, costi e ricevi notifiche intelligenti prima dei rinnovi',
-    'whatIsPhrase4': 'La nostra AI analizza le tue abitudini e suggerisce piani più adatti',
-    'whatIsPhrase5': 'Sai esattamente dove vanno i tuoi soldi ogni mese. \n Con ABBS, ogni abbonamento è sotto controllo.',
-    'whatIsPhrase6': 'Visualizza grafici e statistiche sul tuo utilizzo',
-    'whatIsPhrase7': 'Accedi a promozioni e sconti riservati agli utenti ABBS',
-    'whatIsPhrase8': 'Interfaccia intuitiva che semplifica la gestione con pochi click',
+    'whatIsText': 'Con ABBS, non dovrai più cercare in siti diversi per monitorare i tuoi abbonamenti. Ora tutto è centralizzato in un\'unica dashboard interattiva. Monitora facilmente le scadenze e i costi mensili, ricevi notifiche intelligenti che ti avvisano in anticipo prima dei rinnovi. Grazie all\'intelligenza artificiale, ABBS analizza le tue abitudini di abbonamento e suggerisce i piani più adatti alle tue necessità. Così, saprai esattamente dove vanno i tuoi soldi ogni mese, con ogni abbonamento sotto controllo. Visualizza in tempo reale grafici e statistiche del tuo utilizzo, accedi a promozioni esclusive riservate agli utenti ABBS, e goditi un\'interfaccia intuitiva che semplifica la gestione con pochi clic.',
     
     // Mission
     'ourMission': 'La Nostra Missione',

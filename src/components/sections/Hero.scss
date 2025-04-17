@@ -30,23 +30,6 @@
     gap: 2.5rem;
   }
 
-  &__main-heading {
-    h1 {
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-
-      .text-gradient {
-        background: $gradient-primary;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-    }
-  }
-
   &__heading {
     font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 700;
@@ -68,26 +51,6 @@
     color: $text-secondary;
     max-width: 720px;
     margin: 0 auto;
-  }
-
-  &__cta {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    color: white;
-    
-    @media (max-width: 576px) {
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      gap: 1rem;
-    }
-  }
-
-  &__cta-button {
-    color: white;
   }
 
   &__scroll-indicator {
@@ -136,7 +99,156 @@
   }
 }
 
-// Aggiunta animazione di caricamento iniziale
+// Waiting list form styles
+.waiting-list {
+  &__form-container {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  &__form {
+    width: 100%;
+  }
+
+  &__input-group {
+    display: flex;
+    width: 100%;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  &__input {
+    flex-grow: 1;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: $text-primary;
+    outline: none;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &--error {
+      border-color: rgba(255, 0, 0, 0.4);
+    }
+  }
+
+  &__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem;
+    background: linear-gradient(135deg, $primary, $primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, lighten($primary, 5%), lighten($primary, 10%));
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  &__spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  &__error {
+    color: rgba(255, 100, 100, 0.9);
+    font-size: 0.875rem;
+    text-align: left;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  &__disclaimer {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &__success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1rem 0 0.5rem;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1rem;
+      color: $text-secondary;
+      margin-bottom: 1.5rem;
+      max-width: 400px;
+      text-align: center;
+    }
+  }
+
+  &__success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: $gradient-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  &__reset {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: $text-primary;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+// Loading animation
 .loading-screen {
   position: fixed;
   top: 0;
@@ -193,6 +305,11 @@
   }
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 2rem 1rem;
@@ -204,12 +321,23 @@
     &__description {
       padding: 0 0.5rem;
     }
+  }
 
-    &__cta {
+  .waiting-list {
+    &__input-group {
       flex-direction: column;
-      align-items: stretch;
+      border-radius: 8px;
+    }
+
+    &__input {
+      border-radius: 8px 8px 0 0;
+      padding: 0.875rem;
+    }
+
+    &__submit {
       width: 100%;
-      gap: 1rem;
+      padding: 0.875rem;
+      border-radius: 0 0 8px 8px;
     }
   }
-} 
+}

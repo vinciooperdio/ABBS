@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import Hero from './components/sections/Hero';
 import Mission from './components/sections/Mission';
 import WhatIs from './components/sections/WhatIs';
-import Timeline from './components/sections/Timeline';
 import Team from './components/sections/Team';
 import WaitingList from './components/sections/WaitingList';
 import Footer from './components/layout/Footer';
@@ -26,7 +25,6 @@ function App() {
         <Hero />
         <Mission />
         <WhatIs />
-        <Timeline />
         <Team />
         <WaitingList />
       </main>
