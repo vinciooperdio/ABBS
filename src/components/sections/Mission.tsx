@@ -8,7 +8,6 @@ import { FiMapPin } from 'react-icons/fi';
 import { MdTheaters } from 'react-icons/md';
 import { CgGym } from 'react-icons/cg';
 import { useLanguage } from '../../context/LanguageContext';
-import InteractiveMap from '../ui/InteractiveMap';
 import LaptopContainer from '../ui/LaptopContainer';
 import './Mission.scss';
 import SimplifiedNebulaBackground from '../ui/SimplifiedNebulaBackground';
