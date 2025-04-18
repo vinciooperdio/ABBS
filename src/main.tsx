@@ -9,6 +9,8 @@ import './App.scss'
 import './components/ui/AirbnbStyleMap.scss'
 import './components/ui/Navbar.scss'
 import './components/ui/Sidebar.scss'
+import { Buffer } from 'buffer';
+window.Buffer = Buffer;
 
 // Importo le nuove pagine
 import TermsOfService from './pages/TermsOfService'
