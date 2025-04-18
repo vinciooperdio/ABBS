@@ -19,8 +19,10 @@
     "pg": "^8.8.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.0",
     "concurrently": "^7.6.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "vite": "^6.3.2"
   },
   "engines": {
     "node": "16.x"
