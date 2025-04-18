@@ -38,11 +38,32 @@ const Hero: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // Simulate form submission (in real implementation, this would be the fetch to Netlify)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Usa l'API del backend per salvare l'email
+      const apiUrl = process.env.REACT_APP_API_URL || '';
+      const response = await fetch(`${apiUrl}/api/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        if (data.error === 'Email already registered') {
+          setError(t('emailAlreadyRegistered'));
+        } else {
+          setError(t('errorMessage') || 'Something went wrong');
+        }
+        setIsLoading(false);
+        return;
+      }
+      
       setSubmitted(true);
     } catch (err) {
-      setError(t('errorMessage'));
+      console.error('Error submitting form:', err);
+      setError(t('errorMessage') || 'Something went wrong');
     } finally {
       setIsLoading(false);
     }

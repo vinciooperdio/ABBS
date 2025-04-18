@@ -1,12 +1,24 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import SEO from '../components/seo/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/layout/Footer';
-import { motion } from 'framer-motion';
 import '../styles/LegalPages.scss';
 
 const CookiePolicy: React.FC = () => {
+  const { language } = useLanguage();
+
   return (
-    <>
+    <div className="legal-page">
+      <SEO
+        title={language === 'it' ? 'Cookie Policy | ABBS' : 'Cookie Policy | ABBS'}
+        description={language === 'it' ? 
+          "Informativa sull'utilizzo dei cookie sul sito web e sulla piattaforma ABBS." : 
+          "Information about cookie usage on the ABBS website and platform."}
+        pathname="/cookies"
+      />
       <Navbar />
       <main className="legal-page">
         <div className="container">
@@ -16,7 +28,7 @@ const CookiePolicy: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1>Cookie Policy</h1>
+            <h1>{language === 'it' ? 'Cookie Policy' : 'Cookie Policy'}</h1>
             <p className="last-updated">Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}</p>
           </motion.div>
 
@@ -126,7 +138,7 @@ const CookiePolicy: React.FC = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

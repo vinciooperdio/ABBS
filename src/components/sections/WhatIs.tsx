@@ -33,7 +33,7 @@ const WhatIs: React.FC = () => {
     if (displayedWords < words.length) {
       const timer = setTimeout(() => {
         setDisplayedWords(prev => prev + 1);
-      }, 100); // Speed of word appearance
+      }, 300); // Speed of word appearance
       
       return () => clearTimeout(timer);
     }

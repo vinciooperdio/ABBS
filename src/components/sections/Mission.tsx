@@ -275,7 +275,6 @@ const Mission: React.FC = () => {
   };
 
   const itemFade = {
-    hidden: { opacity: 0, x: -100, scale: 0.9 },
     visible: { 
       opacity: 1, 
       x: 0,

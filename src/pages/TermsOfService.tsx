@@ -1,12 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import SEO from '../components/seo/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/layout/Footer';
 import { motion } from 'framer-motion';
 import '../styles/LegalPages.scss';
 
 const TermsOfService: React.FC = () => {
+  const { language } = useLanguage();
+
   return (
     <>
+      <SEO
+        title={language === 'it' ? 'Termini di Servizio | ABBS' : 'Terms of Service | ABBS'}
+        description={language === 'it' ? 
+          "Termini e condizioni di utilizzo della piattaforma ABBS per la gestione degli abbonamenti." : 
+          "Terms and conditions for using the ABBS subscription management platform."}
+        pathname="/terms"
+      />
       <Navbar />
       <main className="legal-page">
         <div className="container">
@@ -16,7 +28,7 @@ const TermsOfService: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1>Termini di Servizio</h1>
+            <h1>{language === 'it' ? 'Termini di Servizio' : 'Terms of Service'}</h1>
             <p className="last-updated">Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}</p>
           </motion.div>
 

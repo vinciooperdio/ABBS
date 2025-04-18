@@ -1,12 +1,24 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import SEO from '../components/seo/SEO';
+import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/layout/Footer';
-import { motion } from 'framer-motion';
 import '../styles/LegalPages.scss';
 
 const PrivacyPolicy: React.FC = () => {
+  const { language } = useLanguage();
+
   return (
     <>
+      <SEO
+        title={language === 'it' ? 'Informativa sulla Privacy | ABBS' : 'Privacy Policy | ABBS'}
+        description={language === 'it' ? 
+          "Informativa sulla privacy e sul trattamento dei dati personali della piattaforma ABBS." : 
+          "Privacy policy and personal data processing information for the ABBS platform."}
+        pathname="/privacy"
+      />
       <Navbar />
       <main className="legal-page">
         <div className="container">
@@ -16,7 +28,7 @@ const PrivacyPolicy: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1>Privacy Policy</h1>
+            <h1>{language === 'it' ? 'Informativa sulla Privacy' : 'Privacy Policy'}</h1>
             <p className="last-updated">Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}</p>
           </motion.div>
 

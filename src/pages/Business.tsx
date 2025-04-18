@@ -9,7 +9,7 @@ import Footer from '../components/layout/Footer';
 import Navbar from '../components/ui/Navbar';
 import '../styles/Business.scss';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import SEO from '../components/seo/SEO';
 import heroVideo from '../assets/videos/hero.mp4';
 import painVideo from '../assets/videos/pain.mp4';
 
@@ -289,12 +289,14 @@ const Business: React.FC = () => {
 
   return (
     <div className="business-page">
-      <Helmet>
-        <title>ABBS Business | {language === 'it' ? 'Gestione Abbonamenti per Aziende' : 'Subscription Management for Businesses'}</title>
-        <meta name="description" content={language === 'it' ? 
+      <SEO
+        title={`ABBS Business | ${language === 'it' ? 'Gestione Abbonamenti per Aziende' : 'Subscription Management for Businesses'}`}
+        description={language === 'it' ? 
           "ABBS Business offre una soluzione completa per la gestione degli abbonamenti aziendali. Centralizza, ottimizza e risparmia sui costi con la nostra piattaforma intuitiva." : 
-          "ABBS Business offers a complete solution for managing business subscriptions. Centralize, optimize and save costs with our intuitive platform."} />
-      </Helmet>
+          "ABBS Business offers a complete solution for managing business subscriptions. Centralize, optimize and save costs with our intuitive platform."}
+        article={true}
+        pathname="/business"
+      />
 
       <Navbar />
 
@@ -685,6 +687,96 @@ const Business: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
             >{t('businessFinalCtaButton')}</motion.button>
             </motion.div>
+        </section>
+
+        {/* Contact Form Section */}
+        <section className="business-contact">
+          <div className="business-contact__container">
+            <h2 className="text-gradient">Contattaci</h2>
+            <p>Sei interessato ad ABBS Business? Compila il modulo e ti contatteremo al più presto.</p>
+            
+            <form 
+              className="business-contact__form"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const formData = new FormData(form);
+                const data = {
+                  name: formData.get('name'),
+                  email: formData.get('email'),
+                  company: formData.get('company'),
+                  message: formData.get('message')
+                };
+                
+                try {
+                  const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                  });
+                  
+                  if (response.ok) {
+                    alert('Grazie per il tuo messaggio! Ti contatteremo presto.');
+                    form.reset();
+                  } else {
+                    alert('Si è verificato un errore. Riprova più tardi.');
+                  }
+                } catch (error) {
+                  console.error('Error submitting form:', error);
+                  alert('Si è verificato un errore. Riprova più tardi.');
+                }
+              }}
+            >
+              <div className="form-group">
+                <label htmlFor="name">Nome completo</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  placeholder="Inserisci il tuo nome" 
+                  required 
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="Inserisci la tua email" 
+                  required 
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="company">Azienda</label>
+                <input 
+                  type="text" 
+                  id="company" 
+                  name="company" 
+                  placeholder="Nome della tua azienda" 
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="message">Messaggio</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  placeholder="Come possiamo aiutarti?" 
+                  rows={4} 
+                  required
+                ></textarea>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                Invia messaggio
+              </button>
+            </form>
+          </div>
         </section>
       </main>
       

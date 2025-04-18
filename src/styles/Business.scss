@@ -1691,6 +1691,118 @@
       }
     }
   }
+
+  // Contact Form Section
+  .business-contact {
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, $background, darken($background, 5%));
+    position: relative;
+    overflow: hidden;
+    
+    &__container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      
+      h2 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 2.5rem;
+        }
+      }
+      
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        color: $text-secondary;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.1rem;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+    
+    &__form {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      
+      @media (max-width: $breakpoint-md) {
+        padding: 2rem;
+      }
+      
+      .form-group {
+        margin-bottom: 1.5rem;
+        
+        label {
+          display: block;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+          color: $text-primary;
+        }
+        
+        input, textarea {
+          width: 100%;
+          padding: 1rem 1.25rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: $text-primary;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          
+          &:focus {
+            outline: none;
+            border-color: rgba($primary, 0.5);
+            box-shadow: 0 0 0 2px rgba($primary, 0.2);
+          }
+          
+          &::placeholder {
+            color: rgba($text-secondary, 0.6);
+          }
+        }
+        
+        textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+      }
+      
+      .submit-button {
+        background: linear-gradient(135deg, $primary, lighten($primary, 15%));
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 2rem auto 0;
+        box-shadow: 0 10px 20px rgba($primary, 0.3);
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 30px rgba($primary, 0.4);
+        }
+        
+        &:active {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
 }
 
 // Responsive styles
