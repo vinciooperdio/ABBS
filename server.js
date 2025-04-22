@@ -91,7 +91,7 @@ app.post('/api/contact', async (req, res) => {
 
 // Route per servire l'app React su tutte le routes non-API
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Inizializzazione tabelle

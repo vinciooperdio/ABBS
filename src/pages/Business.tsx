@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useInView, MotionValue, AnimatePresenc
 import { FiClock, FiBarChart2, FiDollarSign, FiXCircle, FiCheck, FiAlertCircle, FiArrowRight, FiMinusCircle, FiPlusCircle } from 'react-icons/fi';
 import { FaChartLine, FaBolt, FaChartBar, FaLock, FaRandom, FaCheckCircle, FaCogs, FaFileInvoiceDollar, FaGlobe, FaHandshake, FaMoneyBillWave, FaRocket, FaShieldAlt, FaSyncAlt, FaTable, FaThumbsUp, FaTimesCircle, FaUsersCog, FaBullseye, FaStore, FaCreditCard, FaBell, FaDoorOpen, FaCoins } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import SectionBackground from '../components/ui/SectionBackground';
 import NebulaBackground from '../components/ui/NebulaBackground';
 import Footer from '../components/layout/Footer';
@@ -10,8 +11,8 @@ import Navbar from '../components/ui/Navbar';
 import '../styles/Business.scss';
 import { Link } from 'react-router-dom';
 import SEO from '../components/seo/SEO';
-import heroVideo from '../assets/videos/hero.mp4';
-import painVideo from '../assets/videos/pain.mp4';
+import abbsLogo from '../assets/images/abbslogo.svg';
+import dashboard from '../../WhatsApp Image 2025-04-22 at 16.10.24.jpeg'
 
 // Rinomina per evitare conflitti
 const businessBenefitsData = [
@@ -227,8 +228,7 @@ const Business: React.FC = () => {
       title: "Costi alti, ritorni bassi.",
       description: "Gestionali tradizionali sono costosi, lenti da integrare e pieni di funzioni che non usi. ABBS ti offre solo ciò che serve davvero, riducendo sprechi e ottimizzando i guadagni.",
       opacity: getProblemOpacity(4),
-      y: getProblemY(4),
-      hasCta: true
+      y: getProblemY(4)
     }
   ];
 
@@ -274,11 +274,11 @@ const Business: React.FC = () => {
 
   // Assumi che i dati FAQ siano definiti altrove, ad esempio:
   const faqData = [
-    { question: t('faq1Question'), answer: t('faq1Answer') },
-    { question: t('faq2Question'), answer: t('faq2Answer') },
-    { question: t('faq3Question'), answer: t('faq3Answer') },
-    { question: t('faq4Question'), answer: t('faq4Answer') },
-    { question: t('faq5Question'), answer: t('faq5Answer') },
+    { question: t('businessFaq1'), answer: t('businessFaq1Answer') },
+    { question: t('businessFaq2'), answer: t('businessFaq2Answer') },
+    { question: t('businessFaq3'), answer: t('businessFaq3Answer') },
+    { question: t('businessFaq4'), answer: t('businessFaq4Answer') },
+    { question: t('businessFaq5'), answer: t('businessFaq5Answer') },
   ];
 
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -297,6 +297,8 @@ const Business: React.FC = () => {
         article={true}
         pathname="/business"
       />
+
+      
 
       <Navbar />
 
@@ -326,15 +328,21 @@ const Business: React.FC = () => {
 
         {/* Hero Section */}
         <section className="business-hero" ref={heroRef}>
-              <motion.div 
+          <motion.div 
             className="business-hero__content"
             style={{ opacity: heroOpacity }}
           >
             <h1>{t('businessHeroTitle')}</h1>
             <p>{t('businessHeroSubtitle')}</p>
             <div className="business-hero__cta">
-              <button className="button button--primary">{t('businessHeroCta1')}</button>
-              <button className="button button--secondary">{t('businessHeroCta2')}</button>
+              <button 
+                className="button button--primary"
+                onClick={() => {
+                  document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Contattaci ora
+              </button>
             </div>
           </motion.div>
         </section>
@@ -345,48 +353,192 @@ const Business: React.FC = () => {
               {problems.map((problem, index) => (
                 <motion.div 
                   key={index} 
-                  className={`problem-item ${sectionIndex === index + 1 ? 'active' : ''}`}
-                  style={{ 
-                    opacity: problem.opacity,
-                    y: problem.y
-                  }}
-                >
-                  <div className="problem-content">
-                    <div className="problem-icon">{problem.icon}</div>
-                    <h2>{problem.title}</h2>
-                    <p>{problem.description}</p>
-                    {problem.hasCta && (
-                      <div className="problem-cta">
-                        <button className="button button--primary">{t('businessProblemsCta')}</button>
-                      </div>
-                    )}
-                  </div>
+                className={`problem-item ${sectionIndex === index + 1 ? 'active' : ''}`}
+                style={{ 
+                  opacity: problem.opacity,
+                  y: problem.y
+                }}
+              >
+                <div className="problem-content">
+                  <div className="problem-icon">{problem.icon}</div>
+                  <h2>{problem.title}</h2>
+                  <p>{problem.description}</p>
+                  {index === problems.length - 1 && (
+                    <div className="problem-cta">
+                      <button 
+                        className="button button--primary"
+                        onClick={() => {
+                          document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                      >
+                        Scopri come ABBS può aiutarti
+                      </button>
+                    </div>
+                  )}
+                </div>
                 </motion.div>
               ))}
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="business-benefits">
-          <div className="business-benefits__content container">
-            <h2>Vantaggi Principali</h2>
-            <p>Scopri come ABBS può trasformare la gestione dei tuoi abbonamenti.</p>
+        <section className="business-benefits" ref={benefitsRef}>
+          <div className="business-benefits__content">
+            <h2 className="text-gradient" style={{ textAlign: 'center' }}>Vantaggi per il tuo Business</h2>
+            <p style={{ textAlign: 'center' }}>Scopri come ABBS può trasformare la gestione degli abbonamenti e far crescere la tua attività</p>
 
-            <div className="business-benefits__grid">
-              {businessBenefitsData.map((benefit, index) => (
-                <div key={index} className={`benefit-card ${benefit.colorClass}`}>
-                  <div className="benefit-content">
-                    <h3>{benefit.title}</h3>
-                    <p>{benefit.description}</p>
+            <div className="business-benefits__wrapper">
+              {/* Vantaggio 1: Crescita clientela con Lottie */}
+              <div className="business-benefits__item" style={{ height: '80vh' }}>
+                <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
+                  <div className="lottie-container responsive-lottie">
+                    <DotLottieReact
+                      src="https://lottie.host/d9431f48-a2bf-44d3-b5d7-ca25f00e361e/JUl00A2KlR.lottie"
+                      loop
+                      autoplay
+                    />
                   </div>
                 </div>
-              ))}
+                <div className="business-benefits__item-content">
+                  <h3>Espandi la tua clientela</h3>
+                  <p>Raggiungi nuovi clienti attraverso l'app ABBS. La tua attività diventa visibile a migliaia di potenziali abbonati che cercano servizi come il tuo. Grazie al nostro sistema di raccomandazioni, i tuoi abbonamenti saranno mostrati agli utenti più interessati, aumentando significativamente le conversioni e riducendo il costo di acquisizione clienti.</p>
+                  <div className="benefit-cta">
+                    <a href="#contact" onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Scopri come crescere <FiArrowRight />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Vantaggio 2: Personalizzazione con Lottie */}
+              <div className="business-benefits__item" style={{ height: '80vh' }}>
+                <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
+                  <div className="lottie-container responsive-lottie">
+                    <DotLottieReact
+                      src="https://lottie.host/9d437f68-4d75-44cc-a84e-c4a488679b93/uhBUUbzDKv.lottie"
+                      loop
+                      autoplay
+                    />
+                  </div>
+                  
+                </div>
+                <div className="business-benefits__item-content">
+                  <h3>Personalizzazione Avanzata</h3>
+                  <p>Immagina di sapere esattamente cosa vogliono i tuoi clienti… prima ancora che lo chiedano.
+                  Entri nella dashboard di ABBS e vedi tutto: cosa hanno prenotato, cosa gli piace, dove si sono bloccati. Con un click, personalizzi la promo perfetta. Fidelizzazione? Boom. Fatturato? In salita.</p>
+                  <div className="benefit-cta">
+                    <a href="#contact" onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Personalizza la tua offerta <FiArrowRight />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Vantaggio 3: Automazione con Lottie */}
+              <div className="business-benefits__item" style={{ height: '80vh' }}>
+                <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
+                  <div className="lottie-container responsive-lottie">
+                    <DotLottieReact
+                      src="https://lottie.host/43f575ca-7b59-4a1a-8e53-290318bb7c92/LxXvSdCgY3.lottie"
+                      loop
+                      autoplay
+                    />
+                  </div>
+                </div>
+                <div className="business-benefits__item-content">
+                  <h3>Totale Automazione</h3>
+                  <p>🔁 Ogni rinnovo parte da solo. Ogni fattura si crea da sola. Ogni notifica arriva al momento giusto.
+                  E tu? Tu stai prendendo un caffè. Perché il tempo risparmiato è tempo guadagnato.</p>
+                  <div className="benefit-cta">
+                    <a href="#contact" onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Automatizza il tuo business <FiArrowRight />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Vantaggio 4: Pricing Intelligente con Lottie */}
+              <div className="business-benefits__item" style={{ height: '80vh' }}>
+                <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
+                  <div className="lottie-container responsive-lottie">
+                    <iframe 
+                      src="https://lottie.host/0b4e8ef9-4f3f-4c63-9146-f34b0d941ac2/h2qK6QCOWQ.lottie" 
+                      style={{ width: '100%', height: '100%', border: 'none' }}
+                      title="Lottie animation - analytics"
+                    ></iframe>
+                  </div>
+                  <div className="icon-overlay">
+                    <FaChartLine />
+                  </div>
+                </div>
+                <div className="business-benefits__item-content">
+                  <h3>Pricing Intelligente</h3>
+                  <p>📊 ABBS ti legge la domanda in tempo reale e alza i prezzi quando serve.
+                  Nessuno slot vuoto, niente sprechi. Un algoritmo che lavora per te, mentre tu ti occupi dei clienti.</p>
+                  <div className="benefit-cta">
+                    <button onClick={() => {
+                      document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Ottimizza i tuoi ricavi <FiArrowRight />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Vantaggio 5: Sicurezza con Lottie */}
+              <div className="business-benefits__item" style={{ height: '80vh' }}>
+                <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
+                  <div className="lottie-container responsive-lottie">
+                    <iframe 
+                      src="https://lottie.host/c4e8c4be-15f4-44a7-9f30-00c58746470a/xgjsMUPbDu.lottie" 
+                      style={{ width: '100%', height: '100%', border: 'none' }}
+                      title="Lottie animation - sicurezza"
+                    ></iframe>
+                  </div>
+                  <div className="icon-overlay">
+                    <FaShieldAlt />
+                  </div>
+                </div>
+                <div className="business-benefits__item-content">
+                  <h3>Sicurezza Garantita</h3>
+                  <p>🔐 I dati dei tuoi clienti? Al sicuro. Sempre.
+                  Crittografia avanzata, accessi controllati, e piena compliance GDPR. Come avere un vault digitale personale.</p>
+                  <div className="benefit-cta">
+                    <button onClick={() => {
+                      document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                      Scopri le nostre certificazioni <FiArrowRight />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA generale */}
+            <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+              <button 
+              className="button button--primary"
+                onClick={() => {
+                  document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Inizia a trasformare il tuo business
+              </button>
             </div>
           </div>
         </section>
 
         {/* How It Works Section - Più Giocosa */}
-        <section ref={howItWorksRef} className="business-how-it-works">
+        <section ref={howItWorksRef} className="business-how-it-works" id="how-it-works">
           <motion.div 
             className="business-how-it-works__content"
             initial={{ opacity: 0, y: 50 }}
@@ -395,112 +547,63 @@ const Business: React.FC = () => {
           >
             <h2 className="text-gradient">{t('businessHowItWorksTitle')}</h2>
             <div className="business-how-it-works__interactive">
-              <div className="phone-mockup">
-                <div className="phone-screen">
-                  <motion.div 
-                    className="screen-content active"
-                    animate={isHowItWorksInView ? { opacity: 1 } : { opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="app-header">
-                      <span className="app-logo">ABBS</span>
-                      <span className="app-user">
-                        <span className="user-avatar">👤</span>
-                      </span>
-                    </div>
-                    <div className="app-body">
-                      <motion.div 
-                        className="screen-step step-1"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                      >
-                        <div className="step-icon">👋</div>
-                        <div className="step-content">
-                          <h3>Benvenuto in ABBS</h3>
-                          <p>Crea il tuo account in pochi secondi</p>
-                        </div>
-                      </motion.div>
-                      <motion.div 
-                        className="screen-step step-2"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                      >
-                        <div className="step-icon">🔄</div>
-                        <div className="step-content">
-                          <h3>Importa i tuoi abbonamenti</h3>
-                          <p>Collega account o scansiona email</p>
-                        </div>
-                      </motion.div>
-                      <motion.div 
-                        className="screen-step step-3"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.5, delay: 0.6 }}
-                      >
-                        <div className="step-icon">💰</div>
-                        <div className="step-content">
-                          <h3>Risparmia subito</h3>
-                          <p>Ottimizza e riduci costi superflui</p>
-                        </div>
-                      </motion.div>
-                    </div>
-                    <motion.div 
-                      className="app-progress-bar"
-                      initial={{ width: "0%" }}
-                      animate={isHowItWorksInView ? { width: "85%" } : { width: "0%" }}
-                      transition={{ duration: 1.5, delay: 0.8 }}
-                    ></motion.div>
-                  </motion.div>
+              <div className="tablet-mockup">
+                <div className="tablet-screen">
+                  <img className="dashboard-image" src={dashboard} alt="ABBS Business Dashboard" />
                 </div>
               </div>
-              <div className="steps-container">
-                <motion.div 
-                  className="interactive-step"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <div className="step-number">1</div>
-                  <div className="step-content">
-                    <h3 className="step-title">Collega ciò che hai, senza perdere nulla</h3>
-                    <p>Hai già un gestionale? Non serve ripartire da zero. ABBS importa automaticamente tutti i tuoi dati e abbonamenti esistenti. Così puoi passare a un sistema più moderno, senza interruzioni.</p>
-                  </div>
-                </motion.div>
-                <motion.div 
-                  className="interactive-step"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  <div className="step-number">2</div>
-                  <div className="step-content">
-                    <h3 className="step-title">Inizia in pochi secondi</h3>
-                    <p>Registrazione super veloce. Con email e password sei dentro. Nessuna curva di apprendimento: tutto è pensato per essere semplice fin dal primo accesso.</p>
-                  </div>
-                </motion.div>
-                <motion.div 
-                  className="interactive-step"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  <div className="step-number">3</div>
-                  <div className="step-content">
-                    <h3 className="step-title">Ottimizza e risparmia fin da subito</h3>
-                    <p>ABBS analizza i tuoi abbonamenti e segnala quelli inutilizzati o duplicati. In media, le aziende che usano la nostra piattaforma risparmiano il 30% già nel primo anno.</p>
-                  </div>
-                </motion.div>
-              </div>
+              
+            </div>
+            <div className="steps-container">
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="step-number">1</div>
+                <div className="step-content">
+                  <h3 className="step-title">Collega ciò che hai, senza perdere nulla</h3>
+                  <p>Hai già un gestionale? Non serve ripartire da zero. ABBS importa automaticamente tutti i tuoi dati e abbonamenti esistenti. Così puoi passare a un sistema più moderno, senza interruzioni.</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <div className="step-number">2</div>
+                <div className="step-content">
+                  <h3 className="step-title">Inizia in pochi secondi</h3>
+                  <p>Registrazione super veloce. Con email e password sei dentro. Nessuna curva di apprendimento: tutto è pensato per essere semplice fin dal primo accesso.</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                <div className="step-number">3</div>
+                <div className="step-content">
+                  <h3 className="step-title">Ottimizza e risparmia fin da subito</h3>
+                  <p>ABBS analizza i tuoi abbonamenti e segnala quelli inutilizzati o duplicati. In media, le aziende che usano la nostra piattaforma risparmiano il 30% già nel primo anno.</p>
+                </div>
+              </motion.div>
             </div>
             <motion.button 
               className="button button--primary"
               initial={{ opacity: 0, y: 20 }}
               animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-            >{t('businessHowItWorksCta')}</motion.button>
-            </motion.div>
+              onClick={() => {
+                document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Contattaci per saperne di più
+            </motion.button>
+          </motion.div>
         </section>
 
         {/* Marketing Section - ULTRA WOW */}
@@ -637,8 +740,8 @@ const Business: React.FC = () => {
           </div>
         </section>
 
-        {/* FAQ Section - Correzione errori linter */}
-        <section className="business-faq">
+        {/* FAQ Section */}
+        <section className="business-faq" ref={faqRef}>
           <div className="business-faq__content">
             <h2>{t('faqTitle')}</h2>
             <div className="business-faq__questions">
@@ -666,7 +769,17 @@ const Business: React.FC = () => {
                 </div>
               ))}
             </div>
-            <a href="/contact" className="button button--primary">{t('faqCta')}</a>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <p style={{ marginBottom: '1.5rem' }}>Hai altre domande? Siamo qui per aiutarti</p>
+              <button 
+              className="button button--primary"
+                onClick={() => {
+                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Contattaci
+              </button>
+            </div>
           </div>
         </section>
 
@@ -678,19 +791,24 @@ const Business: React.FC = () => {
             animate={isFinalCtaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.7 }}
           >
-            <h2>{t('businessFinalCtaTitle')}</h2>
-            <p>{t('businessFinalCtaText')}</p>
+            <h2>Pronto a trasformare il tuo business?</h2>
+            <p>Scopri oggi stesso come ABBS può aiutarti a crescere, ottimizzare i costi e migliorare l'esperienza dei tuoi clienti.</p>
             <motion.button 
               className="button button--primary"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={isFinalCtaInView ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-            >{t('businessFinalCtaButton')}</motion.button>
+              onClick={() => {
+                document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Contattaci ora
+            </motion.button>
             </motion.div>
         </section>
 
         {/* Contact Form Section */}
-        <section className="business-contact">
+        <section className="business-contact" id="contact">
           <div className="business-contact__container">
             <h2 className="text-gradient">Contattaci</h2>
             <p>Sei interessato ad ABBS Business? Compila il modulo e ti contatteremo al più presto.</p>

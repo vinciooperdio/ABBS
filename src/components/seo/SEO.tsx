@@ -16,7 +16,7 @@ interface SEOProps {
 const SEO: React.FC<SEOProps> = ({
   title = 'ABBS - La piattaforma per gestire tutti i tuoi abbonamenti',
   description = 'ABBS ti aiuta a gestire tutti i tuoi abbonamenti in un unico posto. Scopri, monitora e ottimizza le tue spese in abbonamento con pochi clic.',
-  image = 'https://abbsapp.it/og-image.jpg',
+  image = 'https://abbs.one/og-image.jpg',
   article = false,
   keywords = 'abbonamenti, gestione abbonamenti, sottoscrizioni, risparmiare, SaaS, piattaforma abbonamenti',
   canonicalUrl,
@@ -26,7 +26,7 @@ const SEO: React.FC<SEOProps> = ({
   const location = useLocation();
   const currentPathname = pathname || location?.pathname || '';
   
-  const siteUrl = 'https://abbsapp.it';
+  const siteUrl = 'https://abbs.one';
   const url = `${siteUrl}${currentPathname}`;
 
   // Struttura JSON-LD di base per il sito web
