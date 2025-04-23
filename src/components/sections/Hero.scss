@@ -34,7 +34,7 @@
     font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 0.5rem;
+    margin-top: 5vh;
     letter-spacing: -0.02em;
 
     .gradient-text {
@@ -65,6 +65,10 @@
     opacity: 0.6;
     transition: opacity 0.3s ease;
     z-index: 10;
+
+    @media (max-width: 1000px) {
+      visibility: hidden;
+    }
 
     &:hover {
       opacity: 1;

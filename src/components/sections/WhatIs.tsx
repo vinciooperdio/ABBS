@@ -13,31 +13,40 @@ const WhatIs: React.FC = () => {
     once: false 
   });
   
-  // Text content from translation
-  const fullText = `${t('whatIsText')}`;
+  // Divide il testo in paragrafi usando \n come delimitatore
+  const paragraphs = t('whatIsText').split('\\n');
+  
+  // Funzione per gestire i grassetti tra asterischi
+  const formatWithBold = (text: string) => {
+    // Cerca pattern **testo** e lo sostituisce con tag strong
+    const parts = text.split(/(\*\*.*?\*\*)/g);
     
-  // Split text into words
-  const words = fullText.split(' ');
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        // Rimuove gli asterischi e applica il tag strong
+        const boldText = part.substring(2, part.length - 2);
+        return <strong key={index}>{boldText}</strong>;
+      }
+      return part;
+    });
+  };
   
-  // State to track how many words to show
-  const [displayedWords, setDisplayedWords] = useState(0);
+  // State to track animation progress
+  const [animationComplete, setAnimationComplete] = useState(false);
   
-  // Effect to animate text writing when section is in view
+  // Effect to trigger animation when in view
   useEffect(() => {
     if (!isInView) {
-      setDisplayedWords(0);
+      setAnimationComplete(false);
       return;
     }
     
-    // If section is in view, start showing words one by one
-    if (displayedWords < words.length) {
-      const timer = setTimeout(() => {
-        setDisplayedWords(prev => prev + 1);
-      }, 300); // Speed of word appearance
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, displayedWords, words.length]);
+    const timer = setTimeout(() => {
+      setAnimationComplete(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, [isInView]);
 
   return (
     <section id="what-is" className="what-is" ref={sectionRef}>
@@ -59,22 +68,18 @@ const WhatIs: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <div className="text-content">
-              <p className="animated-text">
-                {words.slice(0, displayedWords).map((word, index) => (
-                  <React.Fragment key={index}>
-                    <motion.span
-                      className="glowing-word"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {word}
-                    </motion.span>
-                    {' '}
-                  </React.Fragment>
-                ))}
-                <span className="cursor"></span>
-              </p>
+              {paragraphs.map((paragraph, pIndex) => (
+                <motion.p 
+                  key={pIndex}
+                  className="animated-text"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={animationComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ duration: 0.5, delay: 0.2 + (pIndex * 0.1) }}
+                >
+                  {formatWithBold(paragraph)}
+                </motion.p>
+              ))}
+              {animationComplete && <span className="cursor"></span>}
             </div>
           </motion.div>
         </div>

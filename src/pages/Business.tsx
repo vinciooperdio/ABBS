@@ -20,6 +20,7 @@ const Business: React.FC = () => {
   const { t, language } = useLanguage();
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [sectionIndex, setSectionIndex] = useState(0);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   
   // Refs for sections
   const heroRef = useRef<HTMLDivElement>(null);
@@ -34,6 +35,48 @@ const Business: React.FC = () => {
   // InView states for sections
   const isHowItWorksInView = useInView(howItWorksRef, { once: false, amount: 0.3 });
   const isMarketingInView = useInView(marketingRef, { once: false, amount: 0.3 });
+  
+  // Force video loading when component mounts
+  useEffect(() => {
+    // Create a video element and force preloading
+    const forceLoadVideo = () => {
+      const videoSrc = "https://cdn.abbs.one/videos/hero2.mp4";
+      
+      // Create and configure the video element
+      const videoElement = document.createElement('video');
+      videoElement.style.position = 'absolute';
+      videoElement.style.width = '1px';
+      videoElement.style.height = '1px';
+      videoElement.style.opacity = '0.01';
+      videoElement.style.pointerEvents = 'none';
+      videoElement.muted = true;
+      videoElement.playsInline = true;
+      videoElement.autoplay = false;
+      videoElement.preload = 'auto';
+      videoElement.src = videoSrc;
+      
+      // Append to DOM to start loading
+      document.body.appendChild(videoElement);
+      
+      // Set loaded state when ready and remove element
+      videoElement.onloadeddata = () => {
+        console.log('Business hero video preloaded successfully');
+        setVideoLoaded(true);
+        document.body.removeChild(videoElement);
+      };
+      
+      // Fallback in case of errors
+      videoElement.onerror = () => {
+        console.error('Error preloading business hero video');
+        document.body.removeChild(videoElement);
+      };
+      
+      // Start loading by forcing the browser to evaluate the video
+      videoElement.load();
+    };
+    
+    forceLoadVideo();
+  }, []);
   
   // Hero fade out as user scrolls down
   const heroOpacity = useTransform(
@@ -78,14 +121,6 @@ const Business: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  
-  
-  
- 
-
-  
-  
-  
   
   // Video sources
   const videoSources = [
@@ -139,6 +174,7 @@ const Business: React.FC = () => {
                 loop
                 muted
                 playsInline
+                preload="auto"
                 src={src}
               />
               <div className={`video-overlay ${index === 0 ? 'hero-overlay' : 'problem-overlay'}`} />

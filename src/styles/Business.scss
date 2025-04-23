@@ -1,98 +1,5 @@
 @import './variables';
 
-// Scattered background logos
-.scattered-logos {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.floating-logo {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-}
-
-// Tablet mockup for "how it works" section
-.tablet-mockup {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 2rem;
-  padding: 20px;
-  background: #1a1a1a;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
-              0 0 0 2px #333, 
-              inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  
-  @media (min-width: 768px) {
-    max-width: 800px;
-  }
-  
-  @media (max-width: $breakpoint-sm) {
-    padding: 15px;
-    margin-bottom: 1.5rem;
-  }
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
-
-.tablet-screen {
-  position: relative;
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #000;
-  aspect-ratio: 4/3;
-  
-  .dashboard-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-}
-
-// Responsive Lottie animations
-.responsive-lottie {
-  width: 100% !important;
-  height: 100% !important;
-  
-  @media (min-width: 992px) {
-    transform: scale(1.2);
-    transform-origin: center center;
-  }
-  
-  @media (min-width: 1200px) {
-    transform: scale(1.3);
-  }
-  
-  @media (max-width: $breakpoint-sm) {
-    height: 300px !important;
-  }
-}
-
 .business-page {
   position: relative;
 
@@ -104,13 +11,9 @@
     @media (max-width: $breakpoint-md) {
       padding: 70px 0;
     }
-    
-    @media (max-width: $breakpoint-sm) {
-      padding: 50px 0;
-    }
   }
 
-  // Video sequence container
+  // Video sequence container with fixed position (like clearstreet.io)
   .video-sequence-container {
     position: fixed;
     top: 0;
@@ -261,17 +164,14 @@
 
       h1 {
         font-size: clamp(2.5rem, 5vw, 3.5rem);
-        font-weight: 800;
+        font-weight: 700;
         margin-bottom: 1.5rem;
-        line-height: 1.2;
-        letter-spacing: -0.5px;
-      }
-      
+      line-height: 1.2;
+    }
+    
       p {
         font-size: clamp(1.1rem, 2vw, 1.25rem);
         margin-bottom: 2rem;
-        line-height: 1.6;
-        max-width: 800px;
         opacity: 0.9;
       }
     }
@@ -279,17 +179,7 @@
     &__cta {
       display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
       justify-content: center;
-      margin-top: 2rem;
-      
-      .button {
-        min-width: 200px;
-        
-        @media (max-width: $breakpoint-sm) {
-          width: 100%;
-        }
-      }
     }
   }
 
@@ -385,14 +275,6 @@
     z-index: 2;
     overflow: hidden;
 
-    @media (max-width: $breakpoint-md) {
-      padding: 5rem 0;
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      padding: 3rem 0;
-    }
-
     &__content {
       width: 100%;
       max-width: 1400px;
@@ -412,10 +294,6 @@
         @media (max-width: $breakpoint-md) {
           font-size: 3rem;
         }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 2.5rem;
-        }
       }
 
       p {
@@ -433,11 +311,6 @@
           margin-bottom: 4rem;
           padding: 0 2rem;
         }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 1.1rem;
-          margin-bottom: 3rem;
-        }
       }
     }
 
@@ -448,11 +321,7 @@
       gap: 10rem;
       
       @media (max-width: $breakpoint-md) {
-        gap: 6rem;
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        gap: 4rem;
+        gap: 8rem;
       }
     }
 
@@ -474,23 +343,12 @@
         min-height: auto;
       }
       
-      @media (max-width: $breakpoint-sm) {
-        gap: 2rem;
-        height: auto;
-        margin-bottom: 2rem;
-      }
-      
       // Parte dell'immagine
       &-visual {
         flex: 1;
         max-width: 600px;
         position: relative;
         overflow: hidden;
-        
-        @media (max-width: $breakpoint-sm) {
-          height: 300px;
-          min-height: 300px;
-        }
         
         img, iframe, .lottie-container {
           width: 100%;
@@ -593,11 +451,6 @@
           @media (max-width: $breakpoint-lg) {
             font-size: 2.2rem;
           }
-          
-          @media (max-width: $breakpoint-sm) {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-          }
         }
         
         p {
@@ -614,12 +467,6 @@
             font-size: 1.2rem;
             margin-left: auto;
             margin-right: auto;
-          }
-          
-          @media (max-width: $breakpoint-sm) {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
           }
         }
         
@@ -727,13 +574,7 @@
     z-index: 2;
     overflow: hidden;
     
-    @media (max-width: $breakpoint-md) {
-      padding: 6rem 0;
-    }
     
-    @media (max-width: $breakpoint-sm) {
-      padding: 4rem 0;
-    }
 
     &__content {
       max-width: 1300px;
@@ -756,29 +597,18 @@
           font-size: 2.8rem;
           margin-bottom: 3.5rem;
         }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 2.4rem;
-          margin-bottom: 2.5rem;
-        }
       }
     }
 
     &__interactive {
-      display: flex;
-      align-items: center;
+          display: flex;
+          align-items: center;
       gap: 6rem;
       margin-bottom: 5rem;
-      
+          
       @media (max-width: $breakpoint-md) {
-        flex-direction: column;
-        gap: 3rem;
-        margin-bottom: 3rem;
-      }
-      
-      @media (max-width: $breakpoint-sm) {
-        gap: 2rem;
-        margin-bottom: 2rem;
+            flex-direction: column;
+        gap: 4rem;
       }
     }
     
@@ -1011,35 +841,19 @@
         
         .step-content {
           flex: 1;
-          padding-top: 0.5rem;
           
-          .step-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: $text-primary;
-            letter-spacing: -0.01em;
-            position: relative;
-            display: inline-block;
-            
-            &::after {
-              content: '';
-              position: absolute;
-              bottom: -5px;
-              left: 0;
-              width: 40px;
-              height: 3px;
-              background: linear-gradient(90deg, $primary, transparent);
-              border-radius: 3px;
-            }
+          h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: white;
           }
           
           p {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: $text-secondary;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
             margin: 0;
-            max-width: 95%;
           }
         }
       }
@@ -1061,10 +875,6 @@
       flex-direction: column;
       gap: 2.5rem;
       text-align: left;
-      
-      @media (max-width: $breakpoint-sm) {
-        gap: 2rem;
-      }
     }
     
     .interactive-step {
@@ -1074,10 +884,6 @@
       padding: 0.5rem;
       transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
       position: relative;
-      
-      @media (max-width: $breakpoint-sm) {
-        gap: 1.5rem;
-      }
       
       &::before {
         content: '';
@@ -1095,12 +901,8 @@
         transform: translateY(-50%);
       }
         
-      &:hover {
+        &:hover {
         transform: translateX(20px);
-        
-        @media (max-width: $breakpoint-sm) {
-          transform: translateX(10px);
-        }
         
         &::before {
           width: 30px;
@@ -1123,21 +925,15 @@
         width: 4.5rem;
         height: 4.5rem;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         box-shadow: 0 10px 25px rgba($primary, 0.3),
                     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
         transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         flex-shrink: 0;
         position: relative;
         z-index: 1;
-        
-        @media (max-width: $breakpoint-sm) {
-          width: 3.5rem;
-          height: 3.5rem;
-          font-size: 1.5rem;
-        }
         
         &::before {
           content: '';
@@ -1167,11 +963,6 @@
           position: relative;
           display: inline-block;
           
-          @media (max-width: $breakpoint-sm) {
-            font-size: 1.3rem;
-            margin-bottom: 0.6rem;
-          }
-          
           &::after {
             content: '';
             position: absolute;
@@ -1190,12 +981,6 @@
           color: $text-secondary;
           margin: 0;
           max-width: 95%;
-          
-          @media (max-width: $breakpoint-sm) {
-            font-size: 1rem;
-            line-height: 1.5;
-            max-width: 100%;
-          }
         }
       }
       
@@ -1205,7 +990,7 @@
         text-align: center;
         
         .step-number {
-          margin-bottom: 1rem;
+          margin-bottom: 1.5rem;
         }
         
         .step-content {
@@ -1220,7 +1005,7 @@
         }
         
         &:hover {
-          transform: translateY(-8px);
+          transform: translateY(-15px);
           
           &::before {
             width: 0;
@@ -1243,12 +1028,6 @@
       overflow: hidden;
       transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
       margin-top: 2rem;
-      
-      @media (max-width: $breakpoint-sm) {
-        padding: 1rem 2.5rem;
-        font-size: 1rem;
-        margin-top: 1.5rem;
-      }
       
       &::before {
         content: '';
@@ -1283,11 +1062,6 @@
     min-height: 100vh;
     overflow: hidden;
     margin-top: 100px;
-    
-    @media (max-width: $breakpoint-md) {
-      margin-top: 50px;
-      min-height: auto;
-    }
     
     &__sequence {
       position: absolute;
@@ -1359,7 +1133,7 @@
       
       p {
         font-size: 1.3rem;
-        line-height: 1.6;
+          line-height: 1.6;
         opacity: 0.9;
         font-weight: 500; // Increased weight for better visibility
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); // Added text shadow
@@ -1390,30 +1164,19 @@
         @media (max-width: $breakpoint-md) {
           font-size: 1.5rem;
         }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 1.3rem;
-          margin-bottom: 1.5rem;
-        }
       }
       
       .case-studies-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
-        
-        @media (max-width: $breakpoint-lg) {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        
+      
         @media (max-width: $breakpoint-md) {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.5rem;
-        }
-        
-        @media (max-width: $breakpoint-sm) {
-          grid-template-columns: 1fr;
-          gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        grid-template-columns: 1fr;
         }
       }
       
@@ -1424,9 +1187,6 @@
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
         
         &:hover {
           transform: translateY(-10px);
@@ -1438,10 +1198,6 @@
           width: 100%;
           height: 180px;
           overflow: hidden;
-          
-          @media (max-width: $breakpoint-sm) {
-            height: 150px;
-          }
           
           img {
             width: 100%;
@@ -1459,78 +1215,41 @@
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
+          display: flex;
+          justify-content: center;
             align-items: center;
             padding: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-            
-            @media (max-width: $breakpoint-sm) {
-              width: 40px;
-              height: 40px;
-              bottom: -20px;
-            }
             
             img {
               width: 30px;
               height: 30px;
               object-fit: contain;
-              
-              @media (max-width: $breakpoint-sm) {
-                width: 25px;
-                height: 25px;
-              }
             }
           }
         }
         
         .case-study-content {
           padding: 2rem 1.5rem 1.5rem;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          
-          @media (max-width: $breakpoint-sm) {
-            padding: 1.5rem 1.2rem 1.2rem;
-          }
           
           .case-study-name {
             font-size: 1.8rem;
-            font-weight: 700;
+          font-weight: 700;
             margin-bottom: 0.3rem;
             color: white;
-            
-            @media (max-width: $breakpoint-md) {
-              font-size: 1.5rem;
-            }
-            
-            @media (max-width: $breakpoint-sm) {
-              font-size: 1.3rem;
-            }
           }
           
           .case-study-subtitle {
             font-size: 1rem;
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1rem;
-            
-            @media (max-width: $breakpoint-sm) {
-              font-size: 0.9rem;
-              margin-bottom: 0.8rem;
-            }
           }
           
           .case-study-desc {
-            font-size: 0.95rem;
-            line-height: 1.6;
+          font-size: 0.95rem;
+          line-height: 1.6;
             margin-bottom: 1.5rem;
             color: rgba(255, 255, 255, 0.85);
-            flex: 1;
-            
-            @media (max-width: $breakpoint-sm) {
-              font-size: 0.9rem;
-              margin-bottom: 1.2rem;
-            }
           }
           
           .case-study-stats {
@@ -1538,33 +1257,17 @@
             justify-content: flex-start;
             gap: 2rem;
             
-            @media (max-width: $breakpoint-sm) {
-              gap: 1.5rem;
-            }
-            
             .stat {
               .stat-value {
                 font-size: 1.5rem;
                 font-weight: 700;
                 color: white;
                 display: block;
-                
-                @media (max-width: $breakpoint-md) {
-                  font-size: 1.3rem;
-                }
-                
-                @media (max-width: $breakpoint-sm) {
-                  font-size: 1.2rem;
-                }
               }
               
               .stat-label {
                 font-size: 0.8rem;
                 color: rgba(255, 255, 255, 0.6);
-                
-                @media (max-width: $breakpoint-sm) {
-                  font-size: 0.75rem;
-                }
               }
             }
           }
@@ -1578,7 +1281,7 @@
       margin-bottom: 4rem;
       
       .stats-grid {
-        display: flex;
+      display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
         gap: 2rem;
@@ -1633,7 +1336,7 @@
       }
       
       .dashboard-header {
-        display: flex;
+      display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
@@ -1645,7 +1348,7 @@
         }
         
         .dashboard-actions {
-          display: flex;
+      display: flex;
           gap: 1.5rem;
           
           .dashboard-action {
@@ -1717,7 +1420,7 @@
           }
         }
       
-        @media (max-width: $breakpoint-md) {
+      @media (max-width: $breakpoint-md) {
           grid-template-columns: repeat(2, 1fr);
         }
         
@@ -1763,7 +1466,7 @@
           }
           
           @media (max-width: $breakpoint-sm) {
-            flex-direction: column;
+        flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
           }
@@ -1772,13 +1475,13 @@
         .chart-container {
           height: 200px;
           width: 100%;
-          position: relative;
-          
+      position: relative;
+      
           .chart-axis {
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 100%;
+        width: 100%;
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
           }
@@ -1823,11 +1526,11 @@
           text-align: center;
           
           .feature-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
             align-items: center;
             
             &.automation {
@@ -1889,7 +1592,7 @@
   .business-faq {
     padding: 8rem 0;
     background: white;
-    color: $text-primary;
+        color: $text-primary;
     position: relative;
     z-index: 2;
 
@@ -1925,7 +1628,7 @@
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       border: 1px solid rgba(0, 0, 0, 0.05);
-      text-align: left;
+        text-align: left;
       
       &:hover {
         transform: translateY(-5px);
@@ -1953,7 +1656,7 @@
         
         .faq-toggle {
           color: $primary;
-          font-size: 1.5rem;
+        font-size: 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -2005,7 +1708,7 @@
     padding: 6rem 0;
     background: $primary;
     color: white;
-    text-align: center;
+        text-align: center;
     position: relative;
     z-index: 2;
 
@@ -2034,14 +1737,6 @@
     position: relative;
     overflow: hidden;
     
-    @media (max-width: $breakpoint-md) {
-      padding: 5rem 0;
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      padding: 4rem 0;
-    }
-    
     &__container {
       max-width: 800px;
       margin: 0 auto;
@@ -2056,10 +1751,6 @@
         @media (max-width: $breakpoint-md) {
           font-size: 2.5rem;
         }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 2rem;
-        }
       }
       
       p {
@@ -2070,11 +1761,6 @@
         @media (max-width: $breakpoint-md) {
           font-size: 1.1rem;
           margin-bottom: 2rem;
-        }
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 1rem;
-          margin-bottom: 1.5rem;
         }
       }
     }
@@ -2092,17 +1778,8 @@
         padding: 2rem;
       }
       
-      @media (max-width: $breakpoint-sm) {
-        padding: 1.5rem;
-        border-radius: 15px;
-      }
-      
       .form-group {
         margin-bottom: 1.5rem;
-        
-        @media (max-width: $breakpoint-sm) {
-          margin-bottom: 1.2rem;
-        }
         
         label {
           display: block;
@@ -2110,11 +1787,6 @@
           font-weight: 500;
           margin-bottom: 0.5rem;
           color: $text-primary;
-          
-          @media (max-width: $breakpoint-sm) {
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-          }
         }
         
         input, textarea {
@@ -2126,12 +1798,6 @@
           color: $text-primary;
           font-size: 1rem;
           transition: all 0.3s ease;
-          
-          @media (max-width: $breakpoint-sm) {
-            padding: 0.8rem 1rem;
-            font-size: 0.9rem;
-            border-radius: 8px;
-          }
           
           &:focus {
             outline: none;
@@ -2147,10 +1813,6 @@
         textarea {
           resize: vertical;
           min-height: 120px;
-          
-          @media (max-width: $breakpoint-sm) {
-            min-height: 100px;
-          }
         }
       }
       
@@ -2167,12 +1829,6 @@
         display: block;
         margin: 2rem auto 0;
         box-shadow: 0 10px 20px rgba($primary, 0.3);
-        
-        @media (max-width: $breakpoint-sm) {
-          font-size: 0.9rem;
-          padding: 0.8rem 2rem;
-          margin: 1.5rem auto 0;
-        }
         
         &:hover {
           transform: translateY(-5px);
@@ -2282,7 +1938,7 @@
     }
 
     p {
-      font-size: 1.1rem;
+          font-size: 1.1rem;
     }
   }
 }
@@ -2395,77 +2051,6 @@
 
     h2 {
       font-size: 1.75rem;
-    }
-  }
-} 
-
-// Add these Safari-specific and large screen optimizations
-
-// Safari-specific fixes with @supports queries
-@supports (-webkit-hyphens:none) {
-  .business-benefits {
-    &__item {
-      margin-bottom: 3rem; // Reduce space between benefits for Safari
-      
-      @media (min-width: 1600px) {
-        margin-bottom: 4rem;
-      }
-    }
-  }
-  
-  .tablet-mockup {
-    transform: translateZ(0); // Force hardware acceleration for Safari
-  }
-}
-
-// Large screen optimizations
-@media (min-width: 1600px) {
-  .business-page {
-    section {
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-    
-    .business-benefits {
-      &__content {
-        max-width: 1400px;
-      }
-      
-      &__wrapper {
-        margin-top: 4rem;
-      }
-      
-      &__item {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-      }
-    }
-    
-    .business-marketing {
-      &__content {
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-      
-      &__case-studies {
-        max-width: 1400px;
-        
-        .case-studies-grid {
-          gap: 3rem;
-        }
-      }
-    }
-    
-    .business-how-it-works {
-      &__content {
-        max-width: 1400px;
-      }
-    }
-    
-    .business-faq {
-      &__content {
-        max-width: 1200px;
-      }
     }
   }
 } 

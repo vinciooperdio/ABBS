@@ -5,6 +5,20 @@ import { useLanguage } from '../../context/LanguageContext';
 import './Hero.scss';
 import NebulaBackground from '../ui/NebulaBackground';
 
+// High-resolution style for screens larger than 2K
+const highResStyle: { marginTop: string | number } = {
+  marginTop: 0 // Default value
+};
+
+// Update styles based on screen resolution
+const updateHighResStyles = () => {
+  if (window.innerWidth >= 2560) { // 2K and above
+    highResStyle.marginTop = '5vh'; // Push content down for high-resolution screens
+  } else {
+    highResStyle.marginTop = 0;
+  }
+};
+
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [loadingComplete, setLoadingComplete] = useState(false);
@@ -13,6 +27,43 @@ const Hero: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { t } = useLanguage();
+
+  // Preload the Business page hero video
+  useEffect(() => {
+    // Preload video when component mounts
+    const preloadVideo = () => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = 'https://cdn.abbs.one/videos/hero2.mp4';
+      link.as = 'video';
+      link.type = 'video/mp4';
+      document.head.appendChild(link);
+
+      // Alternative method - create and load video element
+      const video = document.createElement('video');
+      video.style.display = 'none';
+      video.preload = 'auto';
+      video.src = 'https://cdn.abbs.one/videos/hero2.mp4';
+      document.body.appendChild(video);
+      
+      // Remove hidden video element after it's loaded
+      video.onloadeddata = () => {
+        document.body.removeChild(video);
+      };
+    };
+
+    preloadVideo();
+  }, []);
+
+  // Update high-res styles and add resize listener
+  useEffect(() => {
+    updateHighResStyles();
+    window.addEventListener('resize', updateHighResStyles);
+    
+    return () => {
+      window.removeEventListener('resize', updateHighResStyles);
+    };
+  }, []);
 
   useEffect(() => {
     // Show loading screen for 3 seconds
@@ -157,6 +208,7 @@ const Hero: React.FC = () => {
               ease: "easeOut",
               delay: loadingComplete ? 0.2 : 3.2
             }}
+            style={{ marginTop: highResStyle.marginTop }}
           >
             <motion.h1 
               className="hero__heading"
@@ -249,7 +301,7 @@ const Hero: React.FC = () => {
                         <span className="waiting-list__spinner"></span>
                       ) : (
                         <>
-                          <span>{t('subscribe')}</span>
+                          <span>{t('subscribeButton')}</span>
                           <motion.span
                             animate={{ x: [0, 5, 0] }}
                             transition={{ 
@@ -301,7 +353,7 @@ const Hero: React.FC = () => {
                     {t('subscribeSuccess')}
                   </motion.h3>
                   <motion.p variants={successItemVariants}>
-                    {t('subscribeSuccessMessage')}
+                    {t('subscribeSuccess')}
                   </motion.p>
                   <motion.button 
                     onClick={handleReset}
