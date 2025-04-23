@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiGithub, FiTwitter, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
+import { FiGithub, FiTwitter, FiLinkedin, FiMail, FiHeart, FiInstagram } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import './Footer.scss';
@@ -90,7 +90,7 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="footer__contact">
             <h3>{t('contactUs')}</h3>
             <p>{t('questionsLearnMore')}</p>
-            <a href="mailto:info@abbs.one" className="footer__contact-button">
+            <a href="mailto:founders@abbs.one" className="footer__contact-button">
               <FiMail />
               <span>{t('writeToUs')}</span>
             </a>
@@ -98,6 +98,9 @@ const Footer = () => {
             <div className="footer__social">
               <a href="https://linkedin.com/company/abbsapp" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <FiLinkedin />
+              </a>
+              <a href="https://www.instagram.com/abbsapp" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FiInstagram />
               </a>
             </div>
           </motion.div>

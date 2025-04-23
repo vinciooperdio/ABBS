@@ -50,28 +50,13 @@ const Mission: React.FC = () => {
     once: false 
   });
 
-  const isMapSectionInView = useInView(mapSectionRef, { 
-    amount: 0.3,
-    once: false
-  });
-
-  const handleMarkerClick = (serviceId: string) => {
-    setSelectedService(serviceId);
-  };
-
-  const subscriptionServices = [
-    { id: 'netflix', name: 'Netflix', icon: <SiNetflix className="subscription-icon netflix" />, cost: '€14,99/mese', date: '15' },
-    { id: 'spotify', name: 'Spotify Premium', icon: <BsSpotify className="subscription-icon spotify" />, cost: '€9,99/mese', date: '22' },
-    { id: 'amazon', name: 'Amazon Prime', icon: <SiAmazon className="subscription-icon amazon" />, cost: '€7,99/mese', date: '3' },
-    { id: 'icloud', name: 'iCloud Storage', icon: <SiApple className="subscription-icon icloud" />, cost: '€2,99/mese', date: '28' },
-    { id: 'fitness', name: 'Fitness App', icon: <IoFitness className="subscription-icon fitness" />, cost: '€19,99/mese', date: '10' },
-    { id: 'office', name: 'Microsoft 365', icon: <SiMicrosoftoffice className="subscription-icon office" />, cost: '€6,99/mese', date: '7' },
-  ];
+ 
+ 
 
   const physicalServices = [
     {
       id: 'serv1',
-      name: 'Palestra Olympia',
+      name: t('gymName'),
       type: 'gym',
       position: [41.9028, 12.4964] as [number, number], // Roma
       distance: '1.2 km',
@@ -80,7 +65,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv2',
-      name: 'Piscina Poseidon',
+      name: t('poolName'),
       type: 'pool',
       position: [41.9100, 12.5000] as [number, number],
       distance: '1.7 km',
@@ -89,7 +74,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv3',
-      name: 'Teatro Apollo',
+      name: t('theaterName'),
       type: 'theater',
       position: [41.9050, 12.4850] as [number, number],
       distance: '800 m',
@@ -107,7 +92,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv5',
-      name: 'Acqua & Wellness',
+      name: t('aquaWellness'),
       type: 'pool',
       position: [41.9000, 12.5100] as [number, number],
       distance: '2.3 km',
@@ -116,7 +101,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv6',
-      name: 'Cinema Splendor',
+      name: t('cinemaSplendor'),
       type: 'cinema',
       position: [41.9080, 12.4780] as [number, number],
       distance: '1.5 km',
@@ -125,7 +110,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv7',
-      name: 'Teatro dell\'Opera',
+      name: t('theaterOpera'),
       type: 'theater',
       position: [41.8950, 12.4920] as [number, number],
       distance: '1.9 km',
@@ -152,7 +137,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv10',
-      name: 'Centro Aqua Fitness',
+      name: t('aquaFitness'),
       type: 'pool',
       position: [41.8900, 12.4850] as [number, number],
       distance: '2.8 km',
@@ -161,7 +146,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv11',
-      name: 'Multisala Rex',
+      name: t('cinemaRex'),
       type: 'cinema',
       position: [41.9130, 12.5070] as [number, number],
       distance: '2.4 km',
@@ -179,7 +164,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv13',
-      name: 'Palazzo dei Congressi',
+      name: t('palazzoCongress'),
       type: 'concert',
       position: [41.9180, 12.4750] as [number, number],
       distance: '2.7 km',
@@ -188,7 +173,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv14',
-      name: 'Centro Sportivo Elite',
+      name: t('centerSportive'),
       type: 'pool',
       position: [41.9030, 12.5210] as [number, number],
       distance: '3.5 km',
@@ -197,7 +182,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv15',
-      name: 'Arena Concert Hall',
+      name: t('arenaConcert'),
       type: 'concert',
       position: [41.8850, 12.4930] as [number, number],
       distance: '3.9 km',
@@ -215,7 +200,7 @@ const Mission: React.FC = () => {
     },
     {
       id: 'serv17',
-      name: 'Cinema Star',
+      name: t('cinemaStar'),
       type: 'cinema',
       position: [41.9080, 12.5220] as [number, number],
       distance: '3.1 km',

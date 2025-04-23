@@ -97,7 +97,7 @@
     }
   }
 
-  // Video sequence container with fixed position (like clearstreet.io)
+  // Video sequence container
   .video-sequence-container {
     position: fixed;
     top: 0;
@@ -248,14 +248,17 @@
 
       h1 {
         font-size: clamp(2.5rem, 5vw, 3.5rem);
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-    
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+      }
+      
       p {
         font-size: clamp(1.1rem, 2vw, 1.25rem);
         margin-bottom: 2rem;
+        line-height: 1.6;
+        max-width: 800px;
         opacity: 0.9;
       }
     }
@@ -263,7 +266,17 @@
     &__cta {
       display: flex;
       gap: 1rem;
+      flex-wrap: wrap;
       justify-content: center;
+      margin-top: 2rem;
+      
+      .button {
+        min-width: 200px;
+        
+        @media (max-width: $breakpoint-sm) {
+          width: 100%;
+        }
+      }
     }
   }
 
@@ -413,7 +426,7 @@
     &__item {
       display: flex;
       align-items: center;
-      gap: 4rem;
+      gap: 6rem;
       min-height: 80vh;
       
       &:nth-child(even) {

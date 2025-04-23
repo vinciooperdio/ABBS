@@ -26,22 +26,26 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, isHomePage }) => {
   const scrollToSection = (event: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     event.preventDefault();
     
-    if (isHomePage) {
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        // Close menu
-        onClose();
-        
-        // Scroll to the element
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    } else {
+    // Extract just the id part (removing any path)
+    const id = targetId.includes('#') ? targetId.split('#')[1] : targetId;
+    const selector = `#${id}`;
+    
+    // Find the element on the current page
+    const targetElement = document.querySelector(selector);
+    
+    if (targetElement) {
+      // Close menu
+      onClose();
+      
+      // Scroll to the element
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else if (isHomePage) {
       // Navigate to home with hash and scroll to top
       onClose();
-      window.scrollTo(0, 0); // Scorre all'inizio della pagina
+      window.scrollTo(0, 0);
       window.location.href = '/' + targetId;
     }
   };
@@ -50,8 +54,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, isHomePage }) => {
   const homeLinks = [
     { name: t('mission'), href: '#mission', isExternal: false },
     { name: t('whatIsABBS'), href: '#what-is', isExternal: false },
-    { name: t('timeline'), href: '#timeline', isExternal: false },
-    { name: t('waitingList'), href: '#waiting-list', isExternal: false },
     { name: t('team'), href: '#team', isExternal: false },
     { name: t('business'), href: '/business', isExternal: true },
   ];
@@ -59,10 +61,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, isHomePage }) => {
   // Links del menu per la pagina business
   const businessLinks = [
     { name: 'Home', href: '/', isExternal: true },
-    { name: 'Come Funziona', href: '/business#how-it-works', isExternal: false },
-    { name: 'Vantaggi', href: '/business#benefits', isExternal: false },
-    { name: 'Confronto', href: '/business#comparison', isExternal: false },
-    { name: 'Prova Gratuita', href: '/business#cta', isExternal: false }
+    { name: t('Vantaggi'), href: '#benefits', isExternal: false },
+    { name: t('Come Funziona'), href: '#how-it-works', isExternal: false },
+    { name: 'FAQ', href: '#faq', isExternal: false },
+    { name: t('Contattaci'), href: '#contact', isExternal: false }
   ];
 
   // Scegli i link in base alla pagina corrente

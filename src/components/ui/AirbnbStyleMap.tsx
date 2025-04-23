@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { 
@@ -9,10 +10,7 @@ import {
   FaFilm, 
   FaTheaterMasks, 
   FaMusic, 
-  FaUtensils,
   FaGraduationCap,
-  FaCar,
-  FaPlane,
   FaArrowRight
 } from 'react-icons/fa';
 import './AirbnbStyleMap.scss';
@@ -20,6 +18,7 @@ import './AirbnbStyleMap.scss';
 // Fix for Leaflet default icons
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
 
 // Componente per centrare la mappa su un determinato marker
 function SetViewOnSelect({ coords }: { coords: [number, number] | null }) {
@@ -61,17 +60,15 @@ interface AirbnbStyleMapProps {
 }
 
 const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition }) => {
+  const { t, language } = useLanguage();
   // Definizione delle categorie di servizi
   const [categories, setCategories] = useState<ServiceCategory[]>([
-    { id: 'gym', name: 'Palestre', icon: <FaDumbbell />, active: false },
-    { id: 'pool', name: 'Piscine', icon: <FaSwimmer />, active: false },
-    { id: 'theater', name: 'Teatri', icon: <FaTheaterMasks />, active: false },
-    { id: 'cinema', name: 'Cinema', icon: <FaFilm />, active: false },
-    { id: 'concert', name: 'Concerti', icon: <FaMusic />, active: false },
-    { id: 'restaurant', name: 'Ristoranti', icon: <FaUtensils />, active: false },
-    { id: 'course', name: 'Corsi', icon: <FaGraduationCap />, active: false },
-    { id: 'car', name: 'Auto', icon: <FaCar />, active: false },
-    { id: 'travel', name: 'Viaggi', icon: <FaPlane />, active: false },
+    { id: 'gym', name: t('gym'), icon: <FaDumbbell />, active: false },
+    { id: 'pool', name: t('pool'), icon: <FaSwimmer />, active: false },
+    { id: 'theater', name: t('theater'), icon: <FaTheaterMasks />, active: false },
+    { id: 'cinema', name: t('cinema'), icon: <FaFilm />, active: false },
+    { id: 'concert', name: t('concert'), icon: <FaMusic />, active: false },
+    { id: 'course', name: t('course'), icon: <FaGraduationCap />, active: false }
   ]);
 
   // Selected service state
@@ -79,6 +76,16 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
   const [filteredServices, setFilteredServices] = useState<Service[]>(services);
   const [selectedCoords, setSelectedCoords] = useState<[number, number] | null>(null);
   const [detailPopup, setDetailPopup] = useState<Service | null>(null);
+
+  // Update category names when language changes
+  useEffect(() => {
+    setCategories(prevCategories => 
+      prevCategories.map(cat => ({
+        ...cat,
+        name: t(cat.id)
+      }))
+    );
+  }, [language, t]);
 
   // Gestione del filtro per categoria
   const handleCategoryClick = (categoryId: string) => {
@@ -170,7 +177,7 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
               iconSize: [20, 20],
             })}
           >
-            <Popup>La tua posizione</Popup>
+            <Popup>{t('yourLocation')}</Popup>
           </Marker>
           
           {/* Marker servizi */}
@@ -201,7 +208,7 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
                     className="view-details-btn"
                     onClick={() => handleViewDetails(service)}
                   >
-                    Vedi dettagli
+                    {t('viewDetails')}
                   </button>
                 </div>
               </Popup>
@@ -212,7 +219,7 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
 
       {/* Indicatore risultati */}
       <div className="results-indicator">
-        Mostra {filteredServices.length} servizi in abbonamento disponibili
+        {t('show')} {filteredServices.length} {t('servicesAvailable')}
       </div>
 
       {/* Popup dettagli servizio */}
@@ -234,27 +241,24 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
                   {detailPopup.type === 'theater' && <FaTheaterMasks />}
                   {detailPopup.type === 'cinema' && <FaFilm />}
                   {detailPopup.type === 'concert' && <FaMusic />}
-                  {detailPopup.type === 'restaurant' && <FaUtensils />}
                   {detailPopup.type === 'course' && <FaGraduationCap />}
-                  {detailPopup.type === 'car' && <FaCar />}
-                  {detailPopup.type === 'travel' && <FaPlane />}
                   <span>{categories.find(c => c.id === detailPopup.type)?.name || detailPopup.type}</span>
                 </div>
               </div>
               
               <div className="service-detail-info">
                 <div className="info-row">
-                  <span className="info-label">Prezzo:</span>
+                  <span className="info-label">{t('price')}:</span>
                   <span className="info-value price">{detailPopup.price}</span>
                 </div>
                 {detailPopup.distance && (
                   <div className="info-row">
-                    <span className="info-label">Distanza:</span>
+                    <span className="info-label">{t('dist')}:</span>
                     <span className="info-value">{detailPopup.distance}</span>
                   </div>
                 )}
                 <div className="info-row">
-                  <span className="info-label">Valutazione:</span>
+                  <span className="info-label">{t('rating')}:</span>
                   <span className="info-value">
                     {Array(5).fill(0).map((_, i) => (
                       <span key={i} className={i < detailPopup.rating ? 'star-filled' : 'star-empty'}>★</span>
@@ -265,7 +269,7 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
               </div>
               
               <div className="service-detail-description">
-                <h3>Descrizione</h3>
+                <h3>{t('description')}</h3>
                 <p>
                   {detailPopup.type === 'gym' && 'Abbonamento mensile completo con accesso a tutte le attrezzature e corsi fitness disponibili. Include spogliatoi, docce e supporto di trainer professionisti.'}
                   {detailPopup.type === 'pool' && 'Abbonamento per accesso alla piscina con corsie e area relax. Include lezioni di nuoto di gruppo e accesso alle saune.'}
@@ -280,7 +284,7 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
               </div>
               
               <button className="subscribe-button">
-                <span>Abbonati ora</span>
+                <span>{t('subscribeNow')}</span>
                 <FaArrowRight />
               </button>
             </div>
