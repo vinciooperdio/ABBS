@@ -122,30 +122,32 @@
     display: flex;
     width: 100%;
     position: relative;
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
   }
 
   &__input {
     flex-grow: 1;
+    color: $text-primary;
     padding: 1rem 1.5rem;
     font-size: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid $text-primary;
+    border-radius: 20px 0 0 20px;
     background: rgba(255, 255, 255, 0.05);
-    color: $text-primary;
+    
     outline: none;
     transition: all 0.3s ease;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
+      color: $text-primary;
     }
 
     &:focus {
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: $text-primary;
     }
 
     &--error {
-      border-color: rgba(255, 0, 0, 0.4);
+      border-color: $text-primary;
     }
   }
 
@@ -182,7 +184,7 @@
   }
 
   &__error {
-    color: rgba(255, 100, 100, 0.9);
+    color: $text-primary;
     font-size: 0.875rem;
     text-align: left;
     margin-top: 0.5rem;
@@ -191,7 +193,7 @@
 
   &__disclaimer {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: $text-primary;
     margin-top: 1rem;
     text-align: center;
   }
