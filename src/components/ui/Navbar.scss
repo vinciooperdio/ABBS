@@ -76,7 +76,7 @@
     }
     
     @media (max-width: $breakpoint-sm) {
-      visibility: hidden;
+      display: none;
     }
   }
   
