@@ -76,8 +76,7 @@
     }
     
     @media (max-width: $breakpoint-sm) {
-      font-size: 0.9rem;
-      padding: 0.5rem 1.2rem;
+      visibility: hidden;
     }
   }
   

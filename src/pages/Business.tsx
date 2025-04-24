@@ -177,7 +177,7 @@ const Business: React.FC = () => {
 
             <div className="business-benefits__wrapper">
               {/* Vantaggio 1: Crescita clientela con Lottie */}
-              <div className="business-benefits__item" style={{ height: '80vh' }}>
+              <div className="business-benefits__item">
                 <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
                   <div className="lottie-container responsive-lottie">
                     <DotLottieReact
@@ -195,7 +195,7 @@ const Business: React.FC = () => {
               </div>
 
               {/* Vantaggio 2: Personalizzazione con Lottie */}
-              <div className="business-benefits__item" style={{ height: '80vh' }}>
+              <div className="business-benefits__item">
                 <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
                   <div className="lottie-container responsive-lottie">
                     <DotLottieReact
@@ -214,7 +214,7 @@ const Business: React.FC = () => {
               </div>
               
               {/* Vantaggio 3: Automazione con Lottie */}
-              <div className="business-benefits__item" style={{ height: '80vh' }}>
+              <div className="business-benefits__item">
                 <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
                   <div className="lottie-container responsive-lottie">
                     <DotLottieReact
@@ -232,7 +232,7 @@ const Business: React.FC = () => {
               </div>
               
               {/* Vantaggio 4: Pricing Intelligente con Lottie */}
-              <div className="business-benefits__item" style={{ height: '80vh' }}>
+              <div className="business-benefits__item" >
                 <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
                   <div className="lottie-container responsive-lottie">
                     <DotLottieReact
@@ -250,7 +250,7 @@ const Business: React.FC = () => {
               </div>
               
               {/* Vantaggio 5: Sicurezza con Lottie */}
-              <div className="business-benefits__item" style={{ height: '80vh' }}>
+              <div className="business-benefits__item" >
                 <div className="business-benefits__item-visual" style={{ width: '100%', maxWidth: '100%', minHeight: '500px' }}>
                   <div className="lottie-container responsive-lottie">
                     <DotLottieReact

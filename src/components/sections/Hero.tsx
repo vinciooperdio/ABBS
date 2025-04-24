@@ -13,7 +13,7 @@ const highResStyle: { marginTop: string | number } = {
 // Update styles based on screen resolution
 const updateHighResStyles = () => {
   if (window.innerWidth >= 2560) { // 2K and above
-    highResStyle.marginTop = '5vh'; // Push content down for high-resolution screens
+    highResStyle.marginTop = '10vh'; // Push content down for high-resolution screens
   } else {
     highResStyle.marginTop = 0;
   }
@@ -269,7 +269,6 @@ const Hero: React.FC = () => {
                   method="POST"
                   netlify-honeypot="bot-field"
                 >
-                  {/* Required fields for Netlify Forms */}
                   <input type="hidden" name="form-name" value="waiting-list" />
                   <div hidden>
                     <input name="bot-field" />
