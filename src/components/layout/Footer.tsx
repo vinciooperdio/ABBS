@@ -64,7 +64,6 @@ const Footer = () => {
                 <li><a href="/">{t('home')}</a></li>
                 <li><Link to="/business">{t('business')}</Link></li>
                 <li><a href="#what-is" onClick={(e) => handleSectionLink(e, '#what-is')}>{t('whatIs')}</a></li>
-                <li><a href="#timeline" onClick={(e) => handleSectionLink(e, '#timeline')}>{t('roadmap')}</a></li>
               </ul>
             </motion.div>
             
@@ -73,7 +72,6 @@ const Footer = () => {
               <ul>
                 <li><a href="#mission" onClick={(e) => handleSectionLink(e, '#mission')}>{t('mission')}</a></li>
                 <li><a href="#team" onClick={(e) => handleSectionLink(e, '#team')}>{t('team')}</a></li>
-                <li><Link to="/waitlist">{t('waitingList')}</Link></li>
               </ul>
             </motion.div>
             

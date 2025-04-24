@@ -15,10 +15,10 @@ interface SEOProps {
 
 const SEO: React.FC<SEOProps> = ({
   title = 'ABBS - La piattaforma per gestire tutti i tuoi abbonamenti',
-  description = 'ABBS ti aiuta a gestire tutti i tuoi abbonamenti in un unico posto. Scopri, monitora e ottimizza le tue spese in abbonamento con pochi clic.',
+  description = 'ABBS è la prima app italiana per gestire tutti i tuoi abbonamenti in un unico posto. Monitora, ottimizza e risparmia sui tuoi abbonamenti mensili.',
   image = 'https://abbs.one/og-image.jpg',
   article = false,
-  keywords = 'abbonamenti, gestione abbonamenti, sottoscrizioni, risparmiare, SaaS, piattaforma abbonamenti',
+  keywords = 'abbs, abbonamenti, gestione abbonamenti, sottoscrizioni digitali, risparmiare sugli abbonamenti, app abbonamenti, piattaforma abbonamenti, monitor abbonamenti',
   canonicalUrl,
   schema,
   pathname,
@@ -36,10 +36,33 @@ const SEO: React.FC<SEOProps> = ({
     name: 'ABBS',
     url: siteUrl,
     description: 'Piattaforma per la gestione degli abbonamenti',
+    potentialAction: {
+      '@type': 'SearchAction',
+      'target': `${siteUrl}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
   };
 
-  // Unisci lo schema personalizzato con quello di base
-  const schemaData = schema ? schema : baseSchema;
+  // Schema per l'applicazione software
+  const appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': 'ABBS',
+    'applicationCategory': 'BusinessApplication',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'EUR'
+    },
+    'operatingSystem': 'All',
+    'description': 'App per la gestione degli abbonamenti'
+  };
+
+  // Merge schema con base e app schema
+  const finalSchema = schema || 
+    (pathname === '/business' ? 
+      { ...baseSchema, ...appSchema, '@type': ['WebSite', 'SoftwareApplication'] } : 
+      baseSchema);
 
   return (
     <Helmet>
@@ -65,6 +88,12 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
+      {/* Mobile specific */}
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
       {/* Favicon */}
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" href="/logo192.png" />
@@ -74,10 +103,11 @@ const SEO: React.FC<SEOProps> = ({
       
       {/* JSON-LD structured data */}
       <script type="application/ld+json">
-        {JSON.stringify(schemaData)}
+        {JSON.stringify(finalSchema)}
       </script>
       
-      {/* Google Analytics - gestito separatamente dal componente GoogleAnalytics */}
+      {/* Google Search Console verification */}
+      <meta name="google-site-verification" content="35a9c8c226f96780" />
     </Helmet>
   );
 };

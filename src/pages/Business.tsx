@@ -110,10 +110,13 @@ const Business: React.FC = () => {
   return (
     <div className="business-page">
       <SEO
-        title={`ABBS Business | ${language === 'it' ? 'Gestione Abbonamenti per Aziende' : 'Subscription Management for Businesses'}`}
+        title={`ABBS Business | ${language === 'it' ? 'Gestione Abbonamenti per Aziende e Professionisti' : 'Subscription Management for Businesses'}`}
         description={language === 'it' ? 
-          "ABBS Business offre una soluzione completa per la gestione degli abbonamenti aziendali. Centralizza, ottimizza e risparmia sui costi con la nostra piattaforma intuitiva." : 
+          "ABBS Business offre una soluzione completa per la gestione degli abbonamenti aziendali. Centralizza, ottimizza e risparmia sui costi con la nostra piattaforma intuitiva per gestire abbonamenti professionali." : 
           "ABBS Business offers a complete solution for managing business subscriptions. Centralize, optimize and save costs with our intuitive platform."}
+        keywords={language === 'it' ? 
+          "abbonamenti aziendali, gestione abbonamenti business, software abbonamenti, piattaforma abbonamenti professionali, risparmio abbonamenti" : 
+          "business subscriptions, subscription management software, enterprise subscription platform"}
         article={true}
         pathname="/business"
       />

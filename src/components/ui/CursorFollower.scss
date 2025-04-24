@@ -31,7 +31,7 @@
   margin-left: -8px;
   margin-top: -8px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: $primary;
   box-shadow: 0 0 10px rgba($primary, 0.8);
   z-index: 9999;
   pointer-events: none;
@@ -41,11 +41,11 @@
   transition: background-color 0.2s ease; // Transizione solo per il colore
   
   &.clicking {
-    background-color: rgba($primary, 0.9);
+    background-color: rgba(white, 0.9);
   }
   
   &.hovering {
-    background-color: rgba($secondary, 0.9);
+    background-color: rgba(white, 0.9);
   }
 }
 
@@ -57,7 +57,7 @@
   height: 48px;
   margin-left: -24px;
   margin-top: -24px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid $primary;
   border-radius: 50%;
   box-shadow: 0 0 15px rgba($primary, 0.3);
   z-index: 9998;
@@ -68,13 +68,13 @@
   transition: border-color 0.2s ease, background-color 0.2s ease; // Transizione solo per i colori
   
   &.clicking {
-    border-color: $primary;
-    background-color: rgba($primary, 0.1);
+    border-color: white;
+    background-color: rgba(white, 0.1);
   }
   
   &.hovering {
-    border-color: $secondary;
-    background-color: rgba($secondary, 0.1);
+    border-color: white;
+    background-color: rgba(white, 0.1);
   }
 }
 
