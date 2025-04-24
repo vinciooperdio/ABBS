@@ -393,9 +393,7 @@ const Business: React.FC = () => {
                 >
                   <div className="case-study-image">
                     <img src="https://images.unsplash.com/photo-1556912998-c57cc6b63cd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Airbnb Case Study" />
-                    <div className="case-study-logo">
-                      <img src="https://cdn.worldvectorlogo.com/logos/airbnb.svg" alt="Airbnb logo" />
-                    </div>
+                    
                   </div>
                   <div className="case-study-content">
                     <div className="case-study-name">{t('airbnbName')}</div>
@@ -423,10 +421,8 @@ const Business: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.5 }}
                 >
                   <div className="case-study-image">
-                    <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Spotify Case Study" />
-                    <div className="case-study-logo">
-                      <img src="https://cdn.worldvectorlogo.com/logos/spotify-1.svg" alt="Spotify logo" />
-                    </div>
+                    <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/22026912/acastro_201110_4286_spotify_0001.jpg?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=1080" alt="Spotify Case Study" />
+                    
                   </div>
                   <div className="case-study-content">
                     <div className="case-study-name">{t('spotifyName')}</div>
@@ -454,10 +450,8 @@ const Business: React.FC = () => {
                   transition={{ duration: 0.5, delay: 0.6 }}
                 >
                   <div className="case-study-image">
-                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Uber Case Study" />
-                    <div className="case-study-logo">
-                      <img src="https://cdn.worldvectorlogo.com/logos/uber-15.svg" alt="Uber logo" />
-                    </div>
+                    <img src="https://assets.turbologo.com/blog/es/2019/12/19132829/Uber-car.png" alt="Uber Case Study" />
+                    
                   </div>
                   <div className="case-study-content">
                     <div className="case-study-name">{t('uberName')}</div>
