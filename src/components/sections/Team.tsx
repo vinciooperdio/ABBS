@@ -394,7 +394,7 @@ const Team = () => {
             </motion.p>
             
             <motion.a 
-              href="mailto:careers@abbs.com" 
+              href="mailto:founders@abbs.one" 
               className="team__join-button"
               whileHover={{ 
                 scale: 1.05, 
