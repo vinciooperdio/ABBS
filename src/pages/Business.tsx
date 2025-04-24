@@ -20,7 +20,6 @@ const Business: React.FC = () => {
   const { t, language } = useLanguage();
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [sectionIndex, setSectionIndex] = useState(0);
-  const [videoLoaded, setVideoLoaded] = useState(false);
   
   // Refs for sections
   const heroRef = useRef<HTMLDivElement>(null);
@@ -35,48 +34,6 @@ const Business: React.FC = () => {
   // InView states for sections
   const isHowItWorksInView = useInView(howItWorksRef, { once: false, amount: 0.3 });
   const isMarketingInView = useInView(marketingRef, { once: false, amount: 0.3 });
-  
-  // Force video loading when component mounts
-  useEffect(() => {
-    // Create a video element and force preloading
-    const forceLoadVideo = () => {
-      const videoSrc = "https://cdn.abbs.one/videos/hero2.mp4";
-      
-      // Create and configure the video element
-      const videoElement = document.createElement('video');
-      videoElement.style.position = 'absolute';
-      videoElement.style.width = '1px';
-      videoElement.style.height = '1px';
-      videoElement.style.opacity = '0.01';
-      videoElement.style.pointerEvents = 'none';
-      videoElement.muted = true;
-      videoElement.playsInline = true;
-      videoElement.autoplay = false;
-      videoElement.preload = 'auto';
-      videoElement.src = videoSrc;
-      
-      // Append to DOM to start loading
-      document.body.appendChild(videoElement);
-      
-      // Set loaded state when ready and remove element
-      videoElement.onloadeddata = () => {
-        console.log('Business hero video preloaded successfully');
-        setVideoLoaded(true);
-        document.body.removeChild(videoElement);
-      };
-      
-      // Fallback in case of errors
-      videoElement.onerror = () => {
-        console.error('Error preloading business hero video');
-        document.body.removeChild(videoElement);
-      };
-      
-      // Start loading by forcing the browser to evaluate the video
-      videoElement.load();
-    };
-    
-    forceLoadVideo();
-  }, []);
   
   // Hero fade out as user scrolls down
   const heroOpacity = useTransform(
@@ -121,6 +78,14 @@ const Business: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
+  
+  
+ 
+
+  
+  
+  
   
   // Video sources
   const videoSources = [
@@ -174,7 +139,6 @@ const Business: React.FC = () => {
                 loop
                 muted
                 playsInline
-                preload="auto"
                 src={src}
               />
               <div className={`video-overlay ${index === 0 ? 'hero-overlay' : 'problem-overlay'}`} />
@@ -319,7 +283,12 @@ const Business: React.FC = () => {
 
         {/* How It Works Section - Più Giocosa */}
         <section ref={howItWorksRef} className="business-how-it-works" id="how-it-works">
-          <div className="business-how-it-works__content">
+          <motion.div 
+            className="business-how-it-works__content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.7 }}
+          >
             <h2 className="text-gradient">{t('businessHowItWorksTitle')}</h2>
             <div className="business-how-it-works__interactive">
               <div className="tablet-mockup">
@@ -330,37 +299,55 @@ const Business: React.FC = () => {
               
             </div>
             <div className="steps-container">
-              <div className="interactive-step">
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3 className="step-title">{t('businessStep1')}</h3>
                   <p>{t('businessStep1Desc')}</p>
                 </div>
-              </div>
-              <div className="interactive-step">
+              </motion.div>
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
                 <div className="step-number">2</div>
                 <div className="step-content">
                   <h3 className="step-title">{t('businessStep2')}</h3>
                   <p>{t('businessStep2Desc')}</p>
                 </div>
-              </div>
-              <div className="interactive-step">
+              </motion.div>
+              <motion.div 
+                className="interactive-step"
+                initial={{ opacity: 0, x: 50 }}
+                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
                 <div className="step-number">3</div>
                 <div className="step-content">
                   <h3 className="step-title">{t('businessStep3')}</h3>
                   <p>{t('businessStep3Desc')}</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
-            <button 
+            <motion.button 
               className="button button--primary"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
               onClick={() => {
                 document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               {t('businessHowItWorksCta')}
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </section>
 
         {/* Marketing Section - ULTRA WOW */}
@@ -378,17 +365,32 @@ const Business: React.FC = () => {
           </div>
           
           <div className="business-marketing__content">
-            <div className="business-marketing__headline">
+            <motion.div 
+              className="business-marketing__headline"
+              initial={{ opacity: 0, y: 50 }}
+              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.7 }}
+            >
               <h2 className="text-gradient">{t('businessMarketingTitle')}</h2>
               <p>{t('businessMarketingText')}</p>
-            </div>
+            </motion.div>
 
-            <div className="business-marketing__case-studies">
+            <motion.div 
+              className="business-marketing__case-studies"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
               <div className="case-study-title">
                 {t('caseStudiesTitle')}
               </div>
               <div className="case-studies-grid">
-                <div className="case-study-card">
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
                   <div className="case-study-image">
                     <img src="https://images.unsplash.com/photo-1556912998-c57cc6b63cd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Airbnb Case Study" />
                     <div className="case-study-logo">
@@ -412,9 +414,14 @@ const Business: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="case-study-card">
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
                   <div className="case-study-image">
                     <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Spotify Case Study" />
                     <div className="case-study-logo">
@@ -438,9 +445,14 @@ const Business: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="case-study-card">
+                <motion.div 
+                  className="case-study-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                >
                   <div className="case-study-image">
                     <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Uber Case Study" />
                     <div className="case-study-logo">
@@ -464,9 +476,11 @@ const Business: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
+            
+            
           </div>
         </section>
 

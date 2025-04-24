@@ -25,9 +25,9 @@ const translations: Record<Language, Record<string, string>> = {
     'joinWaitlist': 'Iscriviti Ora',
 
     //business navbar
-    'Come Funziona': 'How it works',
-    'Vantaggi': 'Benefits',
-    'Contattaci': 'Contact us',
+    'Come Funziona': 'Come Funziona',
+    'Vantaggi': 'Vantaggi',
+    'Contattaci': 'Contattaci',
     
     // Hero
     'revolutionIsHere': 'La Rivoluzione degli Abbonamenti è Qui',
@@ -300,6 +300,11 @@ const translations: Record<Language, Record<string, string>> = {
     'team': 'Team',
     'business': 'Business',
     'joinWaitlist': 'Join Now',
+
+    //business navbar
+    'Come Funziona': 'How it works',
+    'Vantaggi': 'Benefits',
+    'Contattaci': 'Contact us',
     
     // Hero
     'revolutionIsHere': 'The Subscription Revolution is Here',
@@ -344,6 +349,7 @@ const translations: Record<Language, Record<string, string>> = {
     'physicalServicesNearby': 'Nearby Physical Services',
     
     
+    'whatIsText': 'With **ABBS**, you won\'t have to search different sites for your subscription information anymore. Now, all your subscriptions are centralized in one **interactive dashboard**. \nMonitor easily due dates and monthly costs, receive smart notifications that alert you in **advance** before renewals. \nThanks to our AI, ABBS analyzes your subscription habits and **suggests** more suitable plans for your needs. So, you\'ll know exactly where your money goes every month, with every subscription under control. \nVisualize in real time charts and statistics of your usage, access **exclusive promotions** reserved for ABBS users, and enjoy an intuitive interface that simplifies management with just a few clicks.',
     
     // Business
     'businessTitle': 'Optimize your business subscription management',
@@ -550,6 +556,7 @@ const translations: Record<Language, Record<string, string>> = {
     businessContactMessagePlaceholder: "How can we help you?",
     businessContactSubmit: "Send Message",
 
+    
 
     businessFinalCtaTitle: "Don't wait any longer! Optimize your business with ABBS.",
     businessFinalCtaText: "Join the thousands of companies that are turning subscription management into a competitive advantage.",

@@ -59,6 +59,11 @@ const Navbar: React.FC = () => {
     navigate('/');
   };
 
+  // Navigate to Business page
+  const navigateToBusiness = () => {
+    navigate('/business');
+  };
+
   return (
     <>
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
@@ -72,6 +77,14 @@ const Navbar: React.FC = () => {
           </Link>
           
           <div className="navbar__controls">
+            {isHomePage && (
+              <button 
+                className="navbar__business-btn"
+                onClick={navigateToBusiness}
+              >
+                {t('business')}
+              </button>
+            )}
             <LanguageToggle />
             <button 
               className="navbar__toggle" 

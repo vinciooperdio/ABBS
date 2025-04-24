@@ -54,6 +54,33 @@
     z-index: $z-fixed + 10;
   }
   
+  &__business-btn {
+    background: linear-gradient(135deg, $primary, lighten($primary, 15%));
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba($primary, 0.3);
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba($primary, 0.4);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.9rem;
+      padding: 0.5rem 1.2rem;
+    }
+  }
+  
   &__toggle {
     display: flex;
     align-items: center;
