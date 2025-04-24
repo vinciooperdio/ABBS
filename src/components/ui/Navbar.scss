@@ -63,16 +63,14 @@
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba($primary, 0.3);
+    transition: background-color 0.3s ease;
     
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba($primary, 0.4);
+      background: darken($primary, 10%);
     }
     
     &:active {
-      transform: translateY(-1px);
+      background: darken($primary, 15%);
     }
     
     @media (max-width: $breakpoint-sm) {
@@ -94,11 +92,10 @@
     z-index: $z-fixed + 10;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    transition: all $transition-fast;
+    transition: background-color 0.3s ease;
     
     &:hover {
       background: rgba($background-dark, 0.7);
-      transform: rotate(90deg);
     }
   }
   

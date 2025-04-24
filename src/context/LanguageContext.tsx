@@ -114,9 +114,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Team
     'ourTeam': 'Il Nostro Team',
     'teamSubtitle': 'Le persone di talento dietro ABBS che lavorano per trasformare la tua esperienza digitale',
-    'vincenzo':'Imprenditore e project manager con una visione chiara: creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
-    'silvia':'Giovane professionista con formazione in Economia e Digital Innovation, si occupa di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
-    'lorenzo':'Specializzato in sviluppo e trasformazione digitale, Lorenzo guida l’innovazione tech di ABBS con un mix di visione strategica e competenze analitiche.',
+    'vincenzo':'Sono un project manager, founder e mente creativa: nato per creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
+    'silvia':'Sono un giovane professionista con formazione in Economia e Digital Innovation, e mi occupo di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
+    'lorenzo':'Sono un professionista specializzato in sviluppo e trasformazione digitale, in ABBS mi occupo di guidare l\'innovazione tecnologica, combinando visione strategica e competenze analitiche.',
     'alwaysLooking': 'Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare la gestione degli abbonamenti.',
     'viewOpenPositions': 'Invia la tua candidatura',
     'joinTeam':'Vuoi unirti al nostro team?',
@@ -403,9 +403,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Team
     'ourTeam': 'Our Team',
     'teamSubtitle': 'The talented minds behind ABBS working to transform your digital experience',
-    'vincenzo':'Entrepreneur and project manager with a clear vision: creating digital solutions that have a tangible impact on people\'s lives.',
-    'silvia':'Young professional with a degree in Economics and Digital Innovation, she is responsible for guiding strategic and organizational decisions of the project, combining vision, method and attention to results.',
-    'lorenzo':'Specialized in digital development and transformation, Lorenzo leads the tech innovation of ABBS with a mix of strategic vision and analytical skills.',
+    'vincenzo':'I\'m a project manager, founder and creative mind: born to create digital solutions that have a real impact on people\'s lives.',
+    'silvia':'I\'m a young professional with a background in Economics and Digital Innovation, and I\'m responsible for guiding the strategic and organizational decisions of the project, uniting vision, method, and attention to results.',
+    'lorenzo':'I\'m a professional specialized in digital development and transformation, in ABBS I lead the technological innovation, combining strategic vision and analytical skills.',
     
     'alwaysLooking': 'We\'re always looking for talented people to help us revolutionize subscription management.',
     'joinTeam':'Want to join our team?',

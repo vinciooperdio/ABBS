@@ -166,10 +166,10 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 
     &:hover {
-      background: $primary;
+      background: darken($primary, 10%);
     }
 
     &:disabled {
@@ -249,7 +249,7 @@
     color: $text-primary;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 
     &:hover {
       background: rgba(255, 255, 255, 0.15);
