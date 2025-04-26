@@ -8,7 +8,7 @@ import './Team.scss';
 // Importo le immagini del team
 import vincenzoImage from '../../assets/images/vincenzo.png';
 import silviaImage from '../../assets/images/silvia.png';
-import lorenzoImage from '../../assets/images/lorenzo.jpeg';
+import lorenzoImage from '../../assets/images/lorenzo.jpg';
 
 const Team = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);

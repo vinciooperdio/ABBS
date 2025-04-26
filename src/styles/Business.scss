@@ -154,6 +154,12 @@
     color: white;
     padding: 0;
     z-index: 1;
+
+    @media (max-width: $breakpoint-sm) {
+      height: 100vh;
+      min-height: 800px;
+      margin-top: 4rem;
+    }
     
     &__content {
       position: relative;
@@ -166,8 +172,11 @@
         font-size: clamp(2.5rem, 5vw, 3.5rem);
         font-weight: 700;
         margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
+        line-height: 1.2;
+
+      }
+
+      
     
       p {
         font-size: clamp(1.1rem, 2vw, 1.25rem);
