@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import Hero from './components/sections/Hero';
 import Mission from './components/sections/Mission';
@@ -16,10 +17,27 @@ import { useLanguage } from './context/LanguageContext';
 function App() {
   const { t, language } = useLanguage();
 
+  // Set theme based on system preferences
   useEffect(() => {
-    // Imposta il tema automaticamente in base alle preferenze di sistema
     const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.setAttribute('data-theme', prefersDarkMode ? 'dark' : 'light');
+  }, []);
+
+  // Fix Windows overflow issues
+  useEffect(() => {
+    const fixWindowsOverflow = () => {
+      if (navigator.userAgent.indexOf('Windows') !== -1) {
+        document.body.style.overflowX = 'hidden';
+        document.documentElement.style.overflowX = 'hidden';
+      }
+    };
+    
+    fixWindowsOverflow();
+    window.addEventListener('resize', fixWindowsOverflow);
+    
+    return () => {
+      window.removeEventListener('resize', fixWindowsOverflow);
+    };
   }, []);
 
   return (
@@ -31,6 +49,10 @@ function App() {
           'ABBS helps you manage all your subscriptions in one place. Discover, track and optimize your subscription expenses with a few clicks.'
         }
         pathname="/"
+        keywords={language === 'it' ? 
+          'abbs, abbonamenti, gestione abbonamenti, sottoscrizioni digitali, risparmiare sugli abbonamenti' : 
+          'abbs, subscriptions, subscription management, digital subscriptions, save on subscriptions'
+        }
       />
       <GoogleAnalytics />
       <CursorFollower />

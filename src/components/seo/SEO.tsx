@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
@@ -58,11 +59,25 @@ const SEO: React.FC<SEOProps> = ({
     'description': 'App per la gestione degli abbonamenti'
   };
 
-  // Merge schema con base e app schema
+  // Schema per l'organizzazione
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'name': 'ABBS',
+    'url': siteUrl,
+    'logo': `${siteUrl}/logo.png`,
+    'sameAs': [
+      'https://www.facebook.com/abbsplatform',
+      'https://twitter.com/abbsplatform',
+      'https://www.instagram.com/abbsplatform'
+    ]
+  };
+
+  // Merge schema with base and app schema
   const finalSchema = schema || 
     (pathname === '/business' ? 
       { ...baseSchema, ...appSchema, '@type': ['WebSite', 'SoftwareApplication'] } : 
-      baseSchema);
+      { ...baseSchema, ...organizationSchema });
 
   return (
     <Helmet>
@@ -93,6 +108,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+      <meta name="theme-color" content="#4B45CE" />
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.ico" />
@@ -112,4 +128,4 @@ const SEO: React.FC<SEOProps> = ({
   );
 };
 
-export default SEO; 
+export default SEO;

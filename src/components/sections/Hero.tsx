@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FiChevronRight, FiCheck } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
 import './Hero.scss';
@@ -27,6 +27,8 @@ const Hero: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { t } = useLanguage();
+  const { scrollY } = useScroll();
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   // Preload the Business page hero video
   useEffect(() => {
@@ -239,142 +241,138 @@ const Hero: React.FC = () => {
               {t('manageAllSubscriptions')}
             </motion.p>
 
-            {/* Added h2 heading above the waitlist form */}
-            <motion.h4 
-              className="waiting-list__heading"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: loadingComplete ? 0.7 : 3.7,
-                ease: "easeOut"
-              }}
-            >
-              {t('joinWaitingList')}
-            </motion.h4>
-            
-            <motion.div 
-              className="waiting-list__form-container"
-              variants={itemVariants}
-            >
-              {!submitted ? (
-                <motion.form 
-                  onSubmit={handleSubmit} 
-                  className=""
-                  variants={formVariants}
-                  initial="hidden"
-                  animate="visible"
-                  data-netlify="true"
-                  name="waiting-list"
-                  method="POST"
-                  netlify-honeypot="bot-field"
-                >
-                  <input type="hidden" name="form-name" value="waiting-list" />
-                  <div hidden>
-                    <input name="bot-field" />
-                  </div>
-                  
-                  <div className="waiting-list__input-group">
-                    <motion.input
-                      type="email"
-                      name="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder={t('yourEmail')}
-                      className={`waiting-list__input ${error ? 'waiting-list__input--error' : ''}`}
-                      disabled={isLoading}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                    />
-                    <motion.button 
-                      type="submit" 
-                      className="waiting-list__submit"
-                      disabled={isLoading}
-                      variants={buttonHoverVariants}
-                      initial="rest"
-                      whileHover="hover"
-                      whileTap="tap"
-                    >
-                      {isLoading ? (
-                        <span className="waiting-list__spinner"></span>
-                      ) : (
-                        <>
-                          <span>{t('subscribeButton')}</span>
-                          <motion.span
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ 
-                              repeat: Infinity, 
-                              duration: 1.5, 
-                              ease: "easeInOut",
-                              repeatType: "reverse"
-                            }}
-                          >
-                            <FiChevronRight />
-                          </motion.span>
-                        </>
-                      )}
-                    </motion.button>
-                  </div>
-                  {error && (
+            <div className="waiting-list__wrapper">
+              <motion.h4 
+                className="waiting-list__heading"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: loadingComplete ? 0.7 : 3.7, ease: "easeOut" }}
+              >
+                {t('joinWaitingList')}
+              </motion.h4>
+              <motion.div 
+                className="waiting-list__form-container"
+                variants={itemVariants}
+              >
+                {!submitted ? (
+                  <motion.form 
+                    onSubmit={handleSubmit} 
+                    className=""
+                    variants={formVariants}
+                    initial="hidden"
+                    animate="visible"
+                    data-netlify="true"
+                    name="waiting-list"
+                    method="POST"
+                    netlify-honeypot="bot-field"
+                  >
+                    <input type="hidden" name="form-name" value="waiting-list" />
+                    <div hidden>
+                      <input name="bot-field" />
+                    </div>
+                    
+                    <div className="waiting-list__input-group">
+                      <motion.input
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder={t('yourEmail')}
+                        className={`waiting-list__input ${error ? 'waiting-list__input--error' : ''}`}
+                        disabled={isLoading}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                      />
+                      <motion.button 
+                        type="submit" 
+                        className="waiting-list__submit"
+                        disabled={isLoading}
+                        variants={buttonHoverVariants}
+                        initial="rest"
+                        whileHover="hover"
+                        whileTap="tap"
+                      >
+                        {isLoading ? (
+                          <span className="waiting-list__spinner"></span>
+                        ) : (
+                          <>
+                            <span>{t('subscribeButton')}</span>
+                            <motion.span
+                              animate={{ x: [0, 5, 0] }}
+                              transition={{ 
+                                repeat: Infinity, 
+                                duration: 1.5, 
+                                ease: "easeInOut",
+                                repeatType: "reverse"
+                              }}
+                            >
+                              <FiChevronRight />
+                            </motion.span>
+                          </>
+                        )}
+                      </motion.button>
+                    </div>
+                    {error && (
+                      <motion.p 
+                        className="waiting-list__error"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                      >
+                        {error}
+                      </motion.p>
+                    )}
                     <motion.p 
-                      className="waiting-list__error"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
+                      className="waiting-list__disclaimer"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
                     >
-                      {error}
+                      {t('privacyConsent')}
                     </motion.p>
-                  )}
-                  <motion.p 
-                    className="waiting-list__disclaimer"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    {t('privacyConsent')}
-                  </motion.p>
-                </motion.form>
-              ) : (
-                <motion.div 
-                  className="waiting-list__success"
-                  variants={successVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
+                  </motion.form>
+                ) : (
                   <motion.div 
-                    className="waiting-list__success-icon"
-                    variants={iconAnimationVariants}
+                    className="waiting-list__success"
+                    variants={successVariants}
+                    initial="hidden"
+                    animate="visible"
                   >
-                    <FiCheck />
+                    <motion.div 
+                      className="waiting-list__success-icon"
+                      variants={iconAnimationVariants}
+                    >
+                      <FiCheck />
+                    </motion.div>
+                    <motion.h3 variants={successItemVariants}>
+                      {t('subscribeSuccess')}
+                    </motion.h3>
+                    <motion.p variants={successItemVariants}>
+                      {t('subscribeSuccess')}
+                    </motion.p>
+                    <motion.button 
+                      onClick={handleReset}
+                      className="waiting-list__reset"
+                      variants={successItemVariants}
+                      whileHover={{ scale: 1.05, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {t('subscribeAnother')}
+                    </motion.button>
                   </motion.div>
-                  <motion.h3 variants={successItemVariants}>
-                    {t('subscribeSuccess')}
-                  </motion.h3>
-                  <motion.p variants={successItemVariants}>
-                    {t('subscribeSuccess')}
-                  </motion.p>
-                  <motion.button 
-                    onClick={handleReset}
-                    className="waiting-list__reset"
-                    variants={successItemVariants}
-                    whileHover={{ scale: 1.05, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {t('subscribeAnother')}
-                  </motion.button>
-                </motion.div>
-              )}
-            </motion.div>
+                )}
+              </motion.div>
+            </div>
           </motion.div>
         </div>
         
-        <div className="hero__scroll-indicator">
+        <motion.div className="hero__scroll-indicator" style={{ opacity: scrollIndicatorOpacity }}>
           <div className="hero__mouse">
             <div className="hero__mouse-wheel"></div>
           </div>
           <div className="hero__scroll-text">{t('scrollToDiscover')}</div>
-        </div>
+        </motion.div>
       </section>
     </>
   );
