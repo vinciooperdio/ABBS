@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import Hero from './components/sections/Hero';
 import Mission from './components/sections/Mission';
@@ -7,6 +6,7 @@ import Team from './components/sections/Team';
 import Footer from './components/layout/Footer';
 import CursorFollower from './components/ui/CursorFollower';
 import Navbar from './components/ui/Navbar';
+import CookieBanner from './components/CookieBanner';
 import './App.scss';
 import React, { useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -43,16 +43,16 @@ function App() {
   return (
     <>
       <SEO 
-        title={language === 'it' ? 'ABBS - Gestisci tutti i tuoi abbonamenti in un unico posto' : 'ABBS - Manage all your subscriptions in one place'} 
+        title={language === 'it' ? 'ABBS - Gestisci tutti i tuoi abbonamenti in un unico posto | La piattaforma abbonamenti' : 'ABBS - Manage all your subscriptions in one place'} 
         description={language === 'it' ? 
-          'ABBS ti aiuta a gestire tutti i tuoi abbonamenti in un unico posto. Scopri, monitora e ottimizza le tue spese in abbonamento con pochi clic.' : 
+          'ABBS è la prima app italiana per gestire tutti i tuoi abbonamenti in un unico posto. Monitora, ottimizza e risparmia sui tuoi abbonamenti mensili.' : 
           'ABBS helps you manage all your subscriptions in one place. Discover, track and optimize your subscription expenses with a few clicks.'
         }
-        pathname="/"
         keywords={language === 'it' ? 
-          'abbs, abbonamenti, gestione abbonamenti, sottoscrizioni digitali, risparmiare sugli abbonamenti' : 
-          'abbs, subscriptions, subscription management, digital subscriptions, save on subscriptions'
+          'abbs, abbonamenti, gestione abbonamenti, sottoscrizioni digitali, risparmiare, monitor abbonamenti, piattaforma abbonamenti' : 
+          'abbs, subscriptions, subscription management, digital subscriptions, save money, subscription platform'
         }
+        pathname="/"
       />
       <GoogleAnalytics />
       <CursorFollower />
@@ -66,6 +66,7 @@ function App() {
       </main>
       
       <Footer />
+      <CookieBanner />
     </>
   );
 }

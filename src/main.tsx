@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, ScrollRestoration, useLocation } f
 import { LanguageProvider } from './context/LanguageContext'
 import App from './App'
 import Business from './pages/Business'
+import NotFound from './pages/NotFound'
 import './styles/global.scss'
 import './App.scss'
 import './components/ui/AirbnbStyleMap.scss'
@@ -83,6 +84,15 @@ const router = createBrowserRouter([
       <>
         <ScrollRestoration />
         <CookiePolicy />
+      </>
+    )
+  },
+  {
+    path: '*',
+    element: (
+      <>
+        <ScrollRestoration />
+        <NotFound />
       </>
     )
   }

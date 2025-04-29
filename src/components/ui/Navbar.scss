@@ -55,15 +55,19 @@
   }
   
   &__business-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
     background: $primary;
     color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.6rem 1.5rem;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
     transition: background-color 0.3s ease;
+    
+    @media (max-width: $breakpoint-sm) {
+      display: none;
+    }
     
     &:hover {
       background: darken($primary, 10%);
@@ -71,10 +75,6 @@
     
     &:active {
       background: darken($primary, 15%);
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      display: none;
     }
   }
   

@@ -1,144 +1,279 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SEO from '../components/seo/SEO';
-import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/ui/Navbar';
 import Footer from '../components/layout/Footer';
-import '../styles/LegalPages.scss';
+import { useLanguage } from '../context/LanguageContext';
+import CookieService from '../utils/cookieService';
+import SEO from '../components/seo/SEO';
+import './CookiePolicy.scss';
+
+interface CookieSettings {
+  necessary: boolean;
+  analytics: boolean;
+  marketing: boolean;
+}
 
 const CookiePolicy: React.FC = () => {
   const { language } = useLanguage();
+  const [settings, setSettings] = useState<CookieSettings>(() => CookieService.getSettings());
+  const [saved, setSaved] = useState(false);
+
+  const handleChange = (key: keyof CookieSettings) => {
+    if (key === 'necessary') return; // Non si può disattivare
+    
+    setSettings(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+    
+    // Reset success message
+    setSaved(false);
+  };
+
+  const saveSettings = () => {
+    CookieService.saveSettings(settings);
+    applySettings();
+    setSaved(true);
+    
+    // Nascondi il messaggio dopo 3 secondi
+    setTimeout(() => {
+      setSaved(false);
+    }, 3000);
+  };
+
+  const acceptAll = () => {
+    const allSettings = {
+      necessary: true,
+      analytics: true,
+      marketing: true
+    };
+    setSettings(allSettings);
+    CookieService.saveSettings(allSettings);
+    applySettings();
+    setSaved(true);
+    
+    setTimeout(() => {
+      setSaved(false);
+    }, 3000);
+  };
+
+  const applySettings = () => {
+    if (settings.analytics) {
+      // Enable analytics
+      enableAnalytics();
+    }
+    
+    if (settings.marketing) {
+      // Enable marketing
+      enableMarketing();
+    }
+  };
+
+  const enableAnalytics = () => {
+    if (!document.getElementById('ga-script')) {
+      const script = document.createElement('script');
+      script.id = 'ga-script';
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=YOUR_ANALYTICS_ID';
+      
+      const scriptInit = document.createElement('script');
+      scriptInit.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_ANALYTICS_ID');
+      `;
+      
+      document.head.appendChild(script);
+      document.head.appendChild(scriptInit);
+    }
+  };
+
+  const enableMarketing = () => {
+    if (!document.getElementById('fb-pixel')) {
+      const script = document.createElement('script');
+      script.id = 'fb-pixel';
+      script.innerHTML = `
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+      `;
+      
+      document.head.appendChild(script);
+    }
+  };
 
   return (
-    <div className="legal-page">
+    <>
       <SEO
         title={language === 'it' ? 'Cookie Policy | ABBS' : 'Cookie Policy | ABBS'}
         description={language === 'it' ? 
-          "Informativa sull'utilizzo dei cookie sul sito web e sulla piattaforma ABBS." : 
-          "Information about cookie usage on the ABBS website and platform."}
+          'Informazioni sui cookie utilizzati su ABBS e su come gestire le preferenze.' : 
+          'Information about cookies used on ABBS and how to manage your preferences.'
+        }
         pathname="/cookies"
       />
+      
       <Navbar />
-      <main className="legal-page">
-        <div className="container">
-          <motion.div 
-            className="legal-header"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1>{language === 'it' ? 'Cookie Policy' : 'Cookie Policy'}</h1>
-            <p className="last-updated">Ultimo aggiornamento: {new Date().toLocaleDateString('it-IT')}</p>
-          </motion.div>
-
-          <motion.div 
-            className="legal-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <section>
-              <h2>1. Introduzione</h2>
-              <p>Questa Cookie Policy spiega come ABBS ("noi", "nostro/a") utilizza i cookie e tecnologie simili quando visiti o interagisci con il nostro sito web e la nostra applicazione.</p>
-              <p>Questa policy fornisce informazioni su cosa sono i cookie, quali cookie utilizziamo e perché, e come puoi controllare l'uso dei cookie.</p>
-            </section>
-
-            <section>
-              <h2>2. Cosa Sono i Cookie</h2>
-              <p>I cookie sono piccoli file di testo che vengono memorizzati sul tuo dispositivo (computer, tablet o smartphone) quando visiti un sito web. Sono ampiamente utilizzati per far funzionare i siti web in modo più efficiente, nonché per fornire informazioni ai proprietari del sito.</p>
-              <p>I cookie possono essere "cookie di prima parte" o "cookie di terze parti". I cookie di prima parte sono impostati dal sito che stai visitando, mentre i cookie di terze parti sono impostati da un servizio di terze parti che è utilizzato dal sito che stai visitando.</p>
-            </section>
-
-            <section>
-              <h2>3. Tipi di Cookie che Utilizziamo</h2>
-              <p>Utilizziamo diversi tipi di cookie per varie finalità. I cookie possono essere classificati come segue:</p>
+      
+      <main className="cookie-policy">
+        <div className="cookie-policy__container">
+          <div className="cookie-policy__header">
+            <h1>Cookie Policy</h1>
+            <p>Ultima modifica: {new Date().toLocaleDateString()}</p>
+          </div>
+          
+          <section className="cookie-policy__section">
+            <h2>Cos'è un cookie?</h2>
+            <p>
+              I cookie sono piccoli file di testo che i siti visitati inviano al terminale dell'utente (computer, tablet, smartphone) dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla visita successiva. I cookie permettono ai siti web di ricordare le azioni e le preferenze dell'utente (come, ad esempio, i dati di login, la lingua preferita, le dimensioni dei caratteri, altre impostazioni di visualizzazione) in modo che non debbano essere indicate nuovamente quando l'utente torna su quel sito o naviga da una pagina all'altra di esso.
+            </p>
+          </section>
+          
+          <section className="cookie-policy__section">
+            <h2>Tipi di cookie utilizzati</h2>
+            <p>
+              Il nostro sito utilizza diversi tipi di cookie, ciascuno con una funzione specifica. Di seguito una descrizione dei tipi di cookie utilizzati:
+            </p>
+            
+            <div className="cookie-policy__cookie-types">
+              <div className="cookie-policy__cookie-type">
+                <h3>Cookie Necessari</h3>
+                <p>
+                  Questi cookie sono essenziali per il corretto funzionamento del sito web. Senza questi cookie, il sito web non potrebbe funzionare correttamente. Questi cookie non raccolgono informazioni personali.
+                </p>
+                <p className="cookie-policy__cookie-examples">
+                  <strong>Esempi:</strong> Cookie di sessione, cookie per ricordare le preferenze di accessibilità
+                </p>
+              </div>
               
-              <h3>3.1 Cookie Essenziali/Necessari</h3>
-              <p>Questi cookie sono necessari per il funzionamento del nostro sito web e non possono essere disattivati nei nostri sistemi. Solitamente vengono impostati solo in risposta ad azioni da te effettuate che costituiscono una richiesta di servizi, come l'impostazione delle preferenze di privacy, l'accesso o la compilazione di moduli. Puoi impostare il tuo browser per bloccare o avvisarti di questi cookie, ma alcune parti del sito potrebbero non funzionare correttamente.</p>
+              <div className="cookie-policy__cookie-type">
+                <h3>Cookie Analitici</h3>
+                <p>
+                  Questi cookie ci aiutano a capire come gli utenti interagiscono con il nostro sito web, fornendoci informazioni su quali pagine sono state visitate, quanto tempo è stato trascorso sul sito, e se ci sono stati errori. Questi cookie ci aiutano a migliorare continuamente l'esperienza utente.
+                </p>
+                <p className="cookie-policy__cookie-examples">
+                  <strong>Esempi:</strong> Google Analytics, Hotjar
+                </p>
+              </div>
               
-              <h3>3.2 Cookie di Preferenza</h3>
-              <p>Questi cookie consentono al nostro sito web di ricordare le scelte che hai fatto in passato, come le preferenze di lingua o regione, e fornire funzionalità migliorate e più personalizzate. Questi cookie possono anche essere utilizzati per ricordare le modifiche che hai apportato alla dimensione del testo, ai font e ad altre parti delle pagine web che puoi personalizzare.</p>
+              <div className="cookie-policy__cookie-type">
+                <h3>Cookie di Marketing</h3>
+                <p>
+                  Questi cookie vengono utilizzati per tracciare i visitatori sui siti web. Lo scopo è quello di visualizzare annunci pertinenti e coinvolgenti per il singolo utente e quindi più preziosi per editori e inserzionisti terzi.
+                </p>
+                <p className="cookie-policy__cookie-examples">
+                  <strong>Esempi:</strong> Facebook Pixel, Google AdWords
+                </p>
+              </div>
+            </div>
+          </section>
+          
+          <section className="cookie-policy__section">
+            <h2>Gestione delle preferenze</h2>
+            <p>
+              Puoi decidere quali cookie accettare modificando le tue preferenze in qualsiasi momento. I cookie necessari non possono essere disattivati poiché sono essenziali per il funzionamento del sito.
+            </p>
+            
+            <div className="cookie-policy__preferences">
+              <div className="cookie-policy__preference">
+                <label className="cookie-policy__checkbox">
+                  <input 
+                    type="checkbox" 
+                    checked={settings.necessary} 
+                    disabled 
+                  />
+                  <span className="cookie-policy__label">Cookie necessari</span>
+                </label>
+                <p className="cookie-policy__description">Essenziali per il funzionamento del sito (non disattivabili)</p>
+              </div>
               
-              <h3>3.3 Cookie Statistici/Analitici</h3>
-              <p>Questi cookie ci permettono di contare le visite e le fonti di traffico in modo da poter misurare e migliorare le prestazioni del nostro sito. Ci aiutano a sapere quali pagine sono le più e le meno popolari e vedere come i visitatori si muovono nel sito. Tutte le informazioni raccolte da questi cookie sono aggregate e quindi anonime.</p>
+              <div className="cookie-policy__preference">
+                <label className="cookie-policy__checkbox">
+                  <input 
+                    type="checkbox" 
+                    checked={settings.analytics} 
+                    onChange={() => handleChange('analytics')}
+                  />
+                  <span className="cookie-policy__label">Cookie analitici</span>
+                </label>
+                <p className="cookie-policy__description">Ci aiutano a capire come utilizzi il sito</p>
+              </div>
               
-              <h3>3.4 Cookie di Marketing</h3>
-              <p>Questi cookie possono essere impostati attraverso il nostro sito dai nostri partner pubblicitari. Possono essere utilizzati da queste aziende per costruire un profilo dei tuoi interessi e mostrarti annunci pertinenti su altri siti. Non memorizzano direttamente informazioni personali, ma si basano sull'identificazione univoca del tuo browser e dispositivo internet.</p>
-            </section>
-
-            <section>
-              <h2>4. Cookie di Terze Parti</h2>
-              <p>Oltre ai nostri cookie proprietari, possiamo utilizzare vari cookie di terze parti per segnalare statistiche di utilizzo del sito, fornire annunci pubblicitari sui nostri siti e così via. Questi includono:</p>
-              <ul>
-                <li><strong>Google Analytics:</strong> Utilizzato per raccogliere dati sul comportamento degli utenti sul nostro sito.</li>
-                <li><strong>Google Ads:</strong> Utilizzato per misurare le interazioni con gli annunci pubblicitari e prevenire che lo stesso annuncio venga mostrato più volte.</li>
-                <li><strong>Facebook Pixel:</strong> Utilizzato per monitorare l'efficacia della pubblicità di Facebook e per scopi di retargeting.</li>
-                <li><strong>Hotjar:</strong> Utilizzato per analizzare il comportamento degli utenti e feedback sui nostri prodotti e servizi.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>5. Come Controllare i Cookie</h2>
-              <p>Puoi controllare e gestire i cookie in vari modi. Tieni presente che la rimozione o il blocco dei cookie può influire sulla tua esperienza utente e parti del nostro sito potrebbero non essere più completamente accessibili.</p>
+              <div className="cookie-policy__preference">
+                <label className="cookie-policy__checkbox">
+                  <input 
+                    type="checkbox" 
+                    checked={settings.marketing} 
+                    onChange={() => handleChange('marketing')}
+                  />
+                  <span className="cookie-policy__label">Cookie di marketing</span>
+                </label>
+                <p className="cookie-policy__description">Permettono di mostrarti contenuti personalizzati</p>
+              </div>
               
-              <h3>5.1 Impostazioni del Browser</h3>
-              <p>La maggior parte dei browser ti permette di controllare i cookie attraverso le loro impostazioni. Questi settaggi si trovano solitamente nel menu "opzioni" o "preferenze" del tuo browser. Per comprendere queste impostazioni, i seguenti link possono essere utili, altrimenti dovresti usare l'opzione "Aiuto" nel tuo browser per maggiori dettagli:</p>
-              <ul>
-                <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Cookie settings in Chrome</a></li>
-                <li><a href="https://support.mozilla.org/it/kb/Attivare%20e%20disattivare%20i%20cookie" target="_blank" rel="noopener noreferrer">Cookie settings in Firefox</a></li>
-                <li><a href="https://support.microsoft.com/it-it/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank" rel="noopener noreferrer">Cookie settings in Internet Explorer</a></li>
-                <li><a href="https://support.apple.com/it-it/HT201265" target="_blank" rel="noopener noreferrer">Cookie settings in Safari</a></li>
-              </ul>
+              {saved && (
+                <div className="cookie-policy__success">
+                  ✓ Le tue preferenze sono state salvate!
+                </div>
+              )}
               
-              <h3>5.2 Opt-Out da Cookie di Terze Parti</h3>
-              <p>Alcuni servizi di terze parti che utilizziamo offrono opzioni di opt-out specifiche:</p>
-              <ul>
-                <li><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Opt-out da Google Analytics</a></li>
-                <li><a href="https://www.facebook.com/help/568137493302217" target="_blank" rel="noopener noreferrer">Gestione preferenze pubblicitarie su Facebook</a></li>
-              </ul>
-              
-              <h3>5.3 Banner dei Cookie</h3>
-              <p>Quando visiti il nostro sito per la prima volta, ti viene presentato un banner dei cookie che ti permette di accettare o rifiutare i cookie non essenziali. Puoi modificare le tue preferenze in qualsiasi momento visitando la nostra pagina delle impostazioni dei cookie.</p>
-            </section>
-
-            <section>
-              <h2>6. Durata dei Cookie</h2>
-              <p>I cookie hanno una durata variabile sul tuo dispositivo, che dipende dalla loro natura:</p>
-              <ul>
-                <li><strong>Cookie di sessione:</strong> Questi cookie sono temporanei e scadono una volta che chiudi il browser.</li>
-                <li><strong>Cookie persistenti:</strong> Questi cookie rimangono sul tuo dispositivo fino a quando non scadono o finché non li elimini manualmente.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>7. Utilizzo delle Informazioni Raccolte</h2>
-              <p>Le informazioni raccolte attraverso i cookie vengono utilizzate per vari scopi, tra cui:</p>
-              <ul>
-                <li>Garantire il corretto funzionamento del sito e dell'applicazione</li>
-                <li>Salvare le preferenze dell'utente per future visite</li>
-                <li>Migliorare la velocità e la sicurezza del sito</li>
-                <li>Analizzare come gli utenti utilizzano il nostro sito per migliorare l'esperienza utente</li>
-                <li>Personalizzare i contenuti e gli annunci pubblicitari</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>8. Aggiornamenti alla Cookie Policy</h2>
-              <p>Possiamo aggiornare questa Cookie Policy di tanto in tanto per riflettere, ad esempio, cambiamenti nei cookie che utilizziamo o per altre ragioni operative, legali o normative. Ti invitiamo quindi a consultare regolarmente questa Cookie Policy per rimanere informato sul nostro utilizzo dei cookie e delle tecnologie correlate.</p>
-              <p>La data in cima a questa Policy indica l'ultima volta che è stata aggiornata.</p>
-            </section>
-
-            <section>
-              <h2>9. Ulteriori Informazioni</h2>
-              <p>Se hai domande su questa Cookie Policy o sul nostro utilizzo dei cookie, contattaci all'indirizzo: <a href="mailto:privacy@abbs.one">privacy@abbs.one</a></p>
-              <p>Per maggiori informazioni generali sui cookie e su come gestirli, visita <a href="https://www.aboutcookies.org/" target="_blank" rel="noopener noreferrer">aboutcookies.org</a> o <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer">allaboutcookies.org</a>.</p>
-            </section>
-          </motion.div>
+              <div className="cookie-policy__buttons">
+                <button 
+                  className="cookie-policy__button cookie-policy__button--outline"
+                  onClick={saveSettings}
+                >
+                  Salva preferenze
+                </button>
+                <button 
+                  className="cookie-policy__button cookie-policy__button--fill"
+                  onClick={acceptAll}
+                >
+                  Accetta tutti
+                </button>
+              </div>
+            </div>
+          </section>
+          
+          <section className="cookie-policy__section">
+            <h2>Come disabilitare i cookie</h2>
+            <p>
+              Oltre a utilizzare gli strumenti forniti in questa pagina, puoi gestire le preferenze relative ai cookie direttamente all'interno del tuo browser ed impedire, ad esempio, che terze parti possano installarne. Attraverso le preferenze del browser è inoltre possibile eliminare i cookie installati in passato, incluso il cookie in cui vengono salvate le preferenze. È importante notare che disabilitando tutti i cookie, il funzionamento di questo sito potrebbe essere compromesso.
+            </p>
+            <p>
+              Puoi trovare informazioni su come gestire i cookie nel tuo browser ai seguenti link:
+            </p>
+            <ul className="cookie-policy__links">
+              <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+              <li><a href="https://support.mozilla.org/it/kb/Gestione%20dei%20cookie" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+              <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Apple Safari</a></li>
+              <li><a href="https://support.microsoft.com/it-it/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank" rel="noopener noreferrer">Microsoft Internet Explorer</a></li>
+              <li><a href="https://support.microsoft.com/it-it/help/4027947/microsoft-edge-delete-cookies" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+            </ul>
+          </section>
+          
+          <section className="cookie-policy__section">
+            <h2>Contattaci</h2>
+            <p>
+              Se hai domande o dubbi riguardo la nostra Cookie Policy, non esitare a contattarci:
+            </p>
+            <p>
+              Email: privacy@abbs.one<br />
+              Indirizzo: Via Example, 123 - 00100 Roma
+            </p>
+          </section>
         </div>
       </main>
+      
       <Footer />
-    </div>
+    </>
   );
 };
 

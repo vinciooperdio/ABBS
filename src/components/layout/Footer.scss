@@ -163,15 +163,10 @@
     font-size: 0.95rem;
     font-weight: 500;
     margin-bottom: 2rem;
-    transition: all $transition-fast;
+    transition: background-color 0.3s ease;
     
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba($primary, 0.3);
-    }
-    
-    &:active {
-      transform: translateY(-1px);
+      background: darken($primary, 10%);
     }
   }
   
@@ -188,14 +183,12 @@
       border-radius: 50%;
       background-color: rgba($background-light, 0.1);
       color: $text-secondary;
-      transition: all $transition-fast;
+      transition: background-color 0.3s ease;
       border: 1px solid rgba($primary, 0.2);
       
       &:hover {
         background-color: $primary;
         color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba($primary, 0.3);
       }
     }
   }

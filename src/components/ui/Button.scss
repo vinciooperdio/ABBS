@@ -8,32 +8,12 @@
   cursor: pointer;
   border: none;
   border-radius: $border-radius-md;
-  transition: all $transition-medium;
+  transition: background-color 0.3s ease;
   font-weight: 600;
   overflow: hidden;
   padding: 0.75rem 1.5rem;
   text-align: center;
   white-space: nowrap;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: transparent;
-    z-index: 0;
-    transition: all $transition-medium;
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  
-  &:hover::before {
-    transform: translateY(0);
-    opacity: 0.2;
-  }
-
-  &:active {
-    transform: translateY(2px);
-  }
   
   &__text, &__icon {
     position: relative;
@@ -48,15 +28,11 @@
   
   // Variants
   &--primary {
-    background: $gradient-primary;
+    background: $primary;
     color: $text-primary;
     
     &:hover {
-      box-shadow: $shadow-md;
-    }
-    
-    &::before {
-      background-color: lighten($primary, 10%);
+      background: darken($primary, 10%);
     }
   }
   
@@ -65,11 +41,7 @@
     color: $background;
     
     &:hover {
-      box-shadow: $shadow-md;
-    }
-    
-    &::before {
-      background-color: darken($secondary, 10%);
+      background: darken($secondary, 10%);
     }
   }
   
@@ -78,11 +50,7 @@
     color: $text-primary;
     
     &:hover {
-      box-shadow: $shadow-md;
-    }
-    
-    &::before {
-      background-color: darken($accent, 10%);
+      background: darken($accent, 10%);
     }
   }
   
@@ -91,12 +59,9 @@
     color: $text-primary;
     border: 2px solid $primary;
     
-    &::before {
-      background-color: rgba($primary, 0.1);
-    }
-    
     &:hover {
-      border-color: $secondary;
+      background-color: rgba($primary, 0.1);
+      border-color: darken($primary, 10%);
     }
   }
   
@@ -105,7 +70,7 @@
     color: $text-primary;
     padding: 0.5rem 0.75rem;
     
-    &::before {
+    &:hover {
       background-color: rgba($primary, 0.1);
     }
   }
@@ -132,12 +97,7 @@
     cursor: not-allowed;
     
     &:hover {
-      box-shadow: none;
-      transform: none;
-    }
-    
-    &::before {
-      display: none;
+      background: inherit;
     }
   }
   
