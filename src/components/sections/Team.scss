@@ -2,15 +2,16 @@
 
 .team {
   position: relative;
-  padding: 20px 0;
+  padding: 60px 0;
   overflow: hidden;
   min-height: 100vh;
   
   &__header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     position: relative;
     z-index: 10;
+    padding: 0 20px;
     
     h2 {
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -38,12 +39,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     position: relative;
     z-index: 10;
+    padding: 0 20px;
     
     @media (max-width: $breakpoint-sm) {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
     }
   }
   
@@ -51,7 +55,7 @@
     position: relative;
     border-radius: $border-radius-lg;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     height: 100%;
     cursor: pointer;
     transform-origin: center bottom;
@@ -60,6 +64,10 @@
     &:hover {
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      
+      .team__image {
+        transform: scale(1.05);
+      }
     }
     
     &--active {
@@ -75,10 +83,12 @@
     align-items: center;
     text-align: center;
     height: 100%;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(15px); /* Safari fix */
+    border: 1px solid rgba(255, 255, 255, 0.12);
     z-index: 2;
+    border-radius: $border-radius-lg; /* Ensure border radius consistency */
   }
   
   &__image-container {
@@ -89,6 +99,11 @@
     margin-bottom: 25px;
     position: relative;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    
+    @media (max-width: $breakpoint-sm) {
+      width: 150px;
+      height: 150px;
+    }
   }
   
   &__image {
@@ -96,10 +111,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    
-    .team__card:hover & {
-      transform: scale(1.1);
-    }
   }
   
   &__image-overlay {
@@ -149,6 +160,7 @@
     display: flex;
     gap: 15px;
     margin-top: auto;
+    padding-top: 20px;
     
     .team__social-link {
       width: 42px;
@@ -161,11 +173,17 @@
       color: $text-primary;
       font-size: 1.2rem;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      -webkit-tap-highlight-color: transparent; /* Safari fix */
       
       &:hover {
         background: $primary;
         color: white;
         transform: translateY(-3px);
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        width: 38px;
+        height: 38px;
       }
     }
   }
@@ -177,24 +195,34 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: linear-gradient(135deg, rgba($primary, 0.08) 0%, rgba($secondary, 0.08) 100%);
+    background: linear-gradient(135deg, rgba($primary, 0.08), rgba($secondary, 0.08) 100%);
     border-radius: inherit;
   }
   
   &__join {
     text-align: center;
-    padding: 60px;
-    background: rgba(255, 255, 255, 0.05);
+    padding: 70px 60px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: $border-radius-lg;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Safari fix */
     position: relative;
     z-index: 10;
+    margin: 0 20px;
+    
+    @media (max-width: $breakpoint-sm) {
+      padding: 50px 25px;
+    }
     
     h3 {
       font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 20px;
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.8rem;
+      }
     }
     
     p {
@@ -205,6 +233,10 @@
       margin-left: auto;
       margin-right: auto;
       line-height: 1.7;
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.1rem;
+      }
     }
     
     .team__join-button {
@@ -218,20 +250,32 @@
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       text-decoration: none;
       box-shadow: 0 10px 25px rgba($primary, 0.4);
+      -webkit-tap-highlight-color: transparent; /* Safari fix */
       
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba($primary, 0.5);
       }
+      
+      &:active {
+        transform: translateY(-2px);
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        padding: 14px 30px;
+        font-size: 1rem;
+      }
     }
   }
 }
 
-// Background shapes
+/* Background shapes - Safari optimization */
 .bg-shape {
   position: absolute;
   pointer-events: none;
   z-index: 0;
+  transform: translate3d(0, 0, 0); /* Safari performance fix */
+  will-change: transform;
   
   &--1 {
     top: 10%;
@@ -242,6 +286,11 @@
     background: radial-gradient(circle, rgba($primary, 0.6) 0%, rgba($primary, 0) 70%);
     filter: blur(60px);
     animation: floatTeamShape 20s ease-in-out infinite;
+    
+    @media (max-width: $breakpoint-sm) {
+      width: 250px;
+      height: 250px;
+    }
   }
   
   &--2 {
@@ -253,14 +302,31 @@
     background: radial-gradient(circle, rgba($secondary, 0.6) 0%, rgba($secondary, 0) 70%);
     filter: blur(70px);
     animation: floatTeamShape 25s ease-in-out infinite alternate;
+    
+    @media (max-width: $breakpoint-sm) {
+      width: 300px;
+      height: 300px;
+    }
   }
 }
 
 @keyframes floatTeamShape {
   0%, 100% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translate(40px, -40px);
+    transform: translate3d(40px, -40px, 0);
   }
-} 
+}
+
+/* Safari specific animation fix */
+@supports (-webkit-touch-callout: none) {
+  @keyframes floatTeamShape {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(30px, -30px, 0);
+    }
+  }
+}

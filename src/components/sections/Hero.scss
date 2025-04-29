@@ -11,7 +11,7 @@
   background: transparent;
   z-index: 0;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Safari fix */
 
   &__container {
     position: relative;
@@ -19,7 +19,12 @@
     text-align: center;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2.5rem;
+    
+    @media (max-width: $breakpoint-sm) {
+      padding: 2rem 1.5rem;
+      margin-top: 40px;
+    }
   }
 
   &__content {
@@ -28,6 +33,10 @@
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
+    
+    @media (max-width: $breakpoint-sm) {
+      gap: 2rem;
+    }
   }
 
   &__heading {
@@ -36,6 +45,10 @@
     line-height: 1.1;
     margin-top: 5vh;
     letter-spacing: -0.02em;
+    
+    @media (max-width: $breakpoint-sm) {
+      margin-top: 2vh;
+    }
 
     .gradient-text {
       background: $gradient-primary;
@@ -51,23 +64,24 @@
     color: $text-secondary;
     max-width: 720px;
     margin: 0 auto;
+    padding: 0 10px;
   }
 
   &__scroll-indicator {
     position: absolute;
-    bottom: 0px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    opacity: 0.6;
+    opacity: 0.7;
     transition: opacity 0.3s ease;
     z-index: 10;
 
     @media (max-width: 1000px) {
-      visibility: hidden;
+      display: none;
     }
 
     &:hover {
@@ -81,6 +95,7 @@
     border: 2px solid $text-primary;
     border-radius: 20px;
     position: relative;
+    transform: translate3d(0, 0, 0); /* Safari fix */
   }
 
   &__mouse-wheel {
@@ -93,6 +108,7 @@
     left: 50%;
     transform: translateX(-50%);
     animation: scroll 1.5s infinite;
+    will-change: transform, opacity; /* Performance optimization */
   }
 
   &__scroll-text {
@@ -103,19 +119,20 @@
   }
 }
 
-// Waiting list form styles
+// Waiting list form styles - Safari optimizations
 .waiting-list {
   &__heading {
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
     color: $text-primary;
     position: relative;
   }
   
   &__form-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 550px;
+    margin: 0 auto;
   }
 
   &__form {
@@ -128,6 +145,11 @@
     position: relative;
     border-radius: 20px;
     overflow: hidden;
+    transform: translateZ(0); /* Safari rendering fix */
+    
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
+    }
   }
 
   &__input {
@@ -135,23 +157,30 @@
     color: $text-primary;
     padding: 1rem 1.5rem;
     font-size: 1rem;
-    border: 1px solid $text-primary;
+    border: 1px solid rgba($text-primary, 0.3);
     border-radius: 20px 0 0 20px;
-    background: rgba(255, 255, 255, 0.05);
-    
+    background: rgba(255, 255, 255, 0.08);
     outline: none;
     transition: all 0.3s ease;
+    -webkit-appearance: none; /* Safari input styling fix */
+    
+    @media (max-width: $breakpoint-sm) {
+      border-radius: 20px 20px 0 0;
+      padding: 1rem 1.25rem;
+    }
 
     &::placeholder {
-      color: $text-primary;
+      color: rgba($text-primary, 0.6);
+      opacity: 1; /* Safari fix */
     }
 
     &:focus {
-      border-color: $text-primary;
+      border-color: $primary;
+      box-shadow: 0 0 0 1px rgba($primary, 0.3);
     }
 
     &--error {
-      border-color: $text-primary;
+      border-color: $error;
     }
   }
 
@@ -167,8 +196,18 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    
+    @media (max-width: $breakpoint-sm) {
+      width: 100%;
+      padding: 0.875rem;
+      border-radius: 0 0 20px 20px;
+    }
 
     &:hover {
+      background: darken($primary, 5%);
+    }
+
+    &:active {
       background: darken($primary, 10%);
     }
 
@@ -188,7 +227,7 @@
   }
 
   &__error {
-    color: $text-primary;
+    color: $error;
     font-size: 0.875rem;
     text-align: left;
     margin-top: 0.5rem;
@@ -196,10 +235,13 @@
   }
 
   &__disclaimer {
-    font-size: 0.8rem;
-    color: $text-primary;
-    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: rgba($text-primary, 0.7);
+    margin-top: 1.2rem;
     text-align: center;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &__success {
@@ -299,8 +341,8 @@
 }
 
 @keyframes typewriter {
-  0% { width: 100%; left: 0; }
-  100% { width: 0%; left: 100%; }
+  0% { width: 100%; left: 0; transform: translateZ(0); }
+  100% { width: 0%; left: 100%; transform: translateZ(0); }
 }
 
 @keyframes scroll {
@@ -328,25 +370,31 @@
     }
 
     &__description {
-      padding: 0 0.5rem;
+      padding: 0 0.75rem;
     }
   }
+}
 
-  .waiting-list {
-    &__input-group {
-      flex-direction: column;
-      border-radius: 8px;
+// Safari-specific animation optimizations
+@supports (-webkit-touch-callout: none) {
+  .loading-screen .logo-text::after {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translate3d(-50%, 0, 0);
+      opacity: 1;
     }
-
-    &__input {
-      border-radius: 8px 8px 0 0;
-      padding: 0.875rem;
+    100% {
+      transform: translate3d(-50%, 15px, 0);
+      opacity: 0;
     }
-
-    &__submit {
-      width: 100%;
-      padding: 0.875rem;
-      border-radius: 0 0 8px 8px;
-    }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg) translateZ(0); }
+    100% { transform: rotate(360deg) translateZ(0); }
   }
 }

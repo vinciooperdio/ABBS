@@ -79,6 +79,14 @@ const Business: React.FC = () => {
     };
   }, []);
   
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   
   
  
@@ -288,8 +296,8 @@ const Business: React.FC = () => {
         <section ref={howItWorksRef} className="business-how-it-works" id="how-it-works">
           <motion.div 
             className="business-how-it-works__content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-gradient">{t('businessHowItWorksTitle')}</h2>
@@ -304,8 +312,8 @@ const Business: React.FC = () => {
             <div className="steps-container">
               <motion.div 
                 className="interactive-step"
-                initial={{ opacity: 0, x: 50 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                animate={isMobile ? { opacity: 1, x: 0 } : isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <div className="step-number">1</div>
@@ -316,8 +324,8 @@ const Business: React.FC = () => {
               </motion.div>
               <motion.div 
                 className="interactive-step"
-                initial={{ opacity: 0, x: 50 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                animate={isMobile ? { opacity: 1, x: 0 } : isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
                 <div className="step-number">2</div>
@@ -328,8 +336,8 @@ const Business: React.FC = () => {
               </motion.div>
               <motion.div 
                 className="interactive-step"
-                initial={{ opacity: 0, x: 50 }}
-                animate={isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                animate={isMobile ? { opacity: 1, x: 0 } : isHowItWorksInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
                 <div className="step-number">3</div>
@@ -341,8 +349,8 @@ const Business: React.FC = () => {
             </div>
             <motion.button 
               className="button button--primary"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={isMobile ? { opacity: 1, y: 0 } : isHowItWorksInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               onClick={() => {
                 document.querySelector('.business-contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -370,8 +378,8 @@ const Business: React.FC = () => {
           <div className="business-marketing__content">
             <motion.div 
               className="business-marketing__headline"
-              initial={{ opacity: 0, y: 50 }}
-              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.7 }}
             >
               <h2 className="text-gradient">{t('businessMarketingTitle')}</h2>
@@ -380,8 +388,8 @@ const Business: React.FC = () => {
 
             <motion.div 
               className="business-marketing__case-studies"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               <div className="case-study-title">
@@ -390,8 +398,8 @@ const Business: React.FC = () => {
               <div className="case-studies-grid">
                 <motion.div 
                   className="case-study-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                 >
                   <div className="case-study-image">
@@ -419,12 +427,12 @@ const Business: React.FC = () => {
                 
                 <motion.div 
                   className="case-study-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
                 >
                   <div className="case-study-image">
-                    <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/22026912/acastro_201110_4286_spotify_0001.jpg?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=1080" alt="Spotify Case Study" />
+                    <img src="https://img.europapress.es/fotoweb/fotonoticia_20210331150446_690.webp" alt="Spotify Case Study" />
                     
                   </div>
                   <div className="case-study-content">
@@ -448,12 +456,12 @@ const Business: React.FC = () => {
                 
                 <motion.div 
                   className="case-study-card"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
                 >
                   <div className="case-study-image">
-                    <img src="https://assets.turbologo.com/blog/es/2019/12/19132829/Uber-car.png" alt="Uber Case Study" />
+                    <img src="https://images.drivespark.com/webp/img/2017/04/22-1492863967-uber-central-launched-india-businesses-rent-cabs11.jpg" alt="Uber Case Study" />
                     
                   </div>
                   <div className="case-study-content">

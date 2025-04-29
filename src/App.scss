@@ -1,15 +1,20 @@
+
 @import './styles/variables';
 
 .app {
   position: relative;
   min-height: 100vh;
   background-color: $background;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 .main {
   position: relative;
   padding-top: $navbar-height;
   overflow: hidden;
+  width: 100%;
   
   &::before {
     content: '';
@@ -20,10 +25,39 @@
     height: 100%;
     background: radial-gradient(
       circle at 50% 50%,
-      rgba($background-light, 0.01) 0%,
-      rgba($background, 0.5) 100%
+      rgba($background-light, 0.05) 0%,
+      rgba($background, 0.6) 100%
     );
     pointer-events: none;
     z-index: -1;
+    transform: translate3d(0, 0, 0); /* Safari fix for gradient rendering */
   }
-} 
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .main {
+    /* iOS Safari specific adjustments */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+  
+  /* Fix for iOS Safari momentum scrolling */
+  html, body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Device-specific optimizations */
+@media screen and (max-width: $breakpoint-sm) {
+  .main {
+    padding-top: $navbar-height - 10px;
+  }
+}
+
+/* Prevent horizontal scrolling on mobile */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}

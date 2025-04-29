@@ -1,17 +1,19 @@
+
 @import '../../styles/variables';
 
 .section-background {
   position: relative;
   overflow: hidden;
-  padding: 60px 0;
-  margin-bottom: 10px;
+  padding: 80px 0;
+  margin-bottom: 20px;
+  width: 100%;
   
   @media (max-width: 768px) {
-    padding: 70px 0;
-    margin-bottom: 20px;
+    padding: 60px 0;
+    margin-bottom: 10px;
   }
   
-  // Mantengo lo stile per le diverse varianti
+  // Variant styles
   &--primary {
     background-color: transparent;
   }
@@ -24,16 +26,33 @@
     background-color: transparent;
   }
   
-  // Contenuto con z-index elevato
+  // Content with z-index
   &__content {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
+    max-width: $container-max;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
     
     @media (max-width: 768px) {
+      padding: 0 20px;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
       padding: 0 15px;
     }
   }
-} 
+  
+  // Force hardware acceleration for smooth animations
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}

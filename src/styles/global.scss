@@ -16,6 +16,8 @@ html {
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  -webkit-text-size-adjust: 100%; /* Safari font size fix */
+  
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
@@ -35,8 +37,15 @@ body {
   width: 100%;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
+  }
+  
+  /* Safari-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    -webkit-overflow-scrolling: touch; /* Momentum scrolling */
+    min-height: -webkit-fill-available; /* Mobile height fix */
   }
 }
 
@@ -87,19 +96,28 @@ a {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 30px;
+  
+  @media (max-width: $breakpoint-md) {
+    padding: 0 25px;
+  }
   
   @media (max-width: $breakpoint-sm) {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 }
 
 .section {
   padding: 120px 0;
   position: relative;
+  width: 100%;
 
   @media (max-width: $breakpoint-md) {
-    padding: 80px 0;
+    padding: 90px 0;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: 70px 0;
   }
 }
 
@@ -116,6 +134,10 @@ section {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    
+    @media (max-width: $breakpoint-sm) {
+      padding: 0 15px;
+    }
   }
 }
 
@@ -218,3 +240,21 @@ section {
   background: transparent;
   border-radius: 0;
 } 
+
+/* Safari-specific improvements */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for backdrop-filter on Safari */
+  .blur-overlay {
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* Fix for text gradients in Safari */
+  .text-gradient {
+    display: inline-block;
+  }
+  
+  /* Fix for animations in Safari */
+  .glow::after {
+    transform: translateZ(0);
+  }
+}
