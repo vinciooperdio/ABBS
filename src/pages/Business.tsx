@@ -382,7 +382,7 @@ const Business: React.FC = () => {
               animate={isMobile ? { opacity: 1, y: 0 } : isMarketingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="text-gradient">{t('businessMarketingTitle')}</h2>
+              <h2 >{t('businessMarketingTitle')}</h2>
               <p>{t('businessMarketingText')}</p>
             </motion.div>
 

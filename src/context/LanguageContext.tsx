@@ -161,11 +161,17 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Service types
     'gym': 'Palestra',
+    'gymDesc': 'Abbonamento mensile completo con accesso a tutte le attrezzature e corsi fitness disponibili. Include spogliatoi, docce e supporto di trainer professionisti.',
     'pool': 'Piscina',
+    'poolDesc': 'Abbonamento per accesso alla piscina con corsie e area relax. Include lezioni di nuoto di gruppo e accesso alle saune.',
     'cinema': 'Cinema',
+    'cinemaDesc': 'Abbonamento mensile cinema con accesso illimitato a tutte le proiezioni. Include sconto su snack e bevande.',
     'course': 'Corsi',
+    'courseDesc': 'Abbonamento per corsi di formazione con accesso a materiale didattico e certificato finale.',
     'theater': 'Teatro',
+    'theaterDesc': 'Abbonamento stagionale teatro con accesso a tutti gli spettacoli della stagione. Include posto riservato e accesso prioritario.',
     'concert': 'Concerto',
+    'concertDesc': 'Abbonamento stagionale per concerti ed eventi musicali. Include accesso prioritario e area riservata.',
     
     // Units and measurements
     'perMonth': '/mese',
@@ -452,11 +458,18 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Service types
     'gym': 'Gym',
+    'gymDesc': 'Monthly full access subscription to all available gym equipment and fitness classes. Includes locker rooms, showers, and professional trainer support.',
     'pool': 'Pool',
+    'poolDesc': 'Monthly access subscription to the pool with lane swimming and relaxation area. Includes group swimming lessons and access to saunas.',
     'cinema': 'Cinema',
+    'cinemaDesc': 'Monthly cinema subscription with unlimited access to all screenings. Includes snack and beverage discounts.',
     'course': 'Courses',
+    'courseDesc': 'Monthly subscription for training courses with access to educational materials and final certificate.',
     'theater': 'Theater',
+    'theaterDesc': 'Seasonal theater subscription with access to all performances of the season. Includes reserved seating and priority access.',
     'concert': 'Concert',
+    'concertDesc': 'Seasonal concert subscription with priority access and reserved area.',
+
     
     // Units and measurements
     'perMonth': '/month',

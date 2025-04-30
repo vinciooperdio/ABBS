@@ -271,15 +271,13 @@ const AirbnbStyleMap: React.FC<AirbnbStyleMapProps> = ({ services, userPosition 
               <div className="service-detail-description">
                 <h3>{t('description')}</h3>
                 <p>
-                  {detailPopup.type === 'gym' && 'Abbonamento mensile completo con accesso a tutte le attrezzature e corsi fitness disponibili. Include spogliatoi, docce e supporto di trainer professionisti.'}
-                  {detailPopup.type === 'pool' && 'Abbonamento per accesso alla piscina con corsie e area relax. Include lezioni di nuoto di gruppo e accesso alle saune.'}
-                  {detailPopup.type === 'theater' && 'Abbonamento stagionale teatro con accesso a tutti gli spettacoli della stagione. Include posto riservato e accesso prioritario.'}
-                  {detailPopup.type === 'cinema' && 'Abbonamento mensile cinema con accesso illimitato a tutte le proiezioni. Include sconto su snack e bevande.'}
-                  {detailPopup.type === 'concert' && 'Abbonamento stagionale per concerti ed eventi musicali. Include accesso prioritario e area riservata.'}
-                  {detailPopup.type === 'restaurant' && 'Abbonamento mensile ristorante con menù fisso giornaliero e sconto su piatti extra.'}
-                  {detailPopup.type === 'course' && 'Abbonamento per corsi di formazione con accesso a materiale didattico e certificato finale.'}
-                  {detailPopup.type === 'car' && 'Abbonamento car sharing con minuti inclusi e km illimitati. Include assicurazione e parcheggi riservati.'}
-                  {detailPopup.type === 'travel' && 'Abbonamento viaggi con sconti su hotel, voli e pacchetti vacanza.'}
+                  {detailPopup.type === 'gym' && t('gymDesc')}
+                  {detailPopup.type === 'pool' && t('poolDesc')}
+                  {detailPopup.type === 'theater' && t('theaterDesc')}
+                  {detailPopup.type === 'cinema' && t('cinemaDesc')}
+                  {detailPopup.type === 'concert' && t('concertDesc')}
+                  {detailPopup.type === 'course' && t('courseDesc')}
+                  
                 </p>
               </div>
               

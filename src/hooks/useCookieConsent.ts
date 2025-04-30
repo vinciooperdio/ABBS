@@ -50,7 +50,7 @@ export const useCookieConsent = () => {
       const script = document.createElement('script');
       script.id = 'ga-script';
       script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=YOUR_ANALYTICS_ID';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-2DDR6SBX2Q';
       
       const scriptInit = document.createElement('script');
       scriptInit.id = 'ga-init';
@@ -58,7 +58,7 @@ export const useCookieConsent = () => {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'YOUR_ANALYTICS_ID');
+        gtag('config', 'G-2DDR6SBX2Q');
       `;
       
       document.head.appendChild(script);

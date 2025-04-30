@@ -1008,7 +1008,7 @@
         font-size: 3.5rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
-        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        color: $primary;
         
         @media (max-width: $breakpoint-md) {
           font-size: 3rem;
@@ -1024,7 +1024,6 @@
           line-height: 1.6;
         opacity: 0.9;
         font-weight: 500; // Increased weight for better visibility
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); // Added text shadow
         
         @media (max-width: $breakpoint-md) {
           font-size: 1.1rem;
