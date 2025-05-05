@@ -2,6 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import abbslogo from '../../assets/images/abbslogo.svg';
 
 interface SEOProps {
   title?: string;
@@ -17,7 +18,7 @@ interface SEOProps {
 const SEO: React.FC<SEOProps> = ({
   title = 'ABBS - La piattaforma per gestire tutti i tuoi abbonamenti',
   description = 'ABBS è la prima app italiana per gestire tutti i tuoi abbonamenti in un unico posto. Monitora, ottimizza e risparmia sui tuoi abbonamenti mensili.',
-  image = 'https://abbs.one/og-image.jpg',
+  image = abbslogo,
   article = false,
   keywords = 'abbs, abbonamenti, gestione abbonamenti, sottoscrizioni digitali, risparmiare sugli abbonamenti, app abbonamenti, piattaforma abbonamenti, monitor abbonamenti',
   canonicalUrl,
@@ -67,9 +68,8 @@ const SEO: React.FC<SEOProps> = ({
     'url': siteUrl,
     'logo': `${siteUrl}/logo.png`,
     'sameAs': [
-      'https://www.facebook.com/abbsplatform',
-      'https://twitter.com/abbsplatform',
-      'https://www.instagram.com/abbsplatform'
+      'https://www.linkedin.com/company/abbsapp',
+      'https://www.instagram.com/abbsapp'
     ]
   };
 
