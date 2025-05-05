@@ -348,9 +348,6 @@ const Hero: React.FC = () => {
                     <motion.h3 variants={successItemVariants}>
                       {t('subscribeSuccess')}
                     </motion.h3>
-                    <motion.p variants={successItemVariants}>
-                      {t('subscribeSuccess')}
-                    </motion.p>
                     <motion.button 
                       onClick={handleReset}
                       className="waiting-list__reset"

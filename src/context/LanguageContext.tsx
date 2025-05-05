@@ -42,7 +42,7 @@ const translations: Record<Language, Record<string, string>> = {
     'subscribeSuccess': 'Grazie! Ti abbiamo aggiunto alla lista d\'attesa.',
     'missingFields': 'Per favore, compila tutti i campi',
     'invalidEmail': 'Per favore, inserisci un indirizzo email valido',
-    'subscribeAnother': 'Iscriviti un\'altra email',
+    'subscribeAnother': 'Iscrivi un\'altra email',
     
     // WhatIs
     'whatIsABBSTitle': 'Cos\'è ABBS?',
