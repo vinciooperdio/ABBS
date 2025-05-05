@@ -91,7 +91,7 @@ const Team = () => {
       bio: t('silvia'),
       image: silviaImage,
       social: {
-        linkedin: 'https://linkedin.com/in/silvialamalfa',
+        linkedin: 'https://www.linkedin.com/in/silvia-la-malfa-b8a56024b/',
         twitter: 'https://twitter.com/silvialamalfa'
       }
     },
@@ -101,7 +101,7 @@ const Team = () => {
       bio: t('lorenzo'),
       image: lorenzoImage,
       social: {
-        linkedin: 'https://linkedin.com/in/lorenzovincini',
+        linkedin: 'https://linkedin.com/in/lorenzo-vincini',
         twitter: 'https://twitter.com/lorenzovincini'
       }
     }
