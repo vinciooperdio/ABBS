@@ -329,7 +329,7 @@ const Hero: React.FC = () => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.4 }}
                     >
-                      {t('privacyConsent')}
+                      <a style={{ color: 'black', textDecoration: 'underline' }} href="/privacy">{t('privacyConsent')}</a>
                     </motion.p>
                   </motion.form>
                 ) : (
