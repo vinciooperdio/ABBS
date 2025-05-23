@@ -105,16 +105,6 @@ const Footer = () => {
         </motion.div>
         
         <motion.div 
-          className="footer__company-info"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1, transition: { delay: 0.4 } }}
-          viewport={{ once: true }}
-        >
-          <div className="footer__vat">Partita IVA: 01837680196</div>
-          <div className="footer__address">Sede legale: CREMONA (CR) VIA DELL'INNOVAZIONE DIGITALE 3 CAP 26100</div>
-        </motion.div>
-        
-        <motion.div 
           className="footer__bottom"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1, transition: { delay: 0.5 } }}
@@ -122,6 +112,14 @@ const Footer = () => {
         >
           <div className="footer__copyright">
             &copy; {currentYear} ABBS. {t('copyright')}
+          </div>
+          
+          <div className="footer__vat">
+            Partita IVA: 01837680196
+          </div>
+          
+          <div className="footer__address">
+            Sede legale: CREMONA (CR) VIA DELL'INNOVAZIONE DIGITALE 3 CAP 26100
           </div>
           
           <div className="footer__made-with">
