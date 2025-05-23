@@ -193,12 +193,34 @@
     }
   }
   
+  &__company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba($text-secondary, 0.1);
+    color: $text-secondary;
+    font-size: 0.9rem;
+    
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  
+  &__vat {
+    font-weight: 500;
+  }
+  
+  &__address {
+    font-style: normal;
+  }
+  
   &__bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba($text-secondary, 0.1);
     
     @media (max-width: $breakpoint-sm) {
       flex-direction: column;
