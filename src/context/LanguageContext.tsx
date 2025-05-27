@@ -115,7 +115,7 @@ const translations: Record<Language, Record<string, string>> = {
     'ourTeam': 'Il Nostro Team',
     'teamSubtitle': 'Le persone di talento dietro ABBS che lavorano per trasformare la tua esperienza digitale',
     'vincenzo':'Sono un project manager, founder e mente creativa: nato per creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
-    'silvia':'Sono un giovane professionista con formazione in Economia e Digital Innovation, e mi occupo di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
+    'silvia':'Sono una giovane professionista con formazione in Economia e Digital Innovation, e mi occupo di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
     'lorenzo':'Sono un professionista specializzato in sviluppo e trasformazione digitale, in ABBS mi occupo di guidare l\'innovazione tecnologica, combinando visione strategica e competenze analitiche.',
     'alwaysLooking': 'Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare la gestione degli abbonamenti.',
     'viewOpenPositions': 'Invia la tua candidatura',
