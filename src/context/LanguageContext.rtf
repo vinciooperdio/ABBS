@@ -1,0 +1,817 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Italic;}
+{\colortbl;\red255\green255\blue255;\red111\green143\blue180;\red23\green25\blue29;\red104\green116\blue144;
+\red207\green214\blue228;\red231\green235\blue241;\red147\green179\blue121;\red59\green68\blue87;\red114\green132\blue174;
+\red126\green175\blue173;\red119\green179\blue197;\red106\green103\blue137;\red229\green193\blue121;\red176\green75\blue87;
+}
+{\*\expandedcolortbl;;\cssrgb\c50588\c63137\c75686;\cssrgb\c11765\c12941\c15294;\cssrgb\c48235\c53333\c63137;
+\cssrgb\c84706\c87059\c91373;\cssrgb\c92549\c93725\c95686;\cssrgb\c63922\c74510\c54902;\cssrgb\c29804\c33725\c41569;\cssrgb\c52157\c59216\c73725;
+\cssrgb\c56078\c73725\c73333;\cssrgb\c53333\c75294\c81569;\cssrgb\c49020\c48627\c60784;\cssrgb\c92157\c79608\c54510;\cssrgb\c74902\c38039\c41569;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf4 \strokec4  \cf5 \strokec5 React\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  \cf5 \strokec5 createContext\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 useState\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 useContext\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 ReactNode\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 from\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 react\cf6 \strokec6 '\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Define the available languages
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf4 \strokec4  \cf2 \strokec2 type\cf4 \strokec4  \cf10 \strokec10 Language\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 it\cf6 \strokec6 '\cf4 \strokec4  \cf2 \strokec2 |\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 en\cf6 \strokec6 '\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Define the structure of our context
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 interface\cf4 \strokec4  \cf10 \strokec10 LanguageContextType\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   language\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 Language\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\cb3   \cf11 \strokec11 setLanguage\cf2 \strokec2 :\cf4 \strokec4  \cf6 \strokec6 (\cf5 \strokec5 language\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 Language\cf6 \strokec6 )\cf4 \strokec4  \cf2 \strokec2 =>\cf4 \strokec4  \cf10 \strokec10 void\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\cb3   \cf11 \strokec11 t\cf2 \strokec2 :\cf4 \strokec4  \cf6 \strokec6 (\cf5 \strokec5 key\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 string\cf6 \strokec6 )\cf4 \strokec4  \cf2 \strokec2 =>\cf4 \strokec4  \cf10 \strokec10 string\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Create the context with a default value
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 LanguageContext\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf11 \strokec11 createContext\cf6 \strokec6 <\cf10 \strokec10 LanguageContextType\cf4 \strokec4  \cf2 \strokec2 |\cf4 \strokec4  \cf10 \strokec10 undefined\cf6 \strokec6 >\cf4 \strokec4 (\cf12 \strokec12 undefined\cf4 \strokec4 )\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Create a dictionary of translations
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 translations\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 Record\cf6 \strokec6 <\cf10 \strokec10 Language\cf6 \strokec6 ,\cf4 \strokec4  \cf10 \strokec10 Record\cf6 \strokec6 <\cf10 \strokec10 string\cf6 \strokec6 ,\cf4 \strokec4  \cf10 \strokec10 string\cf6 \strokec6 >>\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf5 \strokec5 it\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Navbar
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 mission\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Mission\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsABBS\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cos\cf13 \strokec13 \\'\cf7 \strokec7 \'e8 abbs\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 timeline\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Timeline\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 team\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Team\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 business\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Business\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinWaitlist\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscriviti Ora\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 business navbar
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 Come Funziona\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Come Funziona\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 Vantaggi\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Vantaggi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 Contattaci\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Contattaci\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Hero
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 revolutionIsHere\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Un Account Infiniti Servizi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 manageAllSubscriptions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gestisci tutti i tuoi abbonamenti in un\cf13 \strokec13 \\'\cf7 \strokec7 unica app: palestre, piscine, teatri, servizi digitali e molto altro. Scopri nuovi servizi nella tua zona e risparmia tempo e denaro.,\cf14 \strokec14  \cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinWaitingList\cf6 \strokec6 '\cf4 \strokec4 : \cf6 \strokec6 '\cf7 \strokec7 Unisciti alla lista d\cf13 \strokec13 \\'\cf7 \strokec7 attesa\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 learnMore\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scopri di pi\'f9\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 scrollToDiscover\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scopri di pi\'f9\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 emailAlreadyRegistered\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Questa email \'e8 gi\'e0 iscritta alla lista d\cf13 \strokec13 \\'\cf7 \strokec7 attesa!\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 errorMessage\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Si \'e8 verificato un errore. Riprova pi\'f9 tardi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 emailPlaceholder\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Inserisci la tua email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeButton\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscriviti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeSuccess\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Grazie! Ti abbiamo aggiunto alla lista d\cf13 \strokec13 \\'\cf7 \strokec7 attesa.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 missingFields\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Per favore, compila tutti i campi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 invalidEmail\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Per favore, inserisci un indirizzo email valido\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeAnother\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscrivi un\cf13 \strokec13 \\'\cf7 \strokec7 altra email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  WhatIs
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsABBSTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cos\cf13 \strokec13 \\'\cf7 \strokec7 \'e8 abbs?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsText\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Con **abbs**, puoi monitorare tutti i tuoi abbonamenti da un\'92unica dashboard centralizzata, senza dover accedere a pi\'f9 siti o app. Visualizza costi mensili, scadenze e stato degli abbonamenti (attivo, in pausa, disattivato) in modo chiaro e immediato. Scopri nuovi servizi nella tua zona grazie alla mappa integrata e accedi a un marketplace in continua evoluzione. Ricevi notifiche personalizzate prima dei rinnovi e imposta avvisi per evitare addebiti indesiderati. L\'92intelligenza artificiale di ABBS analizza le tue abitudini di utilizzo e suggerisce alternative pi\'f9 adatte alle tue esigenze. Tieni tutto sotto controllo con statistiche aggiornate in tempo reale e accedi a promozioni riservate agli utenti della piattaforma.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Mission
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 ourMission\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 La Nostra Missione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 missionDescription\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Stiamo rivoluzionando il modo in cui gestisci i tuoi abbonamenti. Con abbs, organizzi tutti i servizi intorno a te in un\'92unica app. Pi\'f9 ordine, pi\'f9 controllo, meno sprechi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 abbsAdvantages\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Vantaggi di abbs\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 completeTracking\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Tutti i tuoi abbonamenti in ordine.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 completeTrackingDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Tenere traccia di ogni abbonamento attivo, da Netflix alla palestra sotto casa.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 smartNotifications\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Notifiche Intelligenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 smartNotificationsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Ricevi promemoria utili per evitare rinnovi indesiderati e gestire al meglio le tue spese.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 priceComparison\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Confronto Prezzi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 priceComparisonDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Confronta le offerte disponibili e scegli quella pi\'f9 conveniente per te.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 documentManagement\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gestione Documenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 documentManagementDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Organizza facilmente documenti e certificati medici.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 discoverNearbyServices\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scopri Servizi Vicino a Te\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 physicalServicesNearby\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Servizi Fisici Vicini\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\cb3     \cb1 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Business
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 businessTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Ottimizza la gestione dei tuoi abbonamenti aziendali\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 businessSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Riduci i costi, aumenta l\cf13 \strokec13 \\'\cf7 \strokec7 efficienza e mantieni il controllo completo su tutti i servizi in abbonamento della tua azienda con un\cf13 \strokec13 \\'\cf7 \strokec7 unica piattaforma centralizzata.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 freeTrial\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Prova Gratis per 30 Giorni\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 traditionalSystemProblems\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Problemi con i sistemi tradizionali\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 traditionalSystemProblemsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Le aziende affrontano quotidianamente diverse sfide nella gestione degli abbonamenti. Ecco i problemi pi\'f9 comuni che ABBS risolve.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inefficientManagement\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gestione Inefficiente\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inefficientManagementDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Tempo e risorse sprecati nella gestione separata di molteplici abbonamenti e servizi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 hiddenCosts\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Costi Nascosti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 hiddenCostsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Difficolt\'e0 nel monitorare e controllare le spese totali per abbonamenti e servizi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 limitedCompatibility\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Compatibilit\'e0 Limitata\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 limitedCompatibilityDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Sistemi che non si integrano bene con le piattaforme tecnologiche moderne.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 vantaggi
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 benefits\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Vantaggi per il tuo Business\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scopri come abbs pu\'f2 semplificare la gestione quotidiana della tua attivit\'e0.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 espandi\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Espandi la tua clientela\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 espandiDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Renditi visibile a migliaia di utenti tramite l\'92app abbs. La tua attivit\'e0 viene inserita in un marketplace geolocalizzato dove chi cerca servizi come il tuo pu\'f2 scoprirli, provarli e abbonarsi con un clic. Il sistema di raccomandazione mostra i tuoi servizi agli utenti pi\'f9 in target, migliorando conversioni e riducendo i costi di acquisizione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 personalizzazione\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gestione intelligente e automatizzata\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 personalizzazioneDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Con abbs hai una dashboard semplice e completa per monitorare ogni aspetto dell\'92attivit\'e0: prenotazioni, preferenze, blocchi nel flusso, performance. Puoi personalizzare promozioni, inviare notifiche mirate e modificare i prezzi in base al comportamento reale dei clienti. I rinnovi si attivano da soli, le fatture si generano automaticamente e ogni processo viene snellito. Meno operazioni manuali, pi\'f9 tempo per concentrarti sul tuo lavoro.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 automazione\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Marketplace per i tuoi prodotti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 automazioneDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Vendi i tuoi prodotti direttamente dalla piattaforma. Gestione semplificata, pagamenti inclusi e visibilit\'e0 dedicata all\'92interno dell\'92app ABBS.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pricing\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Intelligenza Artificiale Integrata\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pricingDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 abbs integra l\'92AI per analizzare i dati, ottimizzare i prezzi, suggerire azioni mirate e semplificare la gestione. Ogni decisione \'e8 supportata da dati, ogni processo diventa pi\'f9 efficiente.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sicurezza\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Sicurezza e protezione dati\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sicurezzaDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 abbs protegge le informazioni dei tuoi clienti con sistemi avanzati e conformit\'e0 alle normative. Dati, pagamenti e documenti sono al sicuro, sempre.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Footer
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 revolutionizeDigitalIdentity\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Rivoluziona il tuo modo di gestire l\cf13 \strokec13 \\'\cf7 \strokec7 identit\'e0 digitale. Un account, infiniti servizi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 navigation\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Navigazione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 home\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Home\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cos\cf13 \strokec13 \\'\cf7 \strokec7 \'e8 abbs\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 roadmap\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Roadmap\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sections\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Sezioni\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingList\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Lista d\cf13 \strokec13 \\'\cf7 \strokec7 Attesa\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 legal\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Legale\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 termsOfService\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Termini di Servizio\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 privacyPolicy\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Privacy Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cookiePolicy\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cookie Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 contactUs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Contattaci\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 questionsLearnMore\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Hai domande? Vuoi saperne di pi\'f9?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 writeToUs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scrivici\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 copyright\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Tutti i diritti riservati.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 madeWithLove\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Made with \cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inItaly\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7  in Italia\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Team
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 ourTeam\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Il Nostro Team\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 vincenzo\cf6 \strokec6 ':'\cf7 \strokec7 Sono un project manager, founder e mente creativa: nato per creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 silvia\cf6 \strokec6 ':'\cf7 \strokec7 Sono una giovane professionista con formazione in Economia e Digital Innovation, e mi occupo di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 lorenzo\cf6 \strokec6 ':'\cf7 \strokec7 Sono un professionista specializzato in sviluppo e trasformazione digitale, in abbs mi occupo di guidare l\cf13 \strokec13 \\'\cf7 \strokec7 innovazione tecnologica, combinando visione strategica e competenze analitiche.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 alwaysLooking\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Siamo sempre alla ricerca di persone di talento per aiutarci a rivoluzionare **abbs**.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 viewOpenPositions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Invia la tua candidatura\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinTeam\cf6 \strokec6 ':'\cf7 \strokec7 Vuoi unirti al nostro team?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Language Selector
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 language\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Lingua\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Service names
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 netflix\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Netflix\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyPremium\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify Premium\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 amazonPrime\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Amazon Prime\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 iCloudStorage\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 iCloud Storage\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 fitnessApp\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Fitness App\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 microsoft365\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Microsoft 365\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 fitnessClub\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Fitness Club\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 powerFitness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Power Fitness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaticCenter\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Centro Acquatico\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 centralCinema\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cinema Centrale\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 poolName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Piscina Poseidon\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Teatro Apollo\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaStar\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cinema Star\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaWellness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Acqua & Wellness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaSplendor\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cinema Splendor\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterOpera\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Teatro dell\cf13 \strokec13 \\'\cf7 \strokec7 Opera\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaFitness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Centro Aqua Fitness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaRex\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Multisala Rex\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 palazzoCongress\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Palazzo dei Congressi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 centerSportive\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Centro Sportivo Elite\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 arenaConcert\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Arena Concert Hall\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 gymName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Palestra Olympia\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 map
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 yourLocation\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 La tua posizione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 viewDetails\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Vedi dettagli\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 show\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Mostra\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 servicesAvailable\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 servizi disponibili\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 description\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Descrizione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeNow\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscriviti ora\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 price\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Prezzo\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 dist\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Distanza\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 rating\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Valutazione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Service types
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 gym\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Palestra\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 gymDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento mensile completo con accesso a tutte le attrezzature e corsi fitness disponibili. Include spogliatoi, docce e supporto di trainer professionisti.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pool\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Piscina\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 poolDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento per accesso alla piscina con corsie e area relax. Include lezioni di nuoto di gruppo e accesso alle saune.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinema\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento mensile cinema con accesso illimitato a tutte le proiezioni. Include sconto su snack e bevande.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 course\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Corsi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 courseDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento per corsi di formazione con accesso a materiale didattico e certificato finale.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theater\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Teatro\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento stagionale teatro con accesso a tutti gli spettacoli della stagione. Include posto riservato e accesso prioritario.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 concert\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Concerto\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 concertDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamento stagionale per concerti ed eventi musicali. Include accesso prioritario e area riservata.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Units and measurements
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 perMonth\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /mese\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 perEntry\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /ingresso\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 perTicket\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /biglietto\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 distance\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 km\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Waiting List
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingListTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Unisciti alla lista d\cf13 \strokec13 \\'\cf7 \strokec7 attesa\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 ofThe\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 degli\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonamenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingListDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscriviti ora per essere tra i primi a provare abbs quando sar\'e0 disponibile. Ti informeremo appena sar\'e0 pronto.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 earlyAccessDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Ottieni accesso anticipato alla rivoluzione degli abbonamenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 yourName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Il tuo nome\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 yourEmail\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 La tua email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribe\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscriviti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribing\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscrivendo...\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeError\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Si \'e8 verificato un errore. Riprova pi\'f9 tardi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 alreadySubscribed\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Questa email \'e8 gi\'e0 iscritta alla lista d\cf13 \strokec13 \\'\cf7 \strokec7 attesa\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 privacyConsent\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Iscrivendoti, accetti la nostra Privacy Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptionBenefits\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Benefici dell\cf13 \strokec13 \\'\cf7 \strokec7 iscrizione\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitEarlyAccess\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Accesso anticipato alla piattaforma\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitExclusiveOffers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Offerte esclusive per i primi utenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 freePremiumMonths\cf6 \strokec6 ':'\cf7 \strokec7 3 mesi gratuiti del piano premium all\cf13 \strokec13 \\'\cf7 \strokec7 uscita\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 prioritySupport\cf6 \strokec6 ':'\cf7 \strokec7 Supporto prioritario e accesso alle nuove funzionalit\'e0\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitUpdates\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Aggiornamenti regolari sullo sviluppo\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitFeedback\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Possibilit\'e0 di fornire feedback diretto\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptionCount\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gi\'e0 pi\'f9 di 2000 iscritti!\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Months
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 january\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gennaio\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 february\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Febbraio\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 march\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Marzo\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 april\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Aprile\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 may\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Maggio\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 june\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Giugno\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 july\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Luglio\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 august\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Agosto\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 september\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Settembre\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 october\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Ottobre\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 november\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Novembre\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 december\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Dicembre\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Semplifica la Gestione della Tua Attivit\'e0 con abbs. La Piattaforma Intuitiva per Organizzare Clienti, Incassi e Abbonamenti\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroSubtitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 abbs \'e8 pi\'f9 di un semplice gestionale: \'e8 uno strumento pensato per semplificare il lavoro quotidiano delle aziende. Dalla gestione dei clienti al monitoraggio degli incassi, fino al controllo degli abbonamenti, tutto \'e8 in un unico posto \'97 chiaro, accessibile, personalizzabile. Scopri come rendere pi\'f9 efficiente ogni aspetto della tua attivit\'e0.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroCta1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contattaci ora\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Problemi con la gestione degli abbonamenti? Lascia che abbs li risolva!\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Gestire un'attivit\'e0 che offre abbonamenti \'e8 complesso: rinnovi, pagamenti, cancellazioni, e gestione delle risorse sono solo alcune delle sfide quotidiane. abbs \'e8 la piattaforma che ottimizza questi processi, riducendo il lavoro manuale e aumentando i ricavi.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Non pi\'f9 tempi sprecati per i rinnovi manuali. abbs automatizza tutto, liberandoti da compiti ripetitivi.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Fidelizza i clienti con offerte personalizzate e un'esperienza utente fluida.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Difficolt\'e0 nel monitorare le metriche chiave: Senza strumenti adeguati, \'e8 complicato analizzare dati come tassi di abbandono, valore medio per cliente e altri indicatori vitali\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Proteggi i dati sensibili e i pagamenti in conformit\'e0 al GDPR, con una sicurezza di livello enterprise.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Scopri come abbs pu\'f2 migliorare il tuo business\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 I Vantaggi di abbs: La Soluzione Completa per Ogni Tipo di Servizio in Abbonamento\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Con abbs, ottieni una piattaforma che non solo gestisce i tuoi abbonamenti, ma ti aiuta a ottimizzare i profitti e migliorare l'efficienza operativa in modo intelligente e sicuro.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Comprendi esattamente come i tuoi clienti utilizzano i tuoi servizi, analizzando i dati di utilizzo in tempo reale. Migliora la fidelizzazione e aumenta i ricavi personalizzando le offerte per ogni segmento di cliente.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Automatizza i rinnovi, la fatturazione e le notifiche, riducendo al minimo le operazioni manuali. Con abbs, ogni passaggio \'e8 semplificato, riducendo errori e risparmiando tempo prezioso.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Massimizza i profitti con prezzi dinamici che si adattano alla domanda in tempo reale. Implementa sistemi di yield management per ottimizzare la redditivit\'e0 in ogni fascia oraria, massimizzando l'occupazione e i ricavi.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Proteggi i dati sensibili dei tuoi clienti e le transazioni finanziarie in totale conformit\'e0 con il GDPR. abbs garantisce la sicurezza dei dati con crittografia avanzata e accesso protetto.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit5\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Suggerisci automaticamente altri servizi ai tuoi clienti quando non ci sono slot liberi o quando completano un'attivit\'e0, aumentando il valore per cliente e creando opportunit\'e0 di vendita incrociata.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit6\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 abbs \'e8 facile da usare e accessibile ovunque grazie alla sua app intuitiva. Dalla gestione degli abbonamenti all'analisi dei dati, tutto \'e8 a portata di mano.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Inizia a trasformare il tuo business\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHowItWorksTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Implementazione Rapida e Facile: Inizia in pochi minuti\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Collega ci\'f2 che hai, senza perdere nulla\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep1Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Hai gi\'e0 un gestionale? Non serve ripartire da zero. abbs importa automaticamente tutti i tuoi dati.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Inizia in pochi secondi\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep2Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Registrazione super veloce. Con email e password, tutto \'e8 pensato per essere semplice fin dal primo accesso.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Subito Operativo\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep3Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Goditi la gestione automatica degli abbonamenti, con la possibilit\'e0 di personalizzare le offerte e ottimizzare i ricavi.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHowItWorksCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contattaci per saperne di pi\'f9\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Espandi la Tua Visibilit\'e0 e Aumenta i Clienti con abbs\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 abbs non \'e8 solo un gestionale. \'c8 una piattaforma di marketing che ti aiuta a raggiungere nuovi clienti e a promuovere le tue offerte. Migliaia di utenti cercano servizi come il tuo ogni giorno. Con ABBS, la tua attivit\'e0 sar\'e0 visibile e pronta ad attrarre nuovi abbonati.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 I tuoi servizi vengono mostrati a migliaia di utenti in cerca di nuove opportunit\'e0.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Promuovi le tue offerte in modo mirato per segmenti specifici di clientela.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Offri pacchetti e promozioni esclusive per attrarre nuovi membri e mantenere i vecchi.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Aumenta la tua visibilit\'e0 con abbs\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaqTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Hai Domande? Abbiamo le Risposte.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Come posso integrare abbs con il mio sistema attuale?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq1Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 abbs offre 30 giorni di prova gratuita. Durante il periodo di prova puoi importare automaticamente i tuoi dati e testare tutte le funzionalit\'e0 senza modificare i tuoi flussi operativi. Il passaggio \'e8 semplice, veloce e senza inserimenti manuali: provi ABBS, lo confronti e decidi con calma.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Quanto tempo ci vuole per iniziare a vedere i benefici?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq2Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Pochissimo! Con abbs puoi iniziare a vedere i primi benefici gi\'e0 nei primi giorni: l'importazione automatica degli abbonamenti e la centralizzazione dei dati ti permettono di risparmiare tempo fin da subito. Molti dei nostri clienti notano una gestione pi\'f9 fluida e una riduzione dei costi gi\'e0 entro il primo mese.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Come mi aiuta abbs a vendere di pi\'f9?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq3Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Tramite la nostra app, gli utenti scoprono nuovi abbonamenti nella loro zona, ricevono promozioni personalizzate e notifiche intelligenti. Tu puoi creare offerte mirate, attivare campagne interne e comparire tra le proposte consigliate, aumentando visibilit\'e0 e conversioni in modo naturale. \'c8 come avere un canale di vendita diretto, gi\'e0 integrato nella routine dei tuoi potenziali clienti.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 \'c8 sicuro condividere i dati dei nostri abbonamenti?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq4Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 La sicurezza dei tuoi dati \'e8 la nostra priorit\'e0 assoluta. abbs utilizza crittografia di livello bancario, \'e8 conforme al GDPR e non memorizza informazioni sensibili come password o dettagli completi delle carte di credito. Puoi leggere la nostra politica sulla privacy per tutti i dettagli.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq5\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Quanto tempo richiede l'implementazione?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq5Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Il trasferimento dei dati sul gestionale abbs avviene in 24-48 ore. Fin da subito puoi iniziare a usare la piattaforma: l'interfaccia \'e8 semplice, intuitiva e fluida, pensata per farti sentire a tuo agio gi\'e0 dal primo accesso. In pochi clic hai tutto sotto controllo \'97 senza bisogno di formazione tecnica.\cf6 \strokec6 ",\cf4 \strokec4  \cb1 \
+\cb3     \cf5 \strokec5 businessFaqPreCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Hai altre domande? Siamo qui per aiutarti\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaqCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contattaci\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\cb3     \cf5 \strokec5 businessContact\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Sei interessato ad abbs Business? Compila il modulo e ti contatteremo al pi\'f9 presto.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactName\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Nome completo\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactNamePlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Inserisci il tuo nome\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactEmail\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Email\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactAzienda\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Azienda\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactAziendaPlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Nome della tua azienda\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactEmailPlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Inserisci la tua email\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactMessage\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Messaggio\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactMessagePlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Come possiamo aiutarti?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactSubmit\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Invia Messaggio\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\
+\
+\
+\
+\
+\cb3     \cf5 \strokec5 businessFinalCtaTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Non aspettare oltre! Ottimizza il tuo business con abbs.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFinalCtaText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Unisciti alle migliaia di aziende che stanno trasformando la gestione degli abbonamenti in un vantaggio competitivo.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFinalCtaButton\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Inizia Ora con abbs\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFinalCtaButton2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Scopri come abbs pu\'f2 migliorare il tuo business\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Business page case studies
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 caseStudiesTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Piattaforme che hanno rivoluzionato i settori\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Airbnb\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Rivoluzione nel settore ospitalit\'e0\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Airbnb ha trasformato il mercato dell\cf13 \strokec13 \\'\cf7 \strokec7 ospitalit\'e0 creando una piattaforma che connette direttamente host e viaggiatori. Con un modello di abbonamento per host, hanno democratizzato l\cf13 \strokec13 \\'\cf7 \strokec7 industria permettendo a chiunque di monetizzare i propri spazi.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifySubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Reinvenzione della musica\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify ha rivoluzionato come consumiamo la musica, trasformando un mercato di acquisti singoli in un modello di abbonamento con accesso illimitato. Hanno utilizzato i dati degli utenti per creare esperienze personalizzate e playlist curate.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Uber\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Rivoluzione della mobilit\'e0 urbana\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Uber ha trasformato il settore dei trasporti connettendo passeggeri e autisti attraverso un\cf13 \strokec13 \\'\cf7 \strokec7 app semplice. Il suo modello di abbonamento per driver ha sconvolto l\cf13 \strokec13 \\'\cf7 \strokec7 industria dei taxi tradizionali, creando un nuovo standard per la mobilit\'e0 on-demand.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 users\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Utenti\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 activeUsers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Utenti attivi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 countries\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Paesi\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cities\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Citt\'e0\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 premiumSubscribers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Abbonati premium\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf5 \strokec5 en\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Navbar
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 mission\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Mission\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsABBS\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 What is abbs\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 timeline\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Timeline\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 team\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Team\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 business\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Business\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinWaitlist\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Join Now\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 business navbar
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 Come Funziona\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 How it works\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 Vantaggi\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Benefits\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 Contattaci\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Contact us\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Hero
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 revolutionIsHere\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 The Subscription Revolution is Here\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 manageAllSubscriptions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 One app for all your subscriptions: from streaming to gyms, theaters to pools. Discover local services and save time and money.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinWaitingList\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Get Early Access\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 learnMore\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Learn More\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 scrollToDiscover\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Scroll to explore\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeSuccess\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Thank you! We\cf13 \strokec13 \\'\cf7 \strokec7 ve added you to the waiting list.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeAnother\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscribe another email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeButton\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscribe\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeError\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 An error occurred. Please try again later.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 emailAlreadyRegistered\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 This email is already subscribed to the waiting list!\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 errorMessage\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 An error occurred. Please try again later.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 emailPlaceholder\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Enter your email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 invalidEmail\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Please enter a valid email address\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  WhatIs
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsABBSTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 What is abbs?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase1\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 No more searching different sites for your subscription information\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase2\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Centralize all your subscriptions in one interactive dashboard\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase3\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Track due dates, costs and receive smart notifications before renewals\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase4\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Our AI analyzes your habits and suggests more suitable plans\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase5\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Save up to 30% on your monthly subscriptions\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase6\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 View charts and statistics on your usage\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase7\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Access promotions and discounts reserved for abbs users\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsPhrase8\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Intuitive interface that simplifies management with just a few clicks\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Mission
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 ourMission\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Our Mission\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 missionDescription\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 We\cf13 \strokec13 \\'\cf7 \strokec7 re transforming how you manage subscriptions and local services, bringing order to chaos and giving you control over your digital and physical expenses.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 abbsAdvantages\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 ABBS Advantages\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 completeTracking\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Complete Tracking\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 completeTrackingDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Keep track of every active subscription, from Netflix to your local gym.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 smartNotifications\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Smart Notifications\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 smartNotificationsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Receive useful notifications to avoid unwanted renewals.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 priceComparison\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Price Comparison\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 priceComparisonDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Compare prices and choose the best offers.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 documentManagement\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Document Management\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 documentManagementDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Manage documents, medical certificates and bonuses with a few clicks.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 discoverNearbyServices\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Discover Services Near You\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 discoverNearbyServicesDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Find gyms, pools and cinemas in your area.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 physicalServicesNearby\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Nearby Physical Services\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\cb3     \cb1 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIsText\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 With **ABBS**, you won\cf13 \strokec13 \\'\cf7 \strokec7 t have to search different sites for your subscription information anymore. Now, all your subscriptions are centralized in one **interactive dashboard**. \cf13 \strokec13 \\n\cf7 \strokec7 Monitor easily due dates and monthly costs, receive smart notifications that alert you in **advance** before renewals. \cf13 \strokec13 \\n\cf7 \strokec7 Thanks to our AI, ABBS analyzes your subscription habits and **suggests** more suitable plans for your needs. So, you\cf13 \strokec13 \\'\cf7 \strokec7 ll know exactly where your money goes every month, with every subscription under control. \cf13 \strokec13 \\n\cf7 \strokec7 Visualize in real time charts and statistics of your usage, access **exclusive promotions** reserved for ABBS users, and enjoy an intuitive interface that simplifies management with just a few clicks.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Business
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 businessTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Optimize your business subscription management\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 businessSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Reduce costs, increase efficiency and maintain complete control over all your company\cf13 \strokec13 \\'\cf7 \strokec7 s subscription services with a centralized platform.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 freeTrial\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Try Free for 30 Days\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 traditionalSystemProblems\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Problems with traditional systems\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 traditionalSystemProblemsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Companies face various challenges in subscription management daily. Here are the most common problems ABBS solves.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inefficientManagement\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Inefficient Management\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inefficientManagementDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Time and resources wasted in separate management of multiple subscriptions and services.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 hiddenCosts\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Hidden Costs\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 hiddenCostsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Difficulty in monitoring and controlling total spending on subscriptions and services.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 limitedCompatibility\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Limited Compatibility\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 limitedCompatibilityDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Systems that don\cf13 \strokec13 \\'\cf7 \strokec7 t integrate well with modern technology platforms.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 vantaggi
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 benefits\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Business Benefits\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitsDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Discover how ABBS can transform subscription management and grow your business.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 espandi\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Expand your customer base\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 espandiDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Reach new customers through ABBS. Your business becomes visible to thousands of potential subscribers who are looking for services like yours. Thanks to our recommendation system, your subscriptions will be shown to users most interested in, increasing conversions and reducing customer acquisition costs.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 personalizzazione\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Advanced Customization\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 personalizzazioneDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Imagine knowing exactly what your customers want\'85 before they even ask. Enter the ABBS dashboard and see everything: what they\cf13 \strokec13 \\'\cf7 \strokec7 ve booked, what they like, where they\cf13 \strokec13 \\'\cf7 \strokec7 re stuck. With a click, personalize the perfect promo. Loyalty? Boom. Revenue? On the rise.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 automazione\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Total Automation\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 automazioneDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Every renewal starts by itself. Every invoice is created by itself. Every notification arrives at the right time. And you? You\cf13 \strokec13 \\'\cf7 \strokec7 re taking a coffee break. Because the time saved is time earned.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pricing\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Intelligent Pricing\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pricingDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 ABBS reads your demand in real time and raises prices when needed. No empty slots, no wasted resources. An algorithm that works for you, while you focus on your customers.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sicurezza\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Guaranteed Security\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sicurezzaDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Your customer data? Safe and secure. Always. Advanced encryption, controlled access, and full GDPR compliance. Like having a digital personal vault.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\cb3     \cb1 \
+\
+\cb3     \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Footer
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 revolutionizeDigitalIdentity\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Transform your digital identity. One account, infinite possibilities.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 navigation\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Navigation\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 home\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Home\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 whatIs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 What is ABBS\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 roadmap\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Roadmap\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 sections\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Sections\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingList\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Waiting List\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 legal\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Legal\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 termsOfService\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Terms of Service\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 privacyPolicy\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Privacy Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cookiePolicy\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cookie Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 contactUs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Contact Us\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 questionsLearnMore\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Questions? Want to know more?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 writeToUs\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Get in Touch\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 copyright\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 All rights reserved.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 madeWithLove\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Made with \cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 inItaly\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7  in Italy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Team
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 ourTeam\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Our Team\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 teamSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 The talented minds behind ABBS working to transform your digital experience\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 vincenzo\cf6 \strokec6 ':'\cf7 \strokec7 I\cf13 \strokec13 \\'\cf7 \strokec7 m a project manager, founder and creative mind: born to create digital solutions that have a real impact on people\cf13 \strokec13 \\'\cf7 \strokec7 s lives.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 silvia\cf6 \strokec6 ':'\cf7 \strokec7 I\cf13 \strokec13 \\'\cf7 \strokec7 m a young professional with a background in Economics and Digital Innovation, and I\cf13 \strokec13 \\'\cf7 \strokec7 m responsible for guiding the strategic and organizational decisions of the project, uniting vision, method, and attention to results.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 lorenzo\cf6 \strokec6 ':'\cf7 \strokec7 I\cf13 \strokec13 \\'\cf7 \strokec7 m a professional specialized in digital development and transformation, in ABBS I lead the technological innovation, combining strategic vision and analytical skills.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 alwaysLooking\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 We\cf13 \strokec13 \\'\cf7 \strokec7 re always looking for talented people to help us revolutionize subscription management.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 joinTeam\cf6 \strokec6 ':'\cf7 \strokec7 Want to join our team?\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 viewOpenPositions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Send your application\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Language Selector
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 language\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Language\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Service names
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 netflix\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Netflix\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyPremium\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify Premium\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 amazonPrime\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Amazon Prime\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 iCloudStorage\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 iCloud Storage\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 fitnessApp\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Fitness App\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 microsoft365\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Microsoft 365\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 fitnessClub\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Fitness Club\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 powerFitness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Power Fitness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaticCenter\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Aquatic Center\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 centralCinema\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Central Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 poolName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Poseidon Pool\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Apollo Theater\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaStar\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Star Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaWellness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Acqua & Wellness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaSplendor\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Splendor Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterOpera\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Opera Theater\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 aquaFitness\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Aqua Fitness\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaRex\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Rex Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 palazzoCongress\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Congress Palace\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 arenaConcert\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Arena Concert\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 gymName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Olympia Gym\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 centerSportive\cf6 \strokec6 ':'\cf7 \strokec7 Elite Sport Center\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9 map
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 yourLocation\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Your Location\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 viewDetails\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 View Details\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 show\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Show\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 servicesAvailable\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 services available\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 description\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Description\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribeNow\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscribe Now\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 price\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Price\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 dist\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Distance\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 rating\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Rating\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Service types
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 gym\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Gym\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 gymDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Monthly full access subscription to all available gym equipment and fitness classes. Includes locker rooms, showers, and professional trainer support.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 pool\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Pool\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 poolDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Monthly access subscription to the pool with lane swimming and relaxation area. Includes group swimming lessons and access to saunas.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinema\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cinema\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cinemaDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Monthly cinema subscription with unlimited access to all screenings. Includes snack and beverage discounts.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 course\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Courses\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 courseDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Monthly subscription for training courses with access to educational materials and final certificate.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theater\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Theater\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 theaterDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Seasonal theater subscription with access to all performances of the season. Includes reserved seating and priority access.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 concert\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Concert\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 concertDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Seasonal concert subscription with priority access and reserved area.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Units and measurements
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 perMonth\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /month\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 perEntry\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /entry\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 perTicket\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 /ticket\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 distance\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 km\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Waiting List
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingListTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Join our waiting list\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 ofThe\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 of the\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptions\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscriptions\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 waitingListDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Sign up now to be among the first to try ABBS when it becomes available. We\cf13 \strokec13 \\'\cf7 \strokec7 ll let you know as soon as it\cf13 \strokec13 \\'\cf7 \strokec7 s ready.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 earlyAccessDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Get early access to the subscription revolution\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 yourName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Your name\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 yourEmail\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Your email\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribe\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscribe\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscribing\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscribing...\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 missingFields\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Please fill in all fields\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 alreadySubscribed\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 This email is already subscribed to the waiting list\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 privacyConsent\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 By subscribing, you agree to our Privacy Policy\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptionBenefits\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Subscription Benefits\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitEarlyAccess\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Early access to the platform\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitExclusiveOffers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Exclusive offers for early users\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 freePremiumMonths\cf6 \strokec6 ':'\cf7 \strokec7 3 months of premium plan for free at launch\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitUpdates\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Regular updates on development\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 prioritySupport\cf6 \strokec6 ':'\cf7 \strokec7 Priority support and access to new features\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 benefitFeedback\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Opportunity to provide direct feedback\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 subscriptionCount\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Already more than 2000 subscribers!\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Months
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 january\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 January\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 february\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 February\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 march\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 March\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 april\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 April\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 may\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 May\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 june\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 June\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 july\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 July\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 august\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 August\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 september\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 September\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 october\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 October\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 november\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 November\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 december\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 December\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Optimize Your Business with ABBS: The Complete Platform for Subscription Management\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroSubtitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 From subscription management to customer loyalty, ABBS simplifies every aspect of your service, bringing efficiency, security, and profitability. Discover how.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHeroCta1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contact us now\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Having issues with subscription management? Let ABBS solve them!\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Managing a subscription-based business is complex: renewals, payments, cancellations, and resource management are just some of the daily challenges. ABBS is the platform that optimizes these processes, reducing manual work and increasing revenue.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 No more wasted time on manual renewals. ABBS automates everything, freeing you from repetitive tasks.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Build customer loyalty with personalized offers and a smooth user experience.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 With ABBS, you have access to advanced data on user behavior to make more informed decisions.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblem4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Protect sensitive data and payments in compliance with GDPR, with enterprise-level security.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessProblemsCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Discover how ABBS can improve your business\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 The Benefits of ABBS: The Complete Solution for Every Type of Subscription Service\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 With ABBS, you get a platform that not only manages your subscriptions but helps you optimize profits and improve operational efficiency in a smart and secure way.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Understand exactly how your customers use your services by analyzing real-time usage data. Improve loyalty and increase revenue by customizing offers for each customer segment.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Automate renewals, billing, and notifications, minimizing manual operations. With ABBS, every step is simplified, reducing errors and saving valuable time.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Maximize profits with dynamic pricing that adapts to real-time demand. Implement yield management systems to optimize profitability in every time slot, maximizing occupancy and revenue.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Protect your customers' sensitive data and financial transactions in full compliance with GDPR. ABBS ensures data security with advanced encryption and protected access.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit5\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Automatically suggest other services to your customers when there are no free slots or when they complete an activity, increasing customer value and creating cross-selling opportunities.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefit6\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 ABBS is easy to use and accessible anywhere thanks to its intuitive app. From subscription management to data analysis, everything is at your fingertips.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessBenefitsCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Start transforming your business\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHowItWorksTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Quick and Easy Implementation: Start in Minutes\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Connect what you have, without losing anything\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep1Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 You already have a management system? No need to start from scratch. ABBS automatically imports all your existing data and subscriptions. So you can switch to a more modern system without interruptions.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Start in seconds\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep2Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Super fast registration. With email and password, you're in. No learning curve: everything is designed to be simple from the first access.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Operative immediately\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessStep3Desc\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Enjoy automatic subscription management, with the ability to customize offers and optimize revenue.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessHowItWorksCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contact us for more information\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Expand Your Visibility and Increase Customers with ABBS\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 ABBS is not just a management system. It's a marketing platform that helps you reach new customers and promote your offers. Thousands of users search for services like yours every day. With ABBS, your business will be visible and ready to attract new subscribers.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Your services are shown to thousands of users looking for new opportunities.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Promote your offers in a targeted way for specific customer segments.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingPoint3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Offer exclusive packages and promotions to attract new members and retain existing ones.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessMarketingCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Increase your visibility with ABBS\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaqTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Have Questions? We Have Answers.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq1\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 How can I integrate ABBS with my current system?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq1Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 ABBS offers a 30-day free trial. During the trial period, you can automatically import your data and test all features without modifying your existing workflows. The transition is simple, fast, and without manual entries: try ABBS, compare it, and decide with confidence.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq2\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 How soon can I start seeing benefits?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq2Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Very soon! With ABBS, you can start seeing benefits in just a few days: automatic import of your subscriptions and centralized data allow you to save time right away. Many of our customers notice a more fluid management and a reduction in costs within the first month.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq3\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 How does ABBS help me sell more?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq3Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Through our app, users discover new subscriptions in their area, receive personalized promotions, and receive intelligent notifications. You can create targeted offers, activate internal campaigns, and appear among recommended offers, increasing visibility and conversions naturally. It's like having a direct sales channel integrated into your routine potential customers.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq4\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Is it safe to share our subscription data?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq4Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Your data security is our top priority. ABBS uses bank-level encryption, is GDPR-compliant, and does not store sensitive information like passwords or complete credit card details. You can read our privacy policy for all the details.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq5\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 How long does the implementation take?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaq5Answer\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 The transfer of data to the ABBS management system takes 24-48 hours. Immediately after that, you can start using the platform: the interface is simple, intuitive, and fluid, designed to make you feel comfortable right from the first access. In just a few clicks, you have everything under control \'97 without the need for technical training.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaqPreCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Have other questions? We're here to help\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFaqCta\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Contact us\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContact\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Are you interested in ABBS Business? Fill out the form and we'll contact you as soon as possible.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactName\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Full Name\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactNamePlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Enter your full name\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactEmail\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Email\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactEmailPlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Enter your email\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactAzienda\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Company\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactAziendaPlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Name of your company\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactMessage\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Message\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactMessagePlaceholder\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 How can we help you?\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessContactSubmit\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Send Message\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\
+\cb3     \cb1 \
+\
+\cb3     \cf5 \strokec5 businessFinalCtaTitle\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Don't wait any longer! Optimize your business with ABBS.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFinalCtaText\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Join the thousands of companies that are turning subscription management into a competitive advantage.\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cf5 \strokec5 businessFinalCtaButton\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 "\cf7 \strokec7 Start Now with ABBS\cf6 \strokec6 ",\cf4 \cb1 \strokec4 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6     
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Business page case studies
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 '\cf7 \strokec7 caseStudiesTitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Platforms that revolutionized their industries\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Airbnb\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Revolution in the hospitality sector\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 airbnbDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Airbnb transformed the hospitality market by creating a platform that directly connects hosts and travelers. With a subscription model for hosts, they democratized the industry by allowing anyone to monetize their spaces.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifySubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Reinvention of music\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 spotifyDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Spotify revolutionized how we consume music, transforming a market of single purchases into a subscription model with unlimited access. They used user data to create personalized experiences and curated playlists.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberName\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Uber\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberSubtitle\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Revolution of urban mobility\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 uberDesc\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Uber transformed the transportation sector by connecting passengers and drivers through a simple app. Its subscription model for drivers disrupted the traditional taxi industry, creating a new standard for on-demand mobility.\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 users\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Users\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 activeUsers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Active users\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 countries\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Countries\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 cities\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Cities\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 '\cf7 \strokec7 premiumSubscribers\cf6 \strokec6 ':\cf4 \strokec4  \cf6 \strokec6 '\cf7 \strokec7 Premium subscribers\cf6 \strokec6 ',\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Provider component
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 interface\cf4 \strokec4  \cf10 \strokec10 LanguageProviderProps\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   children\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 ReactNode\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf4 \strokec4  \cf2 \strokec2 const\cf4 \strokec4  \cf11 \strokec11 LanguageProvider\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 React\cf6 \strokec6 .\cf10 \strokec10 FC\cf6 \strokec6 <\cf10 \strokec10 LanguageProviderProps\cf6 \strokec6 >\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf6 \strokec6 (\{\cf4 \strokec4  \cf5 \strokec5 children\cf4 \strokec4  \cf6 \strokec6 \})\cf4 \strokec4  \cf2 \strokec2 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf5 \strokec5 language\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 setLanguage\cf6 \strokec6 ]\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf11 \strokec11 useState\cf6 \strokec6 <\cf10 \strokec10 Language\cf6 \strokec6 >\cf4 \strokec4 (\cf6 \strokec6 '\cf7 \strokec7 it\cf6 \strokec6 '\cf4 \strokec4 )\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6   
+\f1\i \cf8 \strokec8 //\cf9 \strokec9  Function to get a translated string
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf11 \strokec11 t\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf6 \strokec6 (\cf5 \strokec5 key\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 string\cf6 \strokec6 )\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 string\cf4 \strokec4  \cf2 \strokec2 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 return\cf4 \strokec4  \cf5 \strokec5 translations\cf4 \strokec4 [\cf5 \strokec5 language\cf4 \strokec4 ][\cf5 \strokec5 key\cf4 \strokec4 ] \cf2 \strokec2 ||\cf4 \strokec4  \cf5 \strokec5 key\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \}\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  (\cb1 \
+\cb3     \cf2 \strokec2 <\cf10 \strokec10 LanguageContext.Provider\cf4 \strokec4  
+\f1\i \cf10 \strokec10 value
+\f0\i0 \cf2 \strokec2 =\{\cf6 \strokec6 \{\cf4 \strokec4  \cf5 \strokec5 language\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 setLanguage\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 t\cf4 \strokec4  \cf6 \strokec6 \}\cf2 \strokec2 \}>\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 \{\cf5 \strokec5 children\cf2 \strokec2 \}\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 </\cf10 \strokec10 LanguageContext.Provider\cf2 \strokec2 >\cf4 \cb1 \strokec4 \
+\cb3   )\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i \cf8 \cb3 \strokec8 //\cf9 \strokec9  Custom hook to use the language context
+\f0\i0 \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf4 \strokec4  \cf2 \strokec2 const\cf4 \strokec4  \cf11 \strokec11 useLanguage\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf6 \strokec6 ()\cf2 \strokec2 :\cf4 \strokec4  \cf10 \strokec10 LanguageContextType\cf4 \strokec4  \cf2 \strokec2 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 context\cf4 \strokec4  \cf2 \strokec2 =\cf4 \strokec4  \cf11 \strokec11 useContext\cf4 \strokec4 (\cf5 \strokec5 LanguageContext\cf4 \strokec4 )\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\cb3   \cb1 \
+\cb3   \cf2 \strokec2 if\cf4 \strokec4  (\cf5 \strokec5 context\cf4 \strokec4  \cf2 \strokec2 ===\cf4 \strokec4  \cf12 \strokec12 undefined\cf4 \strokec4 ) \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 throw\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf11 \strokec11 Error\cf4 \strokec4 (\cf6 \strokec6 '\cf7 \strokec7 useLanguage must be used within a LanguageProvider\cf6 \strokec6 '\cf4 \strokec4 )\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3   \cb1 \
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  \cf5 \strokec5 context\cf2 \strokec2 ;\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf2 \strokec2 ;\cf4 \strokec4  \cb1 \
+}

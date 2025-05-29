@@ -203,12 +203,19 @@
     @media (max-width: $breakpoint-lg) {
       flex-wrap: wrap;
       gap: 1rem 2rem;
+      justify-content: center;
     }
     
     @media (max-width: $breakpoint-md) {
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.5rem;
       text-align: center;
+      padding-top: 1.5rem;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      gap: 0.3rem;
+      padding-top: 1rem;
     }
   }
   
@@ -216,6 +223,11 @@
     color: $text-secondary;
     font-size: 0.85rem;
     white-space: nowrap;
+    
+    @media (max-width: $breakpoint-md) {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
   }
   
   &__vat, &__address {
@@ -228,6 +240,16 @@
     @media (max-width: $breakpoint-lg) {
       min-width: 200px;
     }
+    
+    @media (max-width: $breakpoint-md) {
+      font-size: 0.75rem;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      min-width: auto;
+      max-width: 90%;
+      line-height: 1.3;
+    }
   }
   
   &__vat {
@@ -236,6 +258,10 @@
   
   &__address {
     font-style: normal;
+    
+    @media (max-width: $breakpoint-md) {
+      margin-bottom: 0.5rem;
+    }
   }
   
   &__made-with {
@@ -245,6 +271,11 @@
     color: $text-secondary;
     font-size: 0.85rem;
     white-space: nowrap;
+    
+    @media (max-width: $breakpoint-md) {
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
   }
   
   &__heart {

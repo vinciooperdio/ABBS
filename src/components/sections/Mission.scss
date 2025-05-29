@@ -721,24 +721,86 @@
     }
   }
   
-  // Miglioramento della sezione mappa
-  // Sezione mappa dei servizi
-  &__map-section {
+  &__app-showcase {
     margin-top: 80px;
     position: relative;
     padding: 60px 0;
     border-radius: 30px;
   }
   
-  &__map-header {
-    text-align: center;
-    margin-bottom: 60px; // Aumentato spazio
+  &__app-showcase-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    
+    @media (max-width: $breakpoint-lg) {
+      gap: 40px;
+    }
+    
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+  }
+  
+  &__app-showcase-image {
+    order: 1;
+    
+    @media (max-width: $breakpoint-md) {
+      order: 2;
+    }
+    
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 1200px;
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-10px) scale(1.02);
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        max-width: 600px;
+      }
+    }
+  }
+  
+  &__app-showcase-content {
+    order: 2;
+    
+    @media (max-width: $breakpoint-md) {
+      order: 1;
+    }
     
     h3 {
-      font-size: 2.5rem; // Aumentato per maggiore enfasi
+      font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba($primary, 0.2); // Aggiunto shadow per enfasi
+      text-shadow: 0 0 20px rgba($primary, 0.2);
+      
+      @media (max-width: $breakpoint-lg) {
+        font-size: 2.2rem;
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        font-size: 2rem;
+        text-align: center;
+      }
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1.8rem;
+      }
       
       .text-gradient {
         background: $gradient-primary;
@@ -751,204 +813,22 @@
     p {
       color: $text-secondary;
       font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-  }
-  
-  &__map-container {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr;
-    gap: 60px;
-    margin-top: 40px;
-    align-items: center;
-    
-    @media (max-width: $breakpoint-lg) {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 40px;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      grid-template-columns: 1fr;
-      gap: 60px;
-    }
-    
-    &--airbnb {
-      display: block;
-      width: 100%;
-      margin: 30px auto 0;
-      max-width: 1400px;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      line-height: 1.6;
+      max-width: 600px;
       
-      @media (max-width: $breakpoint-xl) {
-        max-width: 100%;
-      }
-    }
-
-    .service-categories {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    
-    .service-categories > * {
-      flex: 1 1 0;
-      min-width: 0; /* Permette agli elementi di restringersi sotto la loro dimensione base */
-      text-align: center; /* Allinea il testo al centro se necessario */
-    }
-  }
-  
-  &__interactive-map {
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    z-index: 5;
-    min-height: 450px; // Aumentata l'altezza della mappa
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); // Ombra più pronunciata
-    
-    @media (max-width: $breakpoint-lg) {
-      min-height: 400px;
-    }
-    
-    @media (max-width: $breakpoint-md) {
-      min-height: 350px;
-    }
-    
-    @media (max-width: $breakpoint-sm) {
-      min-height: 300px;
-    }
-  }
-  
-  &__nearby-services {
-    width: 100%;
-    max-width: 100%;
-    overflow: visible;
-    
-    h4 {
-      font-size: 1.8rem; // Aumentato
-      font-weight: 600;
-      margin-bottom: 25px;
-      color: black;
-      text-shadow: 0 0 15px rgba($primary, 0.3); // Aggiunto shadow
-    }
-    
-    .services-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 100%;
-    }
-    
-    .service-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: $border-radius-md;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      will-change: transform, box-shadow;
-      width: 100%;
-      
-      &--active, &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba($primary, 0.4);
-        transform: translateX(0);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      @media (max-width: $breakpoint-lg) {
+        font-size: 1.1rem;
       }
       
-      .service-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 12px;
-        background: $gradient-primary;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: black;
-        font-size: 1.4rem;
+      @media (max-width: $breakpoint-md) {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 500px;
       }
       
-      .service-details {
-        flex: 1;
-        
-        h5 {
-          font-size: 1.1rem;
-          font-weight: 600;
-          margin-bottom: 5px;
-          color: black;
-        }
-        
-        .service-meta {
-          display: flex;
-          gap: 15px;
-          margin-bottom: 5px;
-          
-          span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            
-            svg {
-              opacity: 0.7;
-            }
-          }
-        }
-        
-        .service-price {
-          font-size: 0.95rem;
-          font-weight: 600;
-          color: $primary;
-        }
+      @media (max-width: $breakpoint-sm) {
+        font-size: 1rem;
       }
-      
-      .service-action {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: rgba($primary, 0.2);
-        border: 1px solid rgba($primary, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $primary;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        
-        &:hover {
-          background: rgba($primary, 0.3);
-          color: black;
-        }
-      }
-    }
-  }
-  
-  &__laptop-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 10%;
-      width: 80%;
-      height: 20px;
-      border-radius: 50%;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      z-index: -1;
     }
   }
 }

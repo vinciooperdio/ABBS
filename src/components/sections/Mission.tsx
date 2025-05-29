@@ -11,7 +11,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import LaptopContainer from '../ui/LaptopContainer';
 import './Mission.scss';
 import SimplifiedNebulaBackground from '../ui/SimplifiedNebulaBackground';
-import AirbnbStyleMap from '../ui/AirbnbStyleMap';
+import abbspng from '../../assets/images/abbspng.png';
 
 interface PhysicalService {
   id: string;
@@ -440,34 +440,40 @@ const Mission: React.FC = () => {
         </motion.div>
 
         <motion.section 
-          className="mission__map-section"
+          className="mission__app-showcase"
           ref={mapSectionRef}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: easeOut }}
         >
-          <motion.div 
-            className="mission__map-header"
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <h3>
-              {t('discoverNearbyServices').split(' ').map((word, i, arr) => 
-                i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
-                <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
-              )}
-            </h3>
-            <p>{t('discoverNearbyServicesDesc')}</p>
-          </motion.div>
-          
-          <div className="mission__map-container mission__map-container--airbnb">
-            <AirbnbStyleMap 
-              userPosition={[41.9028, 12.4964]} 
-              services={physicalServices}
-            /></div>
+          <div className="mission__app-showcase-container">
+            <motion.div 
+              className="mission__app-showcase-image"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <img src={abbspng} alt="ABBS App Interface" />
+            </motion.div>
+            
+            <motion.div 
+              className="mission__app-showcase-content"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h3>
+                {t('discoverNearbyServices').split(' ').map((word, i, arr) => 
+                  i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
+                  <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
+                )}
+              </h3>
+              <p>{t('discoverNearbyServicesDesc')}</p>
+            </motion.div>
+          </div>
         </motion.section>
       </div>
     </section>
