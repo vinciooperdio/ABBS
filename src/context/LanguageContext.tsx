@@ -155,6 +155,7 @@ const translations: Record<Language, Record<string, string>> = {
     'price': 'Prezzo',
     'dist': 'Distanza',
     'rating': 'Valutazione',
+    'discoverNearbyServicesDesc': 'Trova palestre, piscine e cinema nella tua zona.',
 
 
     // Service types
