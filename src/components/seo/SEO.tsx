@@ -20,7 +20,7 @@ const SEO: React.FC<SEOProps> = ({
   description = 'ABBS è la prima app italiana per gestire tutti i tuoi abbonamenti in un unico posto. Monitora, ottimizza e risparmia sui tuoi abbonamenti mensili.',
   image = abbslogo,
   article = false,
-  keywords = 'abbs, abbonamenti, gestione abbonamenti, abbonamento, startup, business, gestionali, gestionale, innovazione, fitness, palestra, piscine, pilates, risparmiare sugli abbonamenti, app abbonamenti, piattaforma abbonamenti, monitor abbonamenti, wallet abbonamenti, abbonamenti digitali, abbonamenti online, abbonamenti mensili, abbonamenti annuali, abbonamenti trimestrali, abbonamenti semestrali, ',
+  keywords = 'abbs, abbonamenti, gestione abbonamenti, abbonamento, startup, business, gestionali, gestionale, innovazione, fitness, palestra, piscine, pilates, risparmiare sugli abbonamenti, app abbonamenti, piattaforma abbonamenti, monitor abbonamenti, wallet abbonamenti, abbonamenti digitali, abbonamenti online, abbonamenti mensili, abbonamenti annuali, abbonamenti trimestrali, abbonamenti semestrali ',
   canonicalUrl,
   schema,
   pathname,

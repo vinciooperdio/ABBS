@@ -757,7 +757,7 @@
     img {
       width: 100%;
       height: auto;
-      max-width: 1200px;
+      max-width: 1600px;
       border-radius: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       
@@ -766,12 +766,12 @@
       }
       
       @media (max-width: $breakpoint-md) {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
       }
       
       @media (max-width: $breakpoint-sm) {
-        max-width: 600px;
+        max-width: 750px;
       }
     }
   }
@@ -787,7 +787,6 @@
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba($primary, 0.2);
       
       @media (max-width: $breakpoint-lg) {
         font-size: 2.2rem;
