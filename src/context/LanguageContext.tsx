@@ -85,7 +85,7 @@ const translations: Record<Language, Record<string, string>> = {
     'personalizzazione': 'Gestione intelligente e automatizzata',
     'personalizzazioneDesc': 'Con abbs hai una dashboard semplice e completa per monitorare ogni aspetto dell’attività: prenotazioni, preferenze, blocchi nel flusso, performance. Puoi personalizzare promozioni, inviare notifiche mirate e modificare i prezzi in base al comportamento reale dei clienti. I rinnovi si attivano da soli, le fatture si generano automaticamente e ogni processo viene snellito. Meno operazioni manuali, più tempo per concentrarti sul tuo lavoro.',
     'automazione': 'Marketplace per i tuoi prodotti',
-    'automazioneDesc': 'Vendi i tuoi prodotti direttamente dalla piattaforma. Gestione semplificata, pagamenti inclusi e visibilità dedicata all’interno dell’app ABBS.',
+    'automazioneDesc': 'Vendi i tuoi prodotti direttamente dalla piattaforma. Gestione semplificata, pagamenti inclusi e visibilità dedicata all’interno dell’app abbs.',
     'pricing': 'Intelligenza Artificiale Integrata',
     'pricingDesc': 'abbs integra l’AI per analizzare i dati, ottimizzare i prezzi, suggerire azioni mirate e semplificare la gestione. Ogni decisione è supportata da dati, ogni processo diventa più efficiente.',
     'sicurezza': 'Sicurezza e protezione dati',
@@ -112,6 +112,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Team
     'ourTeam': 'Il Nostro Team',
+    'teamSubtitle': 'I talenti dietro ABBS lavorano per trasformare la tua esperienza digitale',
     'vincenzo':'Sono un project manager, founder e mente creativa: nato per creare soluzioni digitali che abbiano un impatto concreto sulla vita delle persone.',
     'silvia':'Sono una giovane professionista con formazione in Economia e Digital Innovation, e mi occupo di guidare le decisioni strategiche e organizzative del progetto, unendo visione, metodo e attenzione al risultato.',
     'lorenzo':'Sono un professionista specializzato in sviluppo e trasformazione digitale, in abbs mi occupo di guidare l\'innovazione tecnologica, combinando visione strategica e competenze analitiche.',

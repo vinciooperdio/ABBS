@@ -334,21 +334,9 @@ const Mission: React.FC = () => {
             scale: titleScale
           }}
         >
-          <motion.h2
-            animate={{ 
-              textShadow: ["0 0 10px rgba(75, 69, 206, 0.2)", "0 0 20px rgba(75, 69, 206, 0.5)", "0 0 10px rgba(75, 69, 206, 0.2)"]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
-            {t('ourMission').split(' ').map((word, i, arr) => 
-              i === arr.length - 1 ? <span key={i}> <span className="text-gradient">{word}</span></span> : 
-              <span key={i}>{word}{i < arr.length - 1 ? ' ' : ''}</span>
-            )}
-          </motion.h2>
+          <h2>
+            {t('ourMission')}
+          </h2>
           
           <motion.div
             className="mission__subtitle-container"
