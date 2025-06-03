@@ -92,7 +92,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sicurezzaDesc': 'abbs protegge le informazioni dei tuoi clienti con sistemi avanzati e conformità alle normative. Dati, pagamenti e documenti sono al sicuro, sempre.',
     
     // Footer
-    'revolutionizeDigitalIdentity': 'Rivoluziona il tuo modo di gestire l\'identità digitale. Un account, infiniti servizi.',
+    'revolutionizeDigitalIdentity': 'Un account, infiniti servizi.',
     'navigation': 'Navigazione',
     'home': 'Home',
     'whatIs': 'Cos\'è abbs',
@@ -214,8 +214,8 @@ const translations: Record<Language, Record<string, string>> = {
     'october': 'Ottobre',
     'november': 'Novembre',
     'december': 'Dicembre',
-    businessHeroTitle: "Semplifica la Gestione della Tua Attività con abbs. La Piattaforma Intuitiva per Organizzare Clienti, Incassi e Abbonamenti",
-    businessHeroSubtitle: "abbs è più di un semplice gestionale: è uno strumento pensato per semplificare il lavoro quotidiano delle aziende. Dalla gestione dei clienti al monitoraggio degli incassi, fino al controllo degli abbonamenti, tutto è in un unico posto — chiaro, accessibile, personalizzabile. Scopri come rendere più efficiente ogni aspetto della tua attività.",
+    businessHeroTitle: "Gestisci clienti, incassi e abbonamenti con abbs, in modo semplice e intuitivo.",
+    businessHeroSubtitle: "abbs semplifica il lavoro quotidiano delle aziende, unendo in un’unica piattaforma la gestione di clienti, incassi e abbonamenti in modo chiaro e personalizzabile.",
     businessHeroCta1: "Contattaci ora",
     businessProblemsTitle: "Problemi con la gestione degli abbonamenti? Lascia che abbs li risolva!",
     businessProblemsText: "Gestire un'attività che offre abbonamenti è complesso: rinnovi, pagamenti, cancellazioni, e gestione delle risorse sono solo alcune delle sfide quotidiane. abbs è la piattaforma che ottimizza questi processi, riducendo il lavoro manuale e aumentando i ricavi.",
@@ -388,7 +388,7 @@ const translations: Record<Language, Record<string, string>> = {
     
 
     // Footer
-    'revolutionizeDigitalIdentity': 'Transform your digital identity. One account, infinite possibilities.',
+    'revolutionizeDigitalIdentity': 'One account, unlimited services.',
     'navigation': 'Navigation',
     'home': 'Home',
     'whatIs': 'What is ABBS',
