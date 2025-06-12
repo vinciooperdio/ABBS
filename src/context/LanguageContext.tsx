@@ -313,7 +313,7 @@ const translations: Record<Language, Record<string, string>> = {
     'Contattaci': 'Contact us',
     
     // Hero
-    'revolutionIsHere': 'The Subscription Revolution is Here',
+    'revolutionIsHere': 'Manage All Your Subscriptions in One App, Effortlessly.',
     'manageAllSubscriptions': 'One app for all your subscriptions: from streaming to gyms, theaters to pools. Discover local services and save time and money.',
     'joinWaitingList': 'Get Early Access',
     'learnMore': 'Learn More',
