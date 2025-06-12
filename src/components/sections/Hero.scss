@@ -16,38 +16,89 @@
   &__container {
     position: relative;
     z-index: 10;
-    text-align: center;
-    max-width: 1000px;
+    text-align: left;
+    max-width: $container-width;
+    width: 100%;
     margin: 0 auto;
-    padding: 2.5rem;
+    padding: $container-padding;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+    min-height: calc(100vh - #{$navbar-height});
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: column;
+      text-align: center;
+      padding: $container-padding;
+      gap: 3rem;
+    }
     
     @media (max-width: $breakpoint-sm) {
       padding: 2rem 1.5rem;
-      margin-top: 40px;
+    }
+  }
+
+  &__left-column {
+    flex: 1;
+    max-width: 55%;
+    
+    @media (max-width: $breakpoint-lg) {
+      max-width: 100%;
+    }
+  }
+
+  &__right-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 45%;
+    min-height: 400px;
+    
+    @media (max-width: $breakpoint-lg) {
+      max-width: 80%;
+      min-height: 300px;
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      max-width: 100%;
+      min-height: 250px;
     }
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1.5rem;
+    
+    @media (max-width: $breakpoint-lg) {
+      align-items: center;
+    }
     
     @media (max-width: $breakpoint-sm) {
-      gap: 2rem;
+      gap: 1rem;
     }
   }
 
   &__heading {
-    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-top: 5vh;
+    margin-top: 0;
     letter-spacing: -0.02em;
     
+    @media (max-width: $breakpoint-lg) {
+      text-align: center;
+      padding-top: calc(#{$navbar-height} + 1.5rem);
+    }
+    
     @media (max-width: $breakpoint-sm) {
-      margin-top: 2vh;
+      padding-top: calc(#{$navbar-height} + 1rem);
     }
 
     .gradient-text {
@@ -59,91 +110,44 @@
   }
 
   &__description {
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
     line-height: 1.6;
     color: $text-secondary;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 10px;
+    max-width: 600px;
+    margin: 0;
+    padding: 0;
+    
+    @media (max-width: $breakpoint-lg) {
+      text-align: center;
+      max-width: 720px;
+      padding: 0 10px;
+    }
   }
 
   &__scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-
-    @media (max-width: 1000px) {
-      display: none;
-    }
-
-    &:hover {
-      opacity: 1;
-    }
+    display: none;
   }
 
   &__mouse {
-    width: 26px;
-    height: 40px;
-    border: 2px solid $text-primary;
-    border-radius: 20px;
-    position: relative;
-    transform: translate3d(0, 0, 0); /* Safari fix */
+    display: none;
   }
 
   &__mouse-wheel {
-    width: 4px;
-    height: 8px;
-    background-color: $text-primary;
-    border-radius: 2px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
-    will-change: transform, opacity; /* Performance optimization */
+    display: none;
   }
 
   &__scroll-text {
-    font-size: 0.875rem;
-    color: $text-primary;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    display: none;
   }
 
   &__form {
     width: 100%;
-
-    &-submit {
-      width: 180px;
-      padding: 0.875rem 0;
-      background: $primary;
-      color: white;
-      border-radius: 0 8px 8px 0;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      
-      &:hover {
-        background: darken($primary, 10%);
-      }
-      
-      &:active {
-        background: darken($primary, 15%);
-      }
-      
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
+    max-width: 450px;
+    margin-top: 1.5rem;
+    
+    @media (max-width: $breakpoint-lg) {
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
@@ -187,192 +191,187 @@
       }
     }
   }
-}
 
-// Waiting list form styles - Safari optimizations
-.waiting-list {
-  &__wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__heading {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: 600;
-    margin-bottom: 1.8rem;
-    color: $text-primary;
-    position: relative;
-  }
-  
-  &__form-container {
-    width: 100%;
-    max-width: 550px;
-    margin: 0 auto;
-  }
-
-  &__form {
-    width: 100%;
-  }
-
-  &__input-group {
-    display: flex;
-    width: 100%;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    transform: translateZ(0); /* Safari rendering fix */
-    
-    @media (max-width: $breakpoint-sm) {
-      flex-direction: column;
-    }
-  }
-
-  &__input {
-    flex-grow: 1;
-    color: $text-primary;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    border: 1px solid rgba($text-primary, 0.3);
-    border-radius: 20px 0 0 20px;
-    background: rgba(255, 255, 255, 0.08);
-    outline: none;
-    transition: all 0.3s ease;
-    -webkit-appearance: none; /* Safari input styling fix */
-    
-    @media (max-width: $breakpoint-sm) {
-      border-radius: 20px 20px 0 0;
-      padding: 1rem 1.25rem;
-    }
-
-    &::placeholder {
-      color: rgba($text-primary, 0.6);
-      opacity: 1; /* Safari fix */
-    }
-
-    &:focus {
-      border-color: $primary;
-      box-shadow: 0 0 0 1px rgba($primary, 0.3);
-    }
-
-    &--error {
-      border-color: $error;
-    }
-  }
-
-  &__submit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0 1.5rem;
+  &__form-submit {
+    width: 180px;
+    padding: 0.875rem 0;
     background: $primary;
     color: white;
+    border-radius: 0 8px 8px 0;
     font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
     
-    @media (max-width: $breakpoint-sm) {
-      width: 100%;
-      padding: 0.875rem;
-      border-radius: 0 0 20px 20px;
-    }
-
     &:hover {
-      background: darken($primary, 5%);
-    }
-
-    &:active {
       background: darken($primary, 10%);
     }
-
+    
+    &:active {
+      background: darken($primary, 15%);
+    }
+    
     &:disabled {
       opacity: 0.7;
       cursor: not-allowed;
     }
   }
 
-  &__spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  &__iphone-mockup {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border: none;
+    box-shadow: none;
   }
+}
 
-  &__error {
-    color: $error;
-    font-size: 0.875rem;
-    text-align: left;
-    margin-top: 0.5rem;
-    padding-left: 0.5rem;
-  }
-
-  &__disclaimer {
-    font-size: 0.85rem;
-    color: rgba($text-primary, 0.7);
-    margin-top: 1.2rem;
-    text-align: center;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  &__success {
+.waiting-list {
+  &__wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+    
+    @media (max-width: $breakpoint-lg) {
+      align-items: center;
+    }
+  }
 
-    h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin: 1rem 0 0.5rem;
-      background: $gradient-primary;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+  &__heading {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $text-primary;
+    position: relative;
+    text-align: left;
+    max-width: 450px;
+    
+    @media (max-width: $breakpoint-lg) {
+      text-align: center;
+    }
+  }
+  
+  &__form {
+    display: flex;
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    border: 1px solid rgba($text-primary, 0.1);
+    border-radius: $border-radius-sm;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+
+    input[type="email"] {
+      flex-grow: 1;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 0;
+      font-size: 1rem;
+      outline: none;
+      background: transparent;
+      color: $text-primary;
+      transition: background-color 0.3s ease;
+
+      &::placeholder {
+        color: $text-muted;
+      }
+
+      &:focus {
+        background: rgba($primary, 0.03);
+      }
     }
 
-    p {
-      font-size: 1rem;
-      color: $text-secondary;
-      margin-bottom: 1.5rem;
-      max-width: 400px;
+    button[type="submit"] {
+      background: $primary;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+      width: 120px;
+      justify-content: center;
+
+      &:hover {
+        background: darken($primary, 10%);
+      }
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__privacy-policy {
+    font-size: 0.85rem;
+    color: $text-muted;
+    margin-top: 1rem;
+    text-align: left;
+    max-width: 450px;
+    
+    @media (max-width: $breakpoint-lg) {
+      text-align: center;
+    }
+
+    a {
+      color: $primary;
+      text-decoration: underline;
+      &:hover {
+        color: darken($primary, 10%);
+      }
+    }
+  }
+  
+  &__error-message {
+    color: $error;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    max-width: 450px;
+    text-align: left;
+    
+    @media (max-width: $breakpoint-lg) {
       text-align: center;
     }
   }
 
-  &__success-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: $gradient-primary;
+  &__success-message {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-size: 1.75rem;
-    color: white;
-    margin-bottom: 1rem;
-  }
-
-  &__reset {
-    padding: 0.75rem 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    gap: 0.8rem;
+    font-size: 1.1rem;
     color: $text-primary;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.15);
+    margin-top: 1.5rem;
+    max-width: 450px;
+    text-align: center;
+    
+    .success-icon {
+      color: #28a745;
+      font-size: 2rem;
+    }
+    
+    .waiting-list__reset-button {
+      background: $secondary;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      
+      &:hover {
+        background: darken($secondary, 10%);
+      }
     }
   }
 }
@@ -425,11 +424,19 @@
 
 @keyframes scroll {
   0% {
-    transform: translate(-50%, 0);
+    transform: translateX(-50%) translateY(0);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(-50%) translateY(10px);
     opacity: 1;
   }
   100% {
-    transform: translate(-50%, 15px);
+    transform: translateX(-50%) translateY(20px);
     opacity: 0;
   }
 }
