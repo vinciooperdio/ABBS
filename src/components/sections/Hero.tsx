@@ -201,7 +201,7 @@ const Hero: React.FC = () => {
                     animate="visible"
                   >
                     <motion.div variants={iconAnimationVariants}><FiCheck className="success-icon" /></motion.div>
-                    <motion.p variants={successItemVariants}>{t('thankYouForSubscribing')}</motion.p>
+                    <motion.p variants={successItemVariants}>{t('subscribeSuccess')}</motion.p>
                     <motion.button 
                       onClick={handleReset} 
                       className="waiting-list__reset-button"
