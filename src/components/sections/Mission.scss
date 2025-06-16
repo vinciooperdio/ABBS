@@ -130,7 +130,7 @@
   /* Miglioramento divisione visiva tra sezioni */
   // Benefits section styles - Redesign futuristico
   &__benefits-section {
-    margin: 30px 0 100px; // Aumentato margin-bottom per maggiore separazione
+    margin: 80px 0 100px; // Aumentato margin-top per maggiore separazione
     position: relative;
     padding-bottom: 50px;
     
@@ -152,7 +152,7 @@
     }
     
     h3 {
-      font-size: 2.2rem;
+      font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 700;
       margin-bottom: 40px;
       text-align: center;
@@ -171,96 +171,42 @@
   
   // Miglioramento estetico delle card vantaggi - Stile futuristico
   &__benefit-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     border-radius: $border-radius-md;
-    padding: 30px;
+    padding: 2rem;
     height: 100%;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba($primary, 0.1);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
     @media (max-width: $breakpoint-sm) {
-      padding: 25px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    // Effetto bordo luminoso
-    &::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: calc(#{$border-radius-md} + 2px);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    
-    // Effetto glow sotto la card
-    &::after {
-      content: '';
-      position: absolute;
-      width: 80%;
-      height: 20px;
-      bottom: -20px;
-      left: 10%;
-      border-radius: 50%;
-      box-shadow: 0 0 20px 3px rgba($primary, 0.1);
-      transition: all 0.4s ease;
+      padding: 1.5rem;
     }
     
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba($primary, 0.3);
-      
-      &::before {
-        opacity: 1;
-      }
-      
-      &::after {
-        box-shadow: 0 0 30px 5px rgba($primary, 0.3);
-      }
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba($primary, 0.2);
+      transform: translateY(-5px);
       
       .benefit-icon {
-        color: lighten($primary, 10%);
+        transform: scale(1.1);
+        background: linear-gradient(135deg, lighten($primary, 5%), $primary);
       }
     }
     
     .benefit-icon {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, $primary, lighten($primary, 15%));
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, $primary, darken($primary, 10%));
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 25px;
-      will-change: transform;
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-      position: relative;
-      box-shadow: 0 10px 20px rgba($primary, 0.3);
-      
-      // Aggiunta riflesso per effetto futuristico
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, 
-                      rgba(255, 255, 255, 0.4), 
-                      transparent 70%);
-        border-radius: 50%;
-      }
+      margin-bottom: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       @media (max-width: $breakpoint-sm) {
         margin-left: auto;
@@ -269,33 +215,25 @@
       
       svg {
         color: white;
-        font-size: 1.8rem;
-        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+        font-size: 1.4rem;
       }
     }
     
-    // Card title and description
     h4 {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin-bottom: 0.75rem;
       line-height: 1.3;
-      position: relative;
-      display: inline-block;
-      
-      
+      color: $text-primary;
       
       @media (max-width: $breakpoint-sm) {
         text-align: center;
-        display: block;
-        
-        
       }
     }
     
     p {
       color: $text-secondary;
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1.6;
       margin: 0;
       

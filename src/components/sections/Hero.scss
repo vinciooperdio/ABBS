@@ -11,7 +11,7 @@
   background: transparent;
   z-index: 0;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px); /* Safari fix */
+  -webkit-backdrop-filter: blur(5px);
 
   &__container {
     position: relative;
@@ -31,12 +31,18 @@
     @media (max-width: $breakpoint-lg) {
       flex-direction: column;
       text-align: center;
-      padding: $container-padding;
-      gap: 3rem;
+      max-width: $container-width;
+      margin: 0 auto;
+      padding: 2rem 3rem;
+      gap: 2.5rem;
+      min-height: auto;
+      padding-top: calc(#{$navbar-height} + 2rem);
     }
     
     @media (max-width: $breakpoint-sm) {
-      padding: 2rem 1.5rem;
+      padding: 1.5rem 1rem;
+      padding-top: calc(#{$navbar-height} + 1.5rem);
+      gap: 2rem;
     }
   }
 
@@ -46,6 +52,7 @@
     
     @media (max-width: $breakpoint-lg) {
       max-width: 100%;
+      width: 100%;
     }
   }
 
@@ -58,13 +65,12 @@
     min-height: 400px;
     
     @media (max-width: $breakpoint-lg) {
-      max-width: 80%;
+      max-width: 100%;
       min-height: 300px;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
     
     @media (max-width: $breakpoint-sm) {
-      max-width: 100%;
       min-height: 250px;
     }
   }
@@ -78,6 +84,7 @@
     
     @media (max-width: $breakpoint-lg) {
       align-items: center;
+      width: 100%;
     }
     
     @media (max-width: $breakpoint-sm) {
@@ -86,19 +93,19 @@
   }
 
   &__heading {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 700;
     line-height: 1.1;
     margin-top: 0;
     letter-spacing: -0.02em;
+    width: 100%;
     
     @media (max-width: $breakpoint-lg) {
       text-align: center;
-      padding-top: calc(#{$navbar-height} + 1.5rem);
     }
     
     @media (max-width: $breakpoint-sm) {
-      padding-top: calc(#{$navbar-height} + 1rem);
+      font-size: clamp(3.2rem, 8vw, 5rem) !important;
     }
 
     .gradient-text {
@@ -110,7 +117,7 @@
   }
 
   &__description {
-    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    font-size: clamp(1rem, 2vw, 1.15rem);
     line-height: 1.6;
     color: $text-secondary;
     max-width: 600px;
@@ -119,101 +126,13 @@
     
     @media (max-width: $breakpoint-lg) {
       text-align: center;
-      max-width: 720px;
-      padding: 0 10px;
+      max-width: 100%;
+      padding: 0;
     }
-  }
 
-  &__scroll-indicator {
-    display: none;
-  }
-
-  &__mouse {
-    display: none;
-  }
-
-  &__mouse-wheel {
-    display: none;
-  }
-
-  &__scroll-text {
-    display: none;
-  }
-
-  &__form {
-    width: 100%;
-    max-width: 450px;
-    margin-top: 1.5rem;
-    
-    @media (max-width: $breakpoint-lg) {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  &__button {
-    position: relative;
-    padding: 0.875rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    
-    &--primary {
-      background: $primary;
-      color: white;
-      border: none;
-      
-      &:hover {
-        background: darken($primary, 10%);
-      }
-      
-      &:active {
-        background: darken($primary, 15%);
-      }
-    }
-    
-    &--secondary {
-      background: transparent;
-      color: $text-primary;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.3);
-      }
-      
-      &:active {
-        background: rgba(255, 255, 255, 0.1);
-      }
-    }
-  }
-
-  &__form-submit {
-    width: 180px;
-    padding: 0.875rem 0;
-    background: $primary;
-    color: white;
-    border-radius: 0 8px 8px 0;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    
-    &:hover {
-      background: darken($primary, 10%);
-    }
-    
-    &:active {
-      background: darken($primary, 15%);
-    }
-    
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.95rem;
+      padding: 0 0.5rem;
     }
   }
 
@@ -224,6 +143,14 @@
     object-fit: contain;
     border: none;
     box-shadow: none;
+
+    @media (max-width: $breakpoint-lg) {
+      max-width: 80%;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      max-width: 90%;
+    }
   }
 }
 
@@ -252,6 +179,11 @@
     
     @media (max-width: $breakpoint-lg) {
       text-align: center;
+      max-width: 100%;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.1rem;
     }
   }
   
@@ -265,6 +197,13 @@
     overflow: hidden;
     box-shadow: $shadow-sm;
 
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
+      border-radius: $border-radius-sm;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      max-width: 100%;
+    }
+
     input[type="email"] {
       flex-grow: 1;
       padding: 0.8rem 1.2rem;
@@ -274,14 +213,19 @@
       outline: none;
       background: transparent;
       color: $text-primary;
-      transition: background-color 0.3s ease;
-
+      
       &::placeholder {
         color: $text-muted;
       }
-
+      
       &:focus {
         background: rgba($primary, 0.03);
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        border-radius: $border-radius-sm $border-radius-sm 0 0;
+        border-bottom: 1px solid rgba($text-primary, 0.1);
+        width: 100%;
       }
     }
 
@@ -296,17 +240,36 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: background-color 0.3s ease;
-      flex-shrink: 0;
-      width: 120px;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 8px rgba($primary, 0.2);
       justify-content: center;
+
+      @media (max-width: $breakpoint-sm) {
+        width: 100%;
+        border-radius: 0 0 $border-radius-sm $border-radius-sm;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+        box-shadow: none;
+      }
 
       &:hover {
         background: darken($primary, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba($primary, 0.3);
       }
+
+      &:active {
+        background: darken($primary, 15%);
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba($primary, 0.1);
+      }
+
       &:disabled {
-        opacity: 0.6;
+        opacity: 0.7;
         cursor: not-allowed;
+        background: $primary;
+        transform: translateY(0);
+        box-shadow: none;
       }
     }
   }
@@ -376,7 +339,6 @@
   }
 }
 
-// Loading animation
 .loading-screen {
   position: fixed;
   top: 0;
@@ -422,64 +384,9 @@
   100% { width: 0%; left: 100%; transform: translateZ(0); }
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0;
-  }
-  30% {
-    transform: translateX(-50%) translateY(10px);
-    opacity: 1;
-  }
-  60% {
-    transform: translateX(-50%) translateY(10px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(20px);
-    opacity: 0;
-  }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 2rem 1rem;
-
-    &__content {
-      gap: 1.5rem;
-    }
-
-    &__description {
-      padding: 0 0.75rem;
-    }
-  }
-}
-
-// Safari-specific animation optimizations
 @supports (-webkit-touch-callout: none) {
   .loading-screen .logo-text::after {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-  }
-  
-  @keyframes scroll {
-    0% {
-      transform: translate3d(-50%, 0, 0);
-      opacity: 1;
-    }
-    100% {
-      transform: translate3d(-50%, 15px, 0);
-      opacity: 0;
-    }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg) translateZ(0); }
-    100% { transform: rotate(360deg) translateZ(0); }
   }
 }
