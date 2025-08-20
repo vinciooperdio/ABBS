@@ -17,6 +17,7 @@ window.Buffer = Buffer;
 import TermsOfService from './pages/TermsOfService'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import CookiePolicy from './pages/CookiePolicy'
+import AuthCallback from './pages/AuthCallback'
 
 // Componente per lo scroll to top automatico
 function ScrollToTop() {
@@ -84,6 +85,15 @@ const router = createBrowserRouter([
       <>
         <ScrollRestoration />
         <CookiePolicy />
+      </>
+    )
+  },
+  {
+    path: '/auth-callback',
+    element: (
+      <>
+        <ScrollRestoration />
+        <AuthCallback />
       </>
     )
   },
