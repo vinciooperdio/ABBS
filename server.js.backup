@@ -1,0 +1,145 @@
+const express = require('express');
+const { Pool } = require('pg');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
+
+// Inizializzazione app Express
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Configurazione per i file .well-known
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.json') || path.endsWith('apple-app-site-association')) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Cache-Control', 'no-cache');
+    }
+  }
+});
+
+// Configurazione connessione a PostgreSQL
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+// Middleware per verificare connessione database
+app.use(async (req, res, next) => {
+  try {
+    await pool.query('SELECT NOW()');
+    next();
+  } catch (err) {
+    console.error('Database connection error:', err);
+    res.status(500).json({ error: 'Database connection error' });
+  }
+});
+
+// API per gestire iscrizione alla waiting list
+app.post('/api/waitlist', async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+  
+  try {
+    // Controllo se l'email esiste già
+    const checkResult = await pool.query(
+      'SELECT * FROM waitlist WHERE email = $1',
+      [email]
+    );
+    
+    if (checkResult.rows.length > 0) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    
+    // Inserisci nuova email
+    await pool.query(
+      'INSERT INTO waitlist (email, signup_date) VALUES ($1, NOW())',
+      [email]
+    );
+    
+    res.status(201).json({ message: 'Successfully added to waitlist' });
+  } catch (err) {
+    console.error('Error registering to waitlist:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// API per gestire invio messaggi di contatto
+app.post('/api/contact', async (req, res) => {
+  const { name, email, company, message } = req.body;
+  
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Name, email and message are required' });
+  }
+  
+  try {
+    await pool.query(
+      'INSERT INTO contact_messages (name, email, company, message, submission_date) VALUES ($1, $2, $3, $4, NOW())',
+      [name, email, company || null, message]
+    );
+    
+    res.status(201).json({ message: 'Message sent successfully' });
+  } catch (err) {
+    console.error('Error sending contact message:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route per servire l'app React su tutte le routes non-API
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+// Inizializzazione tabelle
+const initDb = async () => {
+  try {
+    const client = await pool.connect();
+    
+    // Creazione tabella waiting list
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS waitlist (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        signup_date TIMESTAMP NOT NULL
+      )
+    `);
+    
+    // Creazione tabella contatti
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS contact_messages (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        company VARCHAR(255),
+        message TEXT NOT NULL,
+        submission_date TIMESTAMP NOT NULL,
+        is_read BOOLEAN DEFAULT FALSE
+      )
+    `);
+    
+    client.release();
+    console.log('Database tables initialized');
+  } catch (err) {
+    console.error('Error initializing database:', err);
+  }
+};
+
+// Avvio server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  initDb();
+}); 
