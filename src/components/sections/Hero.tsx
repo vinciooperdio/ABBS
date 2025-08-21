@@ -210,7 +210,7 @@ const Hero: React.FC = () => {
                       whileTap="tap"
                       initial="rest"
                     >
-                      {t('subscribeAgain')}
+                      {t('subscribeAnother')}
                     </motion.button>
                   </motion.div>
                 )}
