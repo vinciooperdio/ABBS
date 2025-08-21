@@ -17,6 +17,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from React build
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// Serve AASA and Asset Links with correct content-type
+app.get('/.well-known/apple-app-site-association', (req, res) => {
+  res.set('Content-Type', 'application/json');
+  res.sendFile(path.join(__dirname, '.well-known', 'apple-app-site-association'));
+});
+
+app.get('/.well-known/assetlinks.json', (req, res) => {
+  res.set('Content-Type', 'application/json');
+  res.sendFile(path.join(__dirname, '.well-known', 'assetlinks.json'));
+});
+
 // Configurazione connessione a PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
