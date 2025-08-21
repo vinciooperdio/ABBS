@@ -1,14 +1,11 @@
 {
-  "applinks": {
-    "apps": [],
-    "details": [
-      {
-        "appID": "5H3JZ8STZD.com.test.abbsone",
-        "paths": ["/auth-callback/*"]
-      }
-    ]
-  },
-  "webcredentials": {
-    "apps": ["5H3JZ8STZD.com.test.abbsone"]
+    "applinks": {
+      "apps": [],
+      "details": [
+        {
+          "appID": "5H3JZ8STZD.com.test.abbsone",
+          "paths": ["/auth-callback*", "/auth-callback/*", "/auth-callback"]
+        }
+      ]
+    }
   }
-}
