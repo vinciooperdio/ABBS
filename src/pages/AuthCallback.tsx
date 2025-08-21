@@ -3,13 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import './AuthCallback.scss';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
-});
-
 export default function AuthCallback() {
   const navigate = useNavigate();
   const { search, hash } = useLocation();
@@ -66,6 +59,15 @@ export default function AuthCallback() {
       try {
         // 1) Se vuoi **sessione web**, completa qui
         if (wantWeb) {
+          // Inizializza il client Supabase SOLO se serve e se le env sono presenti
+          const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+          const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+          if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+            throw new Error('Supabase env vars mancanti: VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY');
+          }
+          const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
+          });
           if (code) {
             setStatus('exchanging');
             const { error } = await supabase.auth.exchangeCodeForSession(code);
