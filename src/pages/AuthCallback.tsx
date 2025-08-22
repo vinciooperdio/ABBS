@@ -59,12 +59,8 @@ export default function AuthCallback() {
           return;
         }
 
-        // 4) Solo Universal Links: lato web non fa nulla.
+        // 4) Solo Universal Links: lato web non fa nulla e non redirige.
         setStatus('info');
-        timeoutId.current = window.setTimeout(() => {
-          window.history.replaceState({}, document.title, '/');
-          navigate('/', { replace: true });
-        }, 1200);
       } catch (e) {
         console.error('Auth callback error:', e);
         setStatus('error');
